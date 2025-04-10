@@ -30,13 +30,15 @@ body {
 
 /* Hero Section */
 .hero_section {
-  height: 100vh;
+  height: 95vh;
 
   background-color: #4e0b69;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  box-shadow: 0px 10px 16px 0px rgba(78, 11, 105, 0.35);
 }
 
 .left_hero_section,
@@ -164,10 +166,35 @@ body {
   font-size: 1.8rem;
 }
 
+.hamburgher-wrapper {
+  align-self: end;
+  margin: 2.4rem;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL'0,
+    'wght'400,
+    'GRAD'0,
+    'opsz'24;
+
+  color: #f5dbc4;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.4rem;
+}
+
+.material-symbols-outlined:hover {
+  cursor: pointer;
+
+  background-color: #602378;
+}
+
 .img_hero_section {
-  max-width: 85%;
+  width: 85%;
   /* per rendere l'immagine responsiva */
-  height: auto;
 
   position: absolute;
   bottom: 0;
