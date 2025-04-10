@@ -13,6 +13,200 @@ body {
   background-color: #fff;
 }
 
+/* General */
+.primary_heading,
+.hero_title {
+  font-size: 7.4rem;
+
+  font-family: "Chango", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.btn:link,
+.btn:visited {
+  text-decoration: none;
+}
+
+/* Hero Section */
+.hero_section {
+  height: 95vh;
+
+  background-color: #4e0b69;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0px 10px 16px 0px rgba(78, 11, 105, 0.35);
+}
+
+.left_hero_section,
+.right_hero_section {
+  height: 100%;
+}
+
+.left_hero_section {
+  width: 65%;
+  clip-path: polygon(100% 0, 0 0, 0 100%);
+  background-color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right_hero_section {
+  width: 35%;
+  background-color: #4e0b69;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  position: relative;
+}
+
+.hero_header {
+  width: 100%;
+  height: 60%;
+
+  display: flex;
+  flex-direction: column;
+
+  padding-left: 12.8rem;
+}
+
+.hero_slogan {
+  font-size: 3.6rem;
+
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+
+  margin-bottom: 0.8rem;
+}
+
+.explore_btn:link,
+.explore_btn:visited {
+  font-size: 1.6rem;
+  width: fit-content;
+
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+
+  background-color: #4e0b69;
+  color: #f5dbc4;
+  border: none;
+  border-radius: 2.4rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.4rem 1.2rem;
+
+  transition: all 0.3s;
+}
+
+.explore_btn:hover,
+.explore_btn:active {
+  cursor: pointer;
+  background-color: #602378;
+  color: #FEFAF6;
+}
+
+.navbar_list {
+  font-size: 2rem;
+
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+
+  padding-top: 2.4rem;
+
+  list-style: none;
+}
+
+.navbar_item:link,
+.navbar_item:visited {
+  color: #f5dbc4;
+
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+
+  transition: all 0.3s;
+}
+
+.navbar_item:hover,
+.navbar_item:active {
+  cursor: pointer;
+  box-shadow: 0 2.4rem 4.8rem rgba(255, 255, 255, 0.075);
+}
+
+.menu_inspirations,
+.menu_collaborations {
+  box-shadow: 0 2.4rem 4.8rem rgba(255, 255, 255, 0.075);
+
+  padding: 1.2rem;
+}
+
+.inspirations_list,
+.collaborations_list {
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+
+  font-size: 1.8rem;
+}
+
+.hamburgher-wrapper {
+  align-self: end;
+  margin: 2.4rem;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL'0,
+    'wght'400,
+    'GRAD'0,
+    'opsz'24;
+
+  color: #f5dbc4;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.4rem;
+}
+
+.material-symbols-outlined:hover {
+  cursor: pointer;
+
+  background-color: #602378;
+}
+
+.img_hero_section {
+  width: 85%;
+  /* per rendere l'immagine responsiva */
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translate(-40%, 0);
+}
+
+/* Utlities class */
+.hide {
+  display: none;
+}
+
 /*
 --- 01 TYPOGRAPHY SYSTEM
 
@@ -38,7 +232,8 @@ body {
 
 --- 02 COLORS
 
-  - Primary: #4e0b69 #ffffff
+  - Backgrounds: #4e0b69 #ffffff
+  - Text: #f5dbc4 #fff #000
 
 
 --- 05 SHADOWS

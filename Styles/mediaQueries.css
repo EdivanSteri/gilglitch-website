@@ -1,0 +1,193 @@
+/* rem and em do NOT depend on html font-size in media queries! Instead, 1rem = 1em = 16px */
+
+/* 
+  Desktop Standard (1920px -> 1920px/16 = 120em)  
+*/
+@media (max-width: 120em) {
+  .left_hero_section {
+    width: 62.5%;
+  }
+
+  .right_hero_section {
+    width: 37.5%;
+  }
+}
+
+/*
+  Desktop Intermedio (1792px -> 1792px/16 = 112em) 
+*/
+@media (max-width: 112em) {
+
+  .left_hero_section {
+    width: 60%;
+
+
+    clip-path: polygon(0 0, 100% 0, 20% 100%, 0% 100%);
+  }
+
+  .right_hero_section {
+    width: 40%;
+  }
+
+  .hero_title {
+    font-size: 6.2rem;
+  }
+
+  .hero_slogan {
+    font-size: 3rem;
+  }
+
+  .explore_btn:link,
+  .explore_btn:visited {
+    font-size: 1.4rem;
+  }
+
+
+  .navbar_list {
+    font-size: 1.8rem;
+  }
+}
+
+/* 
+  Desktop Piccolo (1600px -> 1632px/16 = 102em)
+*/
+@media (max-width: 102em) {
+  .left_hero_section {
+    width: 57.5%;
+
+
+    clip-path: polygon(0 0, 100% 0, 35% 100%, 0% 100%);
+  }
+
+  .right_hero_section {
+    width: 42.5%;
+  }
+}
+
+/* 
+  Desktop Piccolo (1520px -> 1520px/16 = 95em)
+*/
+@media (max-width: 95em) {
+  .left_hero_section {
+    width: 55%;
+
+    clip-path: polygon(0 0, 100% 0, 50% 100%, 0% 100%);
+  }
+
+  .right_hero_section {
+    width: 45%;
+  }
+
+  .hero_title {
+    font-size: 5.2rem;
+  }
+
+  .hero_slogan {
+    font-size: 2.4rem;
+  }
+
+  .explore_btn:link,
+  .explore_btn:visited {
+    font-size: 1.2rem;
+  }
+
+  .navbar_list {
+    font-size: 1.8rem;
+  }
+}
+
+/* 
+  Desktop Piccolo (1440px -> 1440px/16 = 90em)
+*/
+@media (max-width: 90em) {
+  .hero_header {
+    padding-left: 11rem;
+  }
+
+  .left_hero_section {
+    width: 50%;
+
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  .right_hero_section {
+    width: 50%;
+  }
+}
+
+/* 
+  Netbook / Laptop Piccolo (10880px -> 1088px/16 = 68em)
+*/
+@media (max-width: 68em) {
+  .hero_header {
+    padding-left: 8rem;
+  }
+
+  .navbar_list {
+    display: none;
+  }
+
+  .hamburgher-wrapper {
+    display: block;
+  }
+
+  .material-symbols-outlined {
+    height: 2.4rem;
+    width: 2.4rem;
+    border-radius: 50%;
+  }
+
+}
+
+/* 
+  Netbook / Laptop Piccolo (920px -> 920px/16 = 58em)
+*/
+@media (max-width: 58em) {
+  .hero_header {
+    justify-content: center;
+    padding-left: 4rem;
+  }
+
+  .hero_title {
+    font-size: 4.8rem;
+  }
+
+  .hero_slogan {
+    font-size: 2.4rem;
+  }
+}
+
+/* 
+  Netbook / Laptop Piccolo (800px -> 800px/16 = 50em)
+*/
+@media (max-width: 50em) {
+  .hero_title {
+    font-size: 3rem;
+  }
+
+  .hero_slogan {
+    font-size: 1.8rem;
+  }
+
+  .explore_btn:link,
+  .explore_btn:visited {
+    font-size: 1.2rem;
+  }
+
+  .img_hero_section {
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* 
+  Netbook / Laptop Piccolo (640px -> 640px/16 = 40em)
+*/
+@media (max-width: 40em) {
+  .hero_header {
+    padding-left: 2rem;
+  }
+
+  .img_hero_section {
+    transform: translate(-30%, -70%);
+  }
+}
