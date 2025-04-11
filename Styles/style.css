@@ -14,11 +14,18 @@ body {
 }
 
 /* General */
-.primary_heading,
-.hero_title {
+.primary_heading {
   font-size: 7.4rem;
 
   font-family: "Chango", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.secondary_heading {
+  font-size: 4.4rem;
+
+  font-family: "Permanent Marker", cursive;
   font-weight: 400;
   font-style: normal;
 }
@@ -171,13 +178,7 @@ body {
   margin: 2.4rem;
 }
 
-.material-symbols-outlined {
-  font-variation-settings:
-    'FILL'0,
-    'wght'400,
-    'GRAD'0,
-    'opsz'24;
-
+.hamburgher-icon {
   color: #f5dbc4;
 
   display: flex;
@@ -186,7 +187,7 @@ body {
   padding: 2.4rem;
 }
 
-.material-symbols-outlined:hover {
+.hamburgher-icon:hover {
   cursor: pointer;
 
   background-color: #602378;
@@ -194,7 +195,6 @@ body {
 
 .img_hero_section {
   width: 85%;
-  /* per rendere l'immagine responsiva */
 
   position: absolute;
   bottom: 0;
@@ -202,9 +202,159 @@ body {
   transform: translate(-40%, 0);
 }
 
+/* gallery section */
+.gallery_section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 3.6rem;
+
+  padding: 0 9.6rem;
+}
+
+.gallery_heading {
+  align-self: end;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  margin-right: 3.6rem;
+}
+
+.gallery_heading p {
+  font-size: 2rem;
+
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+
+  text-align: end;
+}
+
+.gallery {
+  height: 800px;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  justify-items: center;
+  row-gap: 2.4rem;
+  column-gap: 1.2rem;
+
+  background-color: #4e0b69;
+  box-shadow: 0 0 2.4rem 0 #000000;
+
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #3c0850 #fff;
+
+  padding-bottom: 2.4rem;
+}
+
+.gallery_filter {
+  justify-self: stretch;
+  grid-column: 1 / -1;
+
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 4.8rem;
+
+  font-size: 3.6rem;
+  letter-spacing: 1.2rem;
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+
+  background-color: rgba(60, 8, 80, 0.95);
+  color: #F1C7A2;
+
+  padding: 1.2rem 3.6rem;
+
+  /* come fissare un elemento che si trova all'intenro di un contenitore scrollabile */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+
+
+.arrow_drop_down_icon {
+  font-size: 3.6rem;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.1rem;
+}
+
+.arrow_drop_down_icon:hover {
+  cursor: pointer;
+  background-color: #4e0b69;
+}
+
+.img_wrapper {
+  width: 100%;
+  /* Altezza fissa: regola in base alle tue esigenze */
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+
+/* Seleziona il primo elemento fi ogni riga a partire dalla seconda riga  */
+.img_wrapper:nth-child(n+2):nth-child(5n+2) {
+  padding-left: 3.6rem;
+}
+
+/* Seleziona l'ultimo elemento fi ogni riga a partire dalla seconda riga  */
+.img_wrapper:nth-child(5n+1) {
+  padding-right: 3.6rem;
+}
+
+
+
+.img_wrapper img {
+  width: 100%;
+  /* Fa sì che l'immagine riempia il container */
+  height: 100%;
+  /* L'immagine verrà ritagliata per coprire interamente l'area */
+  object-fit: cover;
+  object-position: top;
+  display: block;
+
+  box-shadow: 0px 0 1rem 0 #000;
+  filter: blur(.35rem);
+
+  transition: all .3s;
+}
+
+.img_wrapper img:hover {
+  cursor: pointer;
+  filter: none;
+  transform: scale(1.1);
+}
+
 /* Utlities class */
-.hide {
+.u-hide {
   display: none;
+}
+
+.u-mb-1-2-8 {
+  margin-bottom: 12.8rem;
 }
 
 /*
