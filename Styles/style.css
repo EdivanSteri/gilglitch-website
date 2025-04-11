@@ -233,7 +233,12 @@ body {
   text-align: end;
 }
 
-.gallery {
+.gallery_content {
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery_imgs {
   height: 800px;
 
   display: grid;
@@ -250,7 +255,7 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #3c0850 #fff;
 
-  padding-bottom: 2.4rem;
+  padding: 2.4rem 3.6rem;
 }
 
 .gallery_filter {
@@ -313,19 +318,6 @@ body {
 
   overflow: hidden;
 }
-
-
-/* Seleziona il primo elemento fi ogni riga a partire dalla seconda riga  */
-.img_wrapper:nth-child(n+2):nth-child(5n+2) {
-  padding-left: 3.6rem;
-}
-
-/* Seleziona l'ultimo elemento fi ogni riga a partire dalla seconda riga  */
-.img_wrapper:nth-child(5n+1) {
-  padding-right: 3.6rem;
-}
-
-
 
 .img_wrapper img {
   width: 100%;
