@@ -614,8 +614,6 @@ displaArtistsFilterMenu();
 
 // filter by date
 arrowDropDownIconPeriodEL.addEventListener("click", function () {
-  console.log("filter by date");
-
   if (!artistFilterWrapperEl.classList.contains("u-hide")) {
     artistFilterWrapperEl.classList.add("u-hide");
   }
@@ -623,8 +621,6 @@ arrowDropDownIconPeriodEL.addEventListener("click", function () {
 });
 
 filterByNewestEL.addEventListener("click", function () {
-  console.log("filter by last  date added");
-
   const artPiecesFilteredByLastAdded = artPieces
     .slice()
     .sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -635,8 +631,6 @@ filterByNewestEL.addEventListener("click", function () {
 });
 
 filterByOldestEL.addEventListener("click", function () {
-  console.log("filter by older date");
-
   const artPiecesFilteredByOlder = artPieces
     .slice()
     .sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -650,7 +644,6 @@ filterByOldestEL.addEventListener("click", function () {
 
 // filter by artist
 arrowDropDownIconArtistEL.addEventListener("click", function () {
-  console.log("filter by artist");
   if (!periodFilterWrapperEl.classList.contains("u-hide")) {
     periodFilterWrapperEl.classList.add("u-hide");
   }
@@ -664,8 +657,6 @@ const artistItems = document.querySelectorAll('li[class^="artist_"]');
 artistItems.forEach((item) => {
   item.addEventListener("click", (event) => {
     // Qui inserisci il codice da eseguire all'evento click
-    console.log("Hai cliccato su:", event.currentTarget.textContent);
-
     if (event.currentTarget.textContent !== "All Artists") {
       const artPiecesFilteredByArtist = artPieces
         .slice()
@@ -692,6 +683,9 @@ const titleModalEl = document.querySelector(".modal_title");
 const descriptionModalEl = document.querySelector(".modal_description");
 const dateModalEl = document.querySelector(".modal_date");
 
+// Seleziona tutti le immagini della galleria, hanno tutte una classe che inizia con "artist_"
+const imagesItems = document.querySelectorAll('img[class^="image_"]');
+
 // Funzione che apre il modale
 const openModal = function () {
   containerImgageGalleryModal.classList.remove("u-hide");
@@ -717,17 +711,26 @@ const createModalContainer = function (idImage) {
   dateModalEl.textContent = `${objImage.date}`;
 };
 
-// Seleziona tutti le immagini della galleria, hanno tutte una classe che inizia con "artist-"
-const imagesItems = document.querySelectorAll('img[class^="image_"]');
-console.log(imagesItems);
-
-imagesItems.forEach((img) => {
-  img.addEventListener("click", function () {
+// funziona sia per la galleria impostata di default e anche quando viene applicato un filtro su di essa
+containerGalleryContent.addEventListener("click", function (e) {
+  // controllo se la classe dell'elemento inizia con quella stringa, cioè se è una immagine della galleria
+  if ([...e.target.classList].some((c) => c.startsWith("image_"))) {
+    console.log(img);
     createModalContainer(img.id);
 
     openModal();
-  });
+  }
 });
+
+// funziona solo per la galleria impostata di default, mentre quando viene applicato un filtro si di essa non funziona
+// imagesItems.forEach((img) => {
+//   img.addEventListener("click", function () {
+//     console.log(img);
+//     createModalContainer(img.id);
+
+//     openModal();
+//   });
+// });
 
 // Quando clicchi fuori dal modale (cioè sul container che fa da overlay)
 containerImgageGalleryModal.addEventListener("click", (e) => {
