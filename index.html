@@ -94,23 +94,39 @@
       </div>
       <div class="gallery_content">
         <div class="gallery_filter">
-          <div class="filter-item">
-            Period
-            <span class="material-symbols-outlined arrow_drop_down_icon">
+          <div class="filter_item">
+            Sort by Date:&nbsp;<span class="date_filter_active">Newest</span>
+            <span
+              class="material-symbols-outlined arrow_drop_down_icon arrow_drop_down_icon_date"
+            >
               arrow_drop_down
             </span>
           </div>
-          <div class="filter-item">
-            Artist
-            <span class="material-symbols-outlined arrow_drop_down_icon">
+          <div class="filter_item">
+            Filter by Artist:&nbsp;<span class="artist_filter_active"
+              >All Artists</span
+            >
+            <span
+              class="material-symbols-outlined arrow_drop_down_icon arrow_drop_down_icon_artist"
+            >
               arrow_drop_down
             </span>
+          </div>
+          <div class="date_filter_wrapper u-hide">
+            <ul class="date_filter_list">
+              <li class="filter_by_newest">Newest</li>
+              <li class="filter_by_oldest">Oldest</li>
+            </ul>
+          </div>
+          <div class="artist_filter_wrapper u-hide">
+            <ul class="artist_filter_list">
+              <!-- vuoto perchè viene caricato da js-->
+            </ul>
           </div>
         </div>
         <div class="gallery_imgs">
           <!-- vuoto perchè viene caricato da js-->
         </div>
-      </div>
     </section>
   </body>
 </html>

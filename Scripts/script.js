@@ -2,13 +2,9 @@
 
 /* Navbar */
 const inspirationsItemBtn = document.querySelector(".inspirations_item");
-console.log(inspirationsItemBtn);
 const menuInspirationsEl = document.querySelector(".menu_inspirations");
-console.log(menuInspirationsEl);
 const collaborationsItemBtn = document.querySelector(".collaborations_item");
-console.log(inspirationsItemBtn);
 const menuCollaborations = document.querySelector(".menu_collaborations");
-console.log(menuCollaborations);
 
 // Functions
 
@@ -66,516 +62,528 @@ menuCollaborations.addEventListener("mouseleave", () =>
 
 // dom elements
 const containerGalleryImgs = document.querySelector(".gallery_imgs");
+const arrowDropDownIconPeriodEL = document.querySelector(
+  ".arrow_drop_down_icon_date"
+);
+const arrowDropDownIconArtistEL = document.querySelector(
+  ".arrow_drop_down_icon_artist"
+);
+const periodFilterWrapperEl = document.querySelector(".date_filter_wrapper");
+const artistFilterWrapperEl = document.querySelector(".artist_filter_wrapper");
+const filterByNewestEL = document.querySelector(".filter_by_newest");
+const filterByOldestEL = document.querySelector(".filter_by_oldest");
+const dateFilterActiveEl = document.querySelector(".date_filter_active");
+const artistFilterActiveEl = document.querySelector(".artist_filter_active");
+const containerAtistFilterList = document.querySelector(".artist_filter_list");
 
 // variables
 const artPieces = [
   {
     id: 1,
     src: "./Media/sketches/BHXP3462.JPG",
-    artist: [],
+    artist: ["tha-supreme"],
     italianSong: false,
-    date: "12/03/2020",
+    date: "03/12/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Opera che sfida la percezione.",
+    songName: "Melodia Infinita",
   },
   {
     id: 2,
     src: "./Media/sketches/BNQX3333.JPG",
-    artist: [],
+    artist: ["rose-villain"],
     italianSong: false,
-    date: "25/07/2021",
+    date: "07/25/2021",
     title: "",
-    description: "",
-    songName: "",
+    description: "Visione onirica.",
+    songName: "Ritmo Urbano",
   },
   {
     id: 3,
     src: "./Media/sketches/BPZD1936.JPG",
-    artist: [],
+    artist: ["other", "tha-supreme"],
     italianSong: false,
-    date: "03/11/2020",
+    date: "11/03/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Riflesso del subconscio.",
+    songName: "Onda Sonora",
   },
   {
     id: 4,
     src: "./Media/sketches/CITE1837.JPG",
-    artist: [],
+    artist: ["rose-villain", "other"],
     italianSong: false,
-    date: "17/02/2022",
+    date: "02/17/2022",
     title: "",
-    description: "",
-    songName: "",
+    description: "Esplorazione dell'infinito.",
+    songName: "Eco di Vita",
   },
   {
     id: 5,
     src: "./Media/sketches/CJLC3545.JPG",
-    artist: [],
+    artist: ["tha-supreme", "rose-villain"],
     italianSong: false,
-    date: "06/09/2020",
+    date: "09/06/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Danza di colori.",
+    songName: "Sogno Elettrico",
   },
   {
     id: 6,
     src: "./Media/sketches/CRFC1818.JPG",
-    artist: [],
+    artist: ["other"],
     italianSong: false,
-    date: "28/04/2021",
+    date: "04/28/2021",
     title: "",
-    description: "",
-    songName: "",
+    description: "Armonia inaspettata.",
+    songName: "Battito Nascosto",
   },
   {
     id: 7,
     src: "./Media/sketches/DOUI6761.JPG",
-    artist: [],
+    artist: ["tha-supreme"],
     italianSong: false,
-    date: "15/01/2023",
+    date: "01/15/2023",
     title: "",
-    description: "",
-    songName: "",
+    description: "Racconto silenzioso.",
+    songName: "Risveglio",
   },
   {
     id: 8,
     src: "./Media/sketches/DSNX9207.JPG",
-    artist: [],
+    artist: ["rose-villain"],
     italianSong: false,
-    date: "09/05/2020",
+    date: "05/09/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Intensità emotiva.",
+    songName: "Sfumature",
   },
   {
     id: 9,
     src: "./Media/sketches/EQYP1424.JPG",
-    artist: [],
+    artist: ["other"],
     italianSong: false,
-    date: "22/08/2021",
+    date: "08/22/2021",
     title: "",
-    description: "",
-    songName: "",
+    description: "Sogno urbano.",
+    songName: "Notte Stellata",
   },
   {
     id: 10,
     src: "./Media/sketches/ERQO3358.JPG",
-    artist: [],
+    artist: ["tha-supreme", "other"],
     italianSong: false,
-    date: "30/12/2020",
+    date: "12/30/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Ritratto del tempo.",
+    songName: "Aria di Libertà",
   },
   {
     id: 11,
     src: "./Media/sketches/FBFH4847.JPG",
-    artist: [],
+    artist: ["rose-villain"],
     italianSong: false,
-    date: "07/03/2022",
+    date: "03/07/2022",
     title: "",
-    description: "",
-    songName: "",
+    description: "Viaggio interstellare.",
+    songName: "Vibrazione",
   },
   {
     id: 12,
     src: "./Media/sketches/FKNS0648.JPG",
-    artist: [],
+    artist: ["tha-supreme"],
     italianSong: false,
-    date: "14/07/2021",
+    date: "07/14/2021",
     title: "",
-    description: "",
-    songName: "",
+    description: "Melodia visiva.",
+    songName: "Odissea",
   },
   {
     id: 13,
     src: "./Media/sketches/FKVK5005.JPG",
-    artist: [],
+    artist: ["other", "rose-villain"],
     italianSong: false,
-    date: "29/10/2020",
+    date: "10/29/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Incanto geometrico.",
+    songName: "Sussurro",
   },
   {
     id: 14,
     src: "./Media/sketches/FXLR0871.JPG",
-    artist: [],
+    artist: ["tha-supreme"],
     italianSong: false,
-    date: "11/06/2021",
+    date: "06/11/2021",
     title: "",
-    description: "",
-    songName: "",
+    description: "Riflesso d'acqua.",
+    songName: "Aura",
   },
   {
     id: 15,
     src: "./Media/sketches/GNQY6124.JPG",
-    artist: [],
+    artist: ["other"],
     italianSong: false,
     date: "05/05/2022",
     title: "",
-    description: "",
-    songName: "",
+    description: "Trama della realtà.",
+    songName: "Fuga",
   },
   {
     id: 16,
     src: "./Media/sketches/HCAN0173.JPG",
-    artist: [],
+    artist: ["tha-supreme", "rose-villain"],
     italianSong: false,
-    date: "18/08/2023",
+    date: "08/18/2023",
     title: "",
-    description: "",
-    songName: "",
+    description: "Sospensione creativa.",
+    songName: "Incanto",
   },
   {
     id: 17,
     src: "./Media/sketches/HOOW6277.JPG",
-    artist: [],
+    artist: ["rose-villain", "other"],
     italianSong: false,
-    date: "23/01/2020",
+    date: "01/23/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Fusione di mondi.",
+    songName: "Riflessione",
   },
   {
     id: 18,
     src: "./Media/sketches/IAHA1176.JPG",
-    artist: [],
+    artist: ["tha-supreme"],
     italianSong: false,
-    date: "10/04/2021",
+    date: "04/10/2021",
     title: "",
-    description: "",
-    songName: "",
+    description: "Poesia in movimento.",
+    songName: "Euforia",
   },
   {
     id: 19,
     src: "./Media/sketches/IGCS9328.JPG",
-    artist: [],
+    artist: ["rose-villain"],
     italianSong: false,
-    date: "19/09/2022",
+    date: "09/19/2022",
     title: "",
-    description: "",
-    songName: "",
+    description: "Verità astratta.",
+    songName: "Navigazione",
   },
   {
     id: 20,
     src: "./Media/sketches/IINJ0685.JPG",
-    artist: [],
+    artist: ["other"],
     italianSong: false,
-    date: "27/11/2020",
+    date: "11/27/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Eco di sensazioni.",
+    songName: "Semplicità",
   },
   {
     id: 21,
     src: "./Media/sketches/KHAJ9471.JPG",
-    artist: [],
+    artist: ["tha-supreme", "other"],
     italianSong: false,
-    date: "04/02/2023",
+    date: "02/04/2023",
     title: "",
-    description: "",
-    songName: "",
+    description: "Risonanza interiore.",
+    songName: "Viaggio",
   },
   {
     id: 22,
     src: "./Media/sketches/Kid Yugi and featurings of I Diavoli Del Male album.png",
-    artist: [],
+    artist: ["rose-villain"],
     italianSong: false,
     date: "08/08/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Armonia dei contrasti.",
+    songName: "Specchio",
   },
   {
     id: 23,
     src: "./Media/sketches/LTWV1703.JPG",
-    artist: [],
+    artist: ["other", "tha-supreme"],
     italianSong: false,
-    date: "16/12/2021",
+    date: "12/16/2021",
     title: "",
-    description: "",
-    songName: "",
+    description: "Vibrazione contemporanea.",
+    songName: "Armonia",
   },
   {
     id: 24,
     src: "./Media/sketches/MOPN1114.JPG",
-    artist: [],
+    artist: ["rose-villain", "other"],
     italianSong: false,
-    date: "21/07/2023",
+    date: "07/21/2023",
     title: "",
-    description: "",
-    songName: "",
+    description: "Sinfonia di forme.",
+    songName: "Contrasti",
   },
   {
     id: 25,
     src: "./Media/sketches/NEJC5049.JPG",
-    artist: [],
+    artist: ["tha-supreme"],
     italianSong: false,
-    date: "31/03/2020",
+    date: "03/31/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Spirito ribelle.",
+    songName: "Impronta",
   },
   {
     id: 26,
     src: "./Media/sketches/NIKE8692.JPG",
-    artist: [],
+    artist: ["other"],
     italianSong: false,
-    date: "13/09/2021",
+    date: "09/13/2021",
     title: "",
-    description: "",
-    songName: "",
+    description: "Dimensione alternativa.",
+    songName: "Fenomeno",
   },
   {
     id: 27,
     src: "./Media/sketches/NIOA5886.JPG",
-    artist: [],
+    artist: ["tha-supreme", "rose-villain"],
     italianSong: false,
-    date: "24/10/2022",
+    date: "10/24/2022",
     title: "",
-    description: "",
-    songName: "",
+    description: "Mistero avvolgente.",
+    songName: "Intreccio",
   },
   {
     id: 28,
     src: "./Media/sketches/OCHB6729.JPG",
-    artist: [],
+    artist: ["rose-villain"],
     italianSong: false,
-    date: "02/06/2020",
+    date: "06/02/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Magia del quotidiano.",
+    songName: "Magia",
   },
   {
     id: 29,
     src: "./Media/sketches/OQMQ0348.JPG",
-    artist: [],
+    artist: ["other"],
     italianSong: false,
-    date: "26/04/2021",
+    date: "04/26/2021",
     title: "",
-    description: "",
-    songName: "",
+    description: "Essenza del sogno.",
+    songName: "Ombre",
   },
   {
     id: 30,
     src: "./Media/sketches/OQUS1839.JPG",
-    artist: [],
+    artist: ["tha-supreme"],
     italianSong: false,
-    date: "12/11/2022",
+    date: "11/12/2022",
     title: "",
-    description: "",
-    songName: "",
+    description: "Ritmo urbano.",
+    songName: "Rinascita",
   },
   {
     id: 31,
     src: "./Media/sketches/PIKA5237.JPG",
-    artist: [],
+    artist: ["rose-villain", "other"],
     italianSong: false,
     date: "05/05/2021",
     title: "",
-    description: "",
-    songName: "",
+    description: "Onda di emozioni.",
+    songName: "Essenza",
   },
   {
     id: 32,
     src: "./Media/sketches/PIRC3235.JPG",
-    artist: [],
+    artist: ["tha-supreme"],
     italianSong: false,
     date: "09/09/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Tramonto urbano.",
+    songName: "Ambizione",
   },
   {
     id: 33,
     src: "./Media/sketches/PVIR4809.JPG",
-    artist: [],
+    artist: ["other"],
     italianSong: false,
-    date: "20/12/2021",
+    date: "12/20/2021",
     title: "",
-    description: "",
-    songName: "",
+    description: "Vento creativo.",
+    songName: "Aura di Sera",
   },
   {
     id: 34,
     src: "./Media/sketches/QDIW5520.JPG",
-    artist: [],
+    artist: ["rose-villain", "tha-supreme"],
     italianSong: false,
-    date: "02/08/2022",
+    date: "08/02/2022",
     title: "",
-    description: "",
-    songName: "",
+    description: "Tempesta.",
+    songName: "Tempesta",
   },
   {
     id: 35,
     src: "./Media/sketches/QFVH1418.JPG",
-    artist: [],
+    artist: ["other"],
     italianSong: false,
-    date: "15/03/2023",
+    date: "03/15/2023",
     title: "",
-    description: "",
-    songName: "",
+    description: "Equilibrio.",
+    songName: "Equilibrio",
   },
   {
     id: 36,
     src: "./Media/sketches/QUTJ4744.JPG",
-    artist: [],
+    artist: ["tha-supreme", "rose-villain"],
     italianSong: false,
-    date: "27/07/2020",
+    date: "07/27/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Fusione.",
+    songName: "Fusione",
   },
   {
     id: 37,
     src: "./Media/sketches/QWFJ0522.JPG",
-    artist: [],
+    artist: ["rose-villain"],
     italianSong: false,
-    date: "08/02/2022",
+    date: "02/08/2022",
     title: "",
-    description: "",
-    songName: "",
+    description: "Luce.",
+    songName: "Luce",
   },
   {
     id: 38,
     src: "./Media/sketches/RGFU5150.JPG",
-    artist: [],
+    artist: ["other", "tha-supreme"],
     italianSong: false,
-    date: "19/06/2021",
+    date: "06/19/2021",
     title: "",
-    description: "",
-    songName: "",
+    description: "Impronta del tempo.",
+    songName: "Vento",
   },
   {
     id: 39,
     src: "./Media/sketches/RVRD7544.JPG",
-    artist: [],
+    artist: ["tha-supreme"],
     italianSong: false,
-    date: "31/10/2020",
+    date: "10/31/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Forma in evoluzione.",
+    songName: "Ritornello",
   },
   {
     id: 40,
     src: "./Media/sketches/SBBS9788.JPG",
-    artist: [],
+    artist: ["rose-villain"],
     italianSong: false,
     date: "04/04/2022",
     title: "",
-    description: "",
-    songName: "",
+    description: "Spirale dell'arte.",
+    songName: "Beat",
   },
   {
     id: 41,
     src: "./Media/sketches/SOJJ0828.JPG",
-    artist: [],
+    artist: ["other"],
     italianSong: false,
-    date: "16/01/2023",
+    date: "01/16/2023",
     title: "",
-    description: "",
-    songName: "",
+    description: "Mistero del silenzio.",
+    songName: "Sogno",
   },
   {
     id: 42,
     src: "./Media/sketches/SVIG8580.JPG",
-    artist: [],
+    artist: ["tha-supreme", "rose-villain"],
     italianSong: false,
-    date: "28/03/2021",
+    date: "03/28/2021",
     title: "",
-    description: "",
-    songName: "",
+    description: "Festa della luce.",
+    songName: "Inno",
   },
   {
     id: 43,
     src: "./Media/sketches/tha-supreme-sulla-luna.JPG",
-    artist: [],
+    artist: ["tha-supreme"],
     italianSong: false,
-    date: "07/09/2020",
+    date: "09/07/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Eclettismo vibrante.",
+    songName: "Vibrazioni",
   },
   {
     id: 44,
     src: "./Media/sketches/TWDW9166.JPG",
-    artist: [],
+    artist: ["rose-villain", "other"],
     italianSong: false,
-    date: "14/11/2022",
+    date: "11/14/2022",
     title: "",
-    description: "",
-    songName: "",
+    description: "Ritmo vibrante.",
+    songName: "Eclissi",
   },
   {
     id: 45,
     src: "./Media/sketches/UJXX4601.JPG",
-    artist: [],
+    artist: ["tha-supreme"],
     italianSong: false,
-    date: "23/05/2021",
+    date: "05/23/2021",
     title: "",
-    description: "",
-    songName: "",
+    description: "Universo in miniatura.",
+    songName: "Onda",
   },
   {
     id: 46,
     src: "./Media/sketches/VCFR6377.JPG",
-    artist: [],
+    artist: ["other"],
     italianSong: false,
-    date: "30/07/2023",
+    date: "07/30/2023",
     title: "",
-    description: "",
-    songName: "",
+    description: "Sguardo senza tempo.",
+    songName: "Danze",
   },
-
-  // Gruppo 4: oggetti con originali id 54,55,56,57 (4 elementi)
   {
     id: 47,
     src: "./Media/sketches/VYEO1257.JPG",
-    artist: [],
+    artist: ["tha-supreme", "rose-villain"],
     italianSong: false,
-    date: "11/02/2022",
+    date: "02/11/2022",
     title: "",
-    description: "",
-    songName: "",
+    description: "Battito creativo.",
+    songName: "Riflessioni",
   },
   {
     id: 48,
     src: "./Media/sketches/WAKW3698.JPG",
-    artist: [],
+    artist: ["other"],
     italianSong: false,
-    date: "17/06/2021",
+    date: "06/17/2021",
     title: "",
-    description: "",
-    songName: "",
+    description: "Sogno in fermento.",
+    songName: "Miraggio",
   },
   {
     id: 49,
     src: "./Media/sketches/WCTL0854.JPG",
-    artist: [],
+    artist: ["tha-supreme"],
     italianSong: false,
-    date: "24/12/2020",
+    date: "12/24/2020",
     title: "",
-    description: "",
-    songName: "",
+    description: "Incanto urbano.",
+    songName: "Risonanza",
   },
   {
     id: 50,
     src: "./Media/sketches/WZWW7237.JPG",
-    artist: [],
+    artist: ["rose-villain"],
     italianSong: false,
-    date: "05/03/2023",
+    date: "03/05/2023",
     title: "",
-    description: "",
-    songName: "",
+    description: "Eco visivo.",
+    songName: "Sinfonia",
   },
 ];
 
+const artistsList = [...new Set(artPieces.flatMap((art) => art.artist))];
 
 // functions
-const displayGalleryImgs = function () {
+const displayGalleryImgs = function (artPieces) {
   containerGalleryImgs.innerHTML = "";
 
   const html = artPieces.map((art) => {
@@ -584,10 +592,92 @@ const displayGalleryImgs = function () {
   </div>`;
   });
 
-  console.log([...html].join());
   containerGalleryImgs.insertAdjacentHTML("afterbegin", [html.join("")]);
-
-  console.log(containerGalleryImgs);
 };
 
-displayGalleryImgs();
+const displaArtistsFilterMenu = function () {
+  containerAtistFilterList.innerHTML = '<li class="artist-0">All Artists</li>';
+
+  let counter = 1;
+  const html = artistsList.map((art) => {
+    return `<li class=\"artist-${counter++}\">${art}</li>`;
+  });
+
+  containerAtistFilterList.insertAdjacentHTML("beforeend", [html.join("")]);
+};
+
+artPieces.sort((a, b) => new Date(a.date) - new Date(b.date));
+displayGalleryImgs(artPieces);
+
+displaArtistsFilterMenu();
+
+// filter by date
+arrowDropDownIconPeriodEL.addEventListener("click", function () {
+  console.log("filter by date");
+
+  if (!artistFilterWrapperEl.classList.contains("u-hide")) {
+    artistFilterWrapperEl.classList.add("u-hide");
+  }
+  periodFilterWrapperEl.classList.toggle("u-hide");
+});
+
+filterByNewestEL.addEventListener("click", function () {
+  console.log("filter by last  date added");
+
+  const artPiecesFilteredByLastAdded = artPieces
+    .slice()
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  periodFilterWrapperEl.classList.add("u-hide");
+  dateFilterActiveEl.textContent = filterByNewestEL.textContent;
+  displayGalleryImgs(artPiecesFilteredByLastAdded);
+});
+
+filterByOldestEL.addEventListener("click", function () {
+  console.log("filter by older date");
+
+  const artPiecesFilteredByOlder = artPieces
+    .slice()
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  console.log(artPiecesFilteredByOlder);
+
+  periodFilterWrapperEl.classList.add("u-hide");
+  dateFilterActiveEl.textContent = filterByOldestEL.textContent;
+  displayGalleryImgs(artPiecesFilteredByOlder);
+});
+
+// filter by artist
+arrowDropDownIconArtistEL.addEventListener("click", function () {
+  console.log("filter by artist");
+  if (!periodFilterWrapperEl.classList.contains("u-hide")) {
+    periodFilterWrapperEl.classList.add("u-hide");
+  }
+  artistFilterWrapperEl.classList.toggle("u-hide");
+});
+
+// Seleziona tutti gli <li> con classi che iniziano con "artist-"
+const artistItems = document.querySelectorAll('li[class^="artist-"]');
+
+// Aggiungi un event listener a ciascun elemento
+artistItems.forEach((item) => {
+  item.addEventListener("click", (event) => {
+    // Qui inserisci il codice da eseguire all'evento click
+    console.log("Hai cliccato su:", event.currentTarget.textContent);
+
+    if (event.currentTarget.textContent !== "All Artists") {
+      const artPiecesFilteredByArtist = artPieces
+        .slice()
+        .filter((art) =>
+          art.artist.includes(`${event.currentTarget.textContent}`)
+        );
+
+      displayGalleryImgs(artPiecesFilteredByArtist);
+    } else {
+      displayGalleryImgs(artPieces);
+    }
+
+    artistFilterWrapperEl.classList.add("u-hide");
+    artistFilterActiveEl.textContent = `${event.currentTarget.textContent}`;
+  });
+});
