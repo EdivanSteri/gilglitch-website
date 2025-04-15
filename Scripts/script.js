@@ -715,7 +715,7 @@ const createModalContainer = function (idImage) {
 containerGalleryContent.addEventListener("click", function (e) {
   // controllo se la classe dell'elemento inizia con quella stringa, cioè se è una immagine della galleria
   if ([...e.target.classList].some((c) => c.startsWith("image_"))) {
-    console.log(img);
+    const img = e.target;
     createModalContainer(img.id);
 
     openModal();
