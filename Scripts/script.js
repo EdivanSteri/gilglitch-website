@@ -62,6 +62,7 @@ menuCollaborations.addEventListener("mouseleave", () =>
 
 // dom elements
 const containerGalleryImgs = document.querySelector(".gallery_imgs");
+const containerGalleryContent = document.querySelector(".gallery_content");
 const arrowDropDownIconPeriodEL = document.querySelector(
   ".arrow_drop_down_icon_date"
 );
@@ -588,7 +589,7 @@ const displayGalleryImgs = function (artPieces) {
 
   const html = artPieces.map((art) => {
     return `<div class="img_wrapper">
-    <img src="${art.src}" alt="${art.id}" />
+    <img class="image_${art.id}" id="${art.id}" src="${art.src}" alt="${art.title}" />
   </div>`;
   });
 
@@ -596,11 +597,11 @@ const displayGalleryImgs = function (artPieces) {
 };
 
 const displaArtistsFilterMenu = function () {
-  containerAtistFilterList.innerHTML = '<li class="artist-0">All Artists</li>';
+  containerAtistFilterList.innerHTML = '<li class="artist_0">All Artists</li>';
 
   let counter = 1;
   const html = artistsList.map((art) => {
-    return `<li class=\"artist-${counter++}\">${art}</li>`;
+    return `<li class=\"artist_${counter++}\">${art}</li>`;
   });
 
   containerAtistFilterList.insertAdjacentHTML("beforeend", [html.join("")]);
@@ -657,7 +658,7 @@ arrowDropDownIconArtistEL.addEventListener("click", function () {
 });
 
 // Seleziona tutti gli <li> con classi che iniziano con "artist-"
-const artistItems = document.querySelectorAll('li[class^="artist-"]');
+const artistItems = document.querySelectorAll('li[class^="artist_"]');
 
 // Aggiungi un event listener a ciascun elemento
 artistItems.forEach((item) => {
@@ -680,4 +681,65 @@ artistItems.forEach((item) => {
     artistFilterWrapperEl.classList.add("u-hide");
     artistFilterActiveEl.textContent = `${event.currentTarget.textContent}`;
   });
+});
+
+// image modal details
+const containerImgageGalleryModal =
+  document.querySelector(".img_gallery_modal");
+const modalContent = document.querySelector(".modal_content");
+const imageModal = document.querySelector(".img_modal");
+const titleModalEl = document.querySelector(".modal_title");
+const descriptionModalEl = document.querySelector(".modal_description");
+const dateModalEl = document.querySelector(".modal_date");
+
+// Funzione che apre il modale
+const openModal = function () {
+  containerImgageGalleryModal.classList.remove("u-hide");
+  containerGalleryImgs.style.overflowY = "hidden";
+  document.body.style.overflow = "hidden";
+  containerGalleryContent.style.filter = "blur(.35rem)";
+};
+
+// Funzione che chiude il modale
+const closeModal = function () {
+  containerImgageGalleryModal.classList.add("u-hide");
+  containerGalleryContent.style.filter = "none";
+  containerGalleryImgs.style.overflowY = "scroll";
+  document.body.style.overflow = "auto";
+};
+
+const createModalContainer = function (idImage) {
+  const objImage = artPieces.find((art) => art.id === +idImage);
+
+  imageModal.src = `${objImage.src}`;
+  titleModalEl.textContent = `${objImage.title}`;
+  descriptionModalEl.textContent = `${objImage.description}`;
+  dateModalEl.textContent = `${objImage.date}`;
+};
+
+// Seleziona tutti le immagini della galleria, hanno tutte una classe che inizia con "artist-"
+const imagesItems = document.querySelectorAll('img[class^="image_"]');
+console.log(imagesItems);
+
+imagesItems.forEach((img) => {
+  img.addEventListener("click", function () {
+    createModalContainer(img.id);
+
+    openModal();
+  });
+});
+
+// Quando clicchi fuori dal modale (cioè sul container che fa da overlay)
+containerImgageGalleryModal.addEventListener("click", (e) => {
+  // Se il click è proprio sull'overlay e NON dentro il modale
+  if (!modalContent.contains(e.target)) {
+    closeModal();
+  }
+});
+
+// Quando clicchi sul tast ESC chiudi il modale
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    closeModal();
+  }
 });
