@@ -69,7 +69,7 @@ const arrowDropDownIconPeriodEL = document.querySelector(
 const arrowDropDownIconArtistEL = document.querySelector(
   ".arrow_drop_down_icon_artist"
 );
-const periodFilterWrapperEl = document.querySelector(".date_filter_wrapper");
+const dateFilterWrapperEl = document.querySelector(".date_filter_wrapper");
 const artistFilterWrapperEl = document.querySelector(".artist_filter_wrapper");
 const filterByNewestEL = document.querySelector(".filter_by_newest");
 const filterByOldestEL = document.querySelector(".filter_by_oldest");
@@ -617,7 +617,7 @@ arrowDropDownIconPeriodEL.addEventListener("click", function () {
   if (!artistFilterWrapperEl.classList.contains("u-hide")) {
     artistFilterWrapperEl.classList.add("u-hide");
   }
-  periodFilterWrapperEl.classList.toggle("u-hide");
+  dateFilterWrapperEl.classList.toggle("u-hide");
 });
 
 filterByNewestEL.addEventListener("click", function () {
@@ -625,7 +625,7 @@ filterByNewestEL.addEventListener("click", function () {
     .slice()
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  periodFilterWrapperEl.classList.add("u-hide");
+  dateFilterWrapperEl.classList.add("u-hide");
   dateFilterActiveEl.textContent = filterByNewestEL.textContent;
   displayGalleryImgs(artPiecesFilteredByLastAdded);
 });
@@ -637,15 +637,15 @@ filterByOldestEL.addEventListener("click", function () {
 
   console.log(artPiecesFilteredByOlder);
 
-  periodFilterWrapperEl.classList.add("u-hide");
+  dateFilterWrapperEl.classList.add("u-hide");
   dateFilterActiveEl.textContent = filterByOldestEL.textContent;
   displayGalleryImgs(artPiecesFilteredByOlder);
 });
 
 // filter by artist
 arrowDropDownIconArtistEL.addEventListener("click", function () {
-  if (!periodFilterWrapperEl.classList.contains("u-hide")) {
-    periodFilterWrapperEl.classList.add("u-hide");
+  if (!dateFilterWrapperEl.classList.contains("u-hide")) {
+    dateFilterWrapperEl.classList.add("u-hide");
   }
   artistFilterWrapperEl.classList.toggle("u-hide");
 });
@@ -745,4 +745,182 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     closeModal();
   }
+});
+
+/////////////////////////////////////////////////////////////////
+/* smooth scroll*/
+const scrollToTopBtn = document.querySelector(".scroll_to_top_btn");
+const section1 = document.querySelector("#section__1");
+
+const scrollToGalleryBtns = document.querySelectorAll(".scroll_to_gallery");
+const section2 = document.querySelector("#section__2");
+
+scrollToTopBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // Scrolling with smooth effect modern version
+  section1.scrollIntoView({ behavior: "smooth" });
+});
+
+// mi permette di visualizzare il bottono scrool_to_top dalla sezione 2 in poi
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      scrollToTopBtn.classList.remove("u-hide");
+    } else {
+      scrollToTopBtn.classList.add("u-hide");
+    }
+  });
+});
+
+observer.observe(section2);
+
+scrollToGalleryBtns.forEach((btn) => {
+  btn.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    /*
+      In questo blocco di codice utilizzo diverse proprietà e metodi per ottenere informazioni sulla posizione e sulle dimensioni 
+      degli elementi e della viewport.
+  
+      1. Ottengo le coordinate e le dimensioni di "section2" relativamente alla viewport.
+        - Utilizzo il metodo getBoundingClientRect() su "section2", che restituisce un oggetto contenente le proprietà
+          top, right, bottom, left, width e height.
+        - Le coordinate ottenute sono relative all'area visibile (viewport) e non alla pagina intera.
+        - Successivamente, stampo queste coordinate nel console.log per un eventuale debug.
+        
+        const s2coords = section2.getBoundingClientRect();
+        console.log(s2coords);
+  
+      2. Stampo le coordinate dell'elemento su cui è stato fatto click.
+        - e.target rappresenta l'elemento che ha ricevuto il click, e anch'esso viene sottoposto a getBoundingClientRect()
+          per ottenere le sue dimensioni e posizione relative alla viewport.
+        
+        console.log(e.target.getBoundingClientRect());
+  
+      3. Visualizzo la quantità di scroll corrente lungo l'asse X e Y.
+        - window.pageXOffset e pageYOffset forniscono rispettivamente la distanza in pixel scorsa orizzontalmente e verticalmente 
+          dalla posizione iniziale in cui la pagina è caricata.
+        - Questo permette di comprendere di quanto la pagina si è spostata dallo stato iniziale a causa dello scrolling.
+        
+        console.log("Current scroll (X/Y)", window.pageXOffset, pageYOffset);
+  
+      4. Ottengo le dimensioni esatte della viewport attuale.
+        - Utilizzo document.documentElement.clientHeight e document.documentElement.clientWidth per misurare l'altezza e la larghezza 
+          dell'area visibile della pagina.
+        - Queste proprietà sono utili per capire la dimensione dell'area di visualizzazione attuale e adattare eventuali 
+          comportamenti dinamici in base allo spazio disponibile.
+        
+        console.log(
+          "hight/width viewport",
+          document.documentElement.clientHeight,
+          document.documentElement.clientWidth
+        );
+    */
+
+    // Scrolling without smooth effect old version
+    // window.scrollTo(
+    //   s2coords.left + window.pageXOffset,
+    //   s2coords.top + window.pageYOffset
+    // );
+
+    // Scrolling with smooth effect old version
+    // window.scrollTo({
+    //   left: s2coords.left + window.pageXOffset,
+    //   top: s2coords.top + window.pageYOffset,
+    //   behavior: "smooth",
+    // });
+
+    // Scrolling with smooth effect modern version
+    section2.scrollIntoView({ behavior: "smooth" });
+  });
+});
+
+//gallery response
+// Seleziono gli elementi interessati
+const filterIconEl = document.querySelector(".filter_icon");
+const closeFilterMenuBtn = document.querySelector(".close_filter_menu_btn");
+const containerFilterList = document.querySelector(".filter_list");
+
+filterIconEl.addEventListener("click", function () {
+  // Costruisco il contenuto HTML da inserire nel container
+  const html = `
+          <div class="filter_content">
+          <h3>Filter By Date</h3>
+          ${dateFilterWrapperEl.getElementsByTagName("ul")[0].outerHTML}
+          <h3>Filter By Artists</h3>
+          ${artistFilterWrapperEl.getElementsByTagName("ul")[0].outerHTML}
+        </div>
+      `;
+
+  console.log(html);
+
+  // Imposto il contenuto (puoi decidere se ogni volta reinserirlo o solo la prima volta)
+  containerFilterList.innerHTML = html;
+  console.log(containerFilterList);
+
+  // Alterna la visibilità del container: se è visibile, lo nasconde, altrimenti lo mostra
+  containerFilterList.classList.toggle("u-hide");
+  filterIconEl.classList.toggle("u-hide");
+  closeFilterMenuBtn.classList.toggle("u-hide");
+
+  const dateFilterItems = containerFilterList.querySelectorAll(
+    ".filter_by_newest, .filter_by_oldest"
+  );
+
+  dateFilterItems.forEach((item) => {
+    item.addEventListener("click", function (e) {
+      const selectedFilter = e.target.classList.contains("filter_by_newest")
+        ? "newest"
+        : "oldest";
+
+      // Ordina in base alla scelta
+      const sortedArtPieces = artPieces.slice().sort((a, b) => {
+        return selectedFilter === "newest"
+          ? new Date(b.date) - new Date(a.date)
+          : new Date(a.date) - new Date(b.date);
+      });
+
+      console.log(sortedArtPieces);
+
+      // Aggiorna il testo del filtro attivo
+      dateFilterActiveEl.textContent = e.target.textContent;
+
+      // Mostra le immagini filtrate
+      displayGalleryImgs(sortedArtPieces);
+
+      // Chiude il menu e mostra di nuovo l'icona
+      containerFilterList.classList.toggle("u-hide");
+      filterIconEl.classList.toggle("u-hide");
+      closeFilterMenuBtn.classList.toggle("u-hide");
+    });
+  });
+
+  // Riassegna l'event listener per i <li> appena creati
+  const newArtistItems = containerFilterList.querySelectorAll(
+    'li[class^="artist_"]'
+  );
+  newArtistItems.forEach((item) => {
+    item.addEventListener("click", (event) => {
+      if (event.target.textContent !== "All Artists") {
+        const artPiecesFilteredByArtist = artPieces
+          .slice()
+          .filter((art) => art.artist.includes(event.target.textContent));
+        displayGalleryImgs(artPiecesFilteredByArtist);
+      } else {
+        displayGalleryImgs(artPieces);
+      }
+
+      artistFilterActiveEl.textContent = event.target.textContent;
+      containerFilterList.classList.toggle("u-hide");
+      filterIconEl.classList.toggle("u-hide");
+      closeFilterMenuBtn.classList.toggle("u-hide");
+    });
+  });
+});
+
+closeFilterMenuBtn.addEventListener("click", function () {
+  containerFilterList.classList.toggle("u-hide");
+  closeFilterMenuBtn.classList.toggle("u-hide");
+  filterIconEl.classList.toggle("u-hide");
 });
