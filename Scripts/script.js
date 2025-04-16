@@ -749,8 +749,31 @@ document.addEventListener("keydown", (e) => {
 
 /////////////////////////////////////////////////////////////////
 /* smooth scroll*/
+const scrollToTopBtn = document.querySelector(".scroll_to_top_btn");
+const section1 = document.querySelector("#section__1");
+
 const scrollToGalleryBtns = document.querySelectorAll(".scroll_to_gallery");
 const section2 = document.querySelector("#section__2");
+
+scrollToTopBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // Scrolling with smooth effect modern version
+  section1.scrollIntoView({ behavior: "smooth" });
+});
+
+// mi permette di visualizzare il bottono scrool_to_top dalla sezione 2 in poi
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      scrollToTopBtn.classList.remove("u-hide");
+    } else {
+      scrollToTopBtn.classList.add("u-hide");
+    }
+  });
+});
+
+observer.observe(section2);
 
 scrollToGalleryBtns.forEach((btn) => {
   btn.addEventListener("click", function (e) {
