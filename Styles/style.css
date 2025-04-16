@@ -44,6 +44,7 @@ body {
   justify-content: center;
 
   border-radius: 50%;
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
   background-color: #4e0b69;
 
   position: fixed;
@@ -52,6 +53,8 @@ body {
 
   margin-right: 4rem;
   margin-bottom: 4.8rem;
+
+  z-index: 9999;
 }
 
 .scroll_to_top_btn:link,
@@ -297,6 +300,8 @@ body {
   scrollbar-color: #3c0850 #fff;
 
   padding: 2.4rem 3.6rem;
+
+  position: relative;
 }
 
 .gallery_filter {
@@ -324,10 +329,65 @@ body {
   position: relative;
 }
 
-.filter_item {
+.filter_item,
+.filter_icon_item {
   display: flex;
   align-items: center;
+}
+
+.filter_item {
   justify-content: start;
+}
+
+.filter_icon_item {
+  justify-content: end;
+}
+
+.filter_icon,
+.close_filter_menu_btn {
+  font-size: 3.6rem;
+
+  transition: cursor .3s;
+}
+
+.filter_icon:hover,
+.close_filter_menu_btn:hover {
+  cursor: pointer;
+}
+
+/* Stile per il container che si apre */
+.filter_list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  /* Assicura che sia in primo piano */
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(60, 8, 80, 0.95);
+}
+
+.filter_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: #f5dbc4;
+  font-size: 3.6rem;
+  text-align: center;
+}
+
+.filter_content h3 {
+  font-size: 4.8rem;
+  color: #F1C7A2;
 }
 
 .date_filter_wrapper,

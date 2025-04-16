@@ -69,7 +69,7 @@ const arrowDropDownIconPeriodEL = document.querySelector(
 const arrowDropDownIconArtistEL = document.querySelector(
   ".arrow_drop_down_icon_artist"
 );
-const periodFilterWrapperEl = document.querySelector(".date_filter_wrapper");
+const dateFilterWrapperEl = document.querySelector(".date_filter_wrapper");
 const artistFilterWrapperEl = document.querySelector(".artist_filter_wrapper");
 const filterByNewestEL = document.querySelector(".filter_by_newest");
 const filterByOldestEL = document.querySelector(".filter_by_oldest");
@@ -617,7 +617,7 @@ arrowDropDownIconPeriodEL.addEventListener("click", function () {
   if (!artistFilterWrapperEl.classList.contains("u-hide")) {
     artistFilterWrapperEl.classList.add("u-hide");
   }
-  periodFilterWrapperEl.classList.toggle("u-hide");
+  dateFilterWrapperEl.classList.toggle("u-hide");
 });
 
 filterByNewestEL.addEventListener("click", function () {
@@ -625,7 +625,7 @@ filterByNewestEL.addEventListener("click", function () {
     .slice()
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  periodFilterWrapperEl.classList.add("u-hide");
+  dateFilterWrapperEl.classList.add("u-hide");
   dateFilterActiveEl.textContent = filterByNewestEL.textContent;
   displayGalleryImgs(artPiecesFilteredByLastAdded);
 });
@@ -637,15 +637,15 @@ filterByOldestEL.addEventListener("click", function () {
 
   console.log(artPiecesFilteredByOlder);
 
-  periodFilterWrapperEl.classList.add("u-hide");
+  dateFilterWrapperEl.classList.add("u-hide");
   dateFilterActiveEl.textContent = filterByOldestEL.textContent;
   displayGalleryImgs(artPiecesFilteredByOlder);
 });
 
 // filter by artist
 arrowDropDownIconArtistEL.addEventListener("click", function () {
-  if (!periodFilterWrapperEl.classList.contains("u-hide")) {
-    periodFilterWrapperEl.classList.add("u-hide");
+  if (!dateFilterWrapperEl.classList.contains("u-hide")) {
+    dateFilterWrapperEl.classList.add("u-hide");
   }
   artistFilterWrapperEl.classList.toggle("u-hide");
 });
@@ -834,4 +834,93 @@ scrollToGalleryBtns.forEach((btn) => {
     // Scrolling with smooth effect modern version
     section2.scrollIntoView({ behavior: "smooth" });
   });
+});
+
+//gallery response
+// Seleziono gli elementi interessati
+const filterIconEl = document.querySelector(".filter_icon");
+const closeFilterMenuBtn = document.querySelector(".close_filter_menu_btn");
+const containerFilterList = document.querySelector(".filter_list");
+
+filterIconEl.addEventListener("click", function () {
+  // Costruisco il contenuto HTML da inserire nel container
+  const html = `
+          <div class="filter_content">
+          <h3>Filter By Date</h3>
+          ${dateFilterWrapperEl.getElementsByTagName("ul")[0].outerHTML}
+          <h3>Filter By Artists</h3>
+          ${artistFilterWrapperEl.getElementsByTagName("ul")[0].outerHTML}
+        </div>
+      `;
+
+  console.log(html);
+
+  // Imposto il contenuto (puoi decidere se ogni volta reinserirlo o solo la prima volta)
+  containerFilterList.innerHTML = html;
+  console.log(containerFilterList);
+
+  // Alterna la visibilità del container: se è visibile, lo nasconde, altrimenti lo mostra
+  containerFilterList.classList.toggle("u-hide");
+  filterIconEl.classList.toggle("u-hide");
+  closeFilterMenuBtn.classList.toggle("u-hide");
+
+  const dateFilterItems = containerFilterList.querySelectorAll(
+    ".filter_by_newest, .filter_by_oldest"
+  );
+
+  dateFilterItems.forEach((item) => {
+    item.addEventListener("click", function (e) {
+      const selectedFilter = e.target.classList.contains("filter_by_newest")
+        ? "newest"
+        : "oldest";
+
+      // Ordina in base alla scelta
+      const sortedArtPieces = artPieces.slice().sort((a, b) => {
+        return selectedFilter === "newest"
+          ? new Date(b.date) - new Date(a.date)
+          : new Date(a.date) - new Date(b.date);
+      });
+
+      console.log(sortedArtPieces);
+
+      // Aggiorna il testo del filtro attivo
+      dateFilterActiveEl.textContent = e.target.textContent;
+
+      // Mostra le immagini filtrate
+      displayGalleryImgs(sortedArtPieces);
+
+      // Chiude il menu e mostra di nuovo l'icona
+      containerFilterList.classList.toggle("u-hide");
+      filterIconEl.classList.toggle("u-hide");
+      closeFilterMenuBtn.classList.toggle("u-hide");
+    });
+  });
+
+  // Riassegna l'event listener per i <li> appena creati
+  const newArtistItems = containerFilterList.querySelectorAll(
+    'li[class^="artist_"]'
+  );
+  newArtistItems.forEach((item) => {
+    item.addEventListener("click", (event) => {
+      if (event.target.textContent !== "All Artists") {
+        const artPiecesFilteredByArtist = artPieces
+          .slice()
+          .filter((art) => art.artist.includes(event.target.textContent));
+        displayGalleryImgs(artPiecesFilteredByArtist);
+      } else {
+        displayGalleryImgs(artPieces);
+      }
+
+      artistFilterActiveEl.textContent = event.target.textContent;
+      containerFilterList.classList.toggle("u-hide");
+      filterIconEl.classList.toggle("u-hide");
+      closeFilterMenuBtn.classList.toggle("u-hide");
+    });
+  });
+});
+
+closeFilterMenuBtn.addEventListener("click", function () {
+  containerFilterList.classList.toggle("u-hide");
+  closeFilterMenuBtn.classList.toggle("u-hide");
+  filterIconEl.classList.toggle("u-hide");
 });

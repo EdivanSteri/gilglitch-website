@@ -46,6 +46,28 @@
   .navbar_list {
     font-size: 1.8rem;
   }
+
+  /* gallery */
+  .secondary_heading {
+    font-size: 3.6rem;
+  }
+
+  .gallery_heading p {
+    font-size: 1.8rem;
+  }
+
+  .gallery_imgs {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .img_wrapper {
+    width: 24rem;
+    height: 14rem;
+  }
+
+  .gallery_filter {
+    font-size: 1.8rem;
+  }
 }
 
 /* 
@@ -113,10 +135,51 @@
   .right_hero_section {
     width: 50%;
   }
+
+  /* gallery */
+  .secondary_heading {
+    font-size: 2.4rem;
+  }
+
+  .gallery_heading {
+    align-self: center;
+    align-items: center;
+  }
+
+  .gallery_heading p {
+    font-size: 1.6rem;
+  }
+
+  .gallery_imgs {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .gallery_filter {
+    font-size: 1.6rem;
+  }
+
 }
 
 /* 
-  Netbook / Laptop Piccolo (10880px -> 1088px/16 = 68em)
+  Netbook / Laptop Piccolo (1376px -> 1376px/16 = 865em)
+*/
+@media (max-width: 86em) {
+  .filter_item {
+    display: none;
+  }
+
+  .filter_icon_item {
+    display: block;
+  }
+
+  .gallery_filter {
+    justify-content: end;
+  }
+}
+
+
+/* 
+  Netbook / Laptop Piccolo (1088px -> 1088px/16 = 68em)
 */
 @media (max-width: 68em) {
   .hero_header {
@@ -136,7 +199,6 @@
     width: 2.4rem;
     border-radius: 50%;
   }
-
 }
 
 /* 
@@ -154,6 +216,19 @@
 
   .hero_slogan {
     font-size: 2.4rem;
+  }
+
+  /* gallery */
+  .gallery_imgs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .filter_content {
+    font-size: 2.4rem;
+  }
+
+  .filter_content h3 {
+    font-size: 3.6rem;
   }
 }
 
@@ -177,6 +252,29 @@
   .img_hero_section {
     transform: translate(-50%, -50%);
   }
+
+  /* gallery */
+  .gallery_content {
+    width: 95%;
+  }
+
+  .gallery_imgs {
+    grid-template-columns: 1fr;
+
+    /* display: flex;
+    align-items: center;
+    justify-content: space-between; */
+    overflow-y: hidden;
+    overflow-x: scroll;
+  }
+
+  .filter_content {
+    font-size: 2rem;
+  }
+
+  .filter_content h3 {
+    font-size: 3rem;
+  }
 }
 
 /* 
@@ -189,5 +287,12 @@
 
   .img_hero_section {
     transform: translate(-30%, -70%);
+  }
+
+
+  /* gallery */
+  .img_wrapper {
+    width: 18rem;
+    height: 8rem;
   }
 }

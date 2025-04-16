@@ -102,6 +102,12 @@
       </div>
       <div class="gallery_content">
         <div class="gallery_filter">
+          <div class="filter_icon_item u-hide">
+            <span class="material-symbols-outlined filter_icon">
+              keyboard_arrow_down
+            </span>
+            <span class="material-symbols-outlined close_filter_menu_btn u-hide"> close </span>
+          </div>
           <div class="filter_item">
             Sort by Date:&nbsp;<span class="date_filter_active">Newest</span>
             <span
@@ -132,8 +138,12 @@
             </ul>
           </div>
         </div>
-        <div class="gallery_imgs">
-          <!-- vuoto perchè viene caricato da js-->
+        <div class="gallery_imgs_wrapper" style="position: relative">
+          <!-- Container dei filtri per schermi piccoli(inizialmente nascosto) -->
+          <div class="filter_list u-hide"></div>
+          <div class="gallery_imgs">
+            <!-- Immagini caricate via JavaScript -->
+          </div>
         </div>
       </div>
       <div class="img_gallery_modal u-hide">
