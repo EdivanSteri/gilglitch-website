@@ -282,6 +282,10 @@ body {
   flex-direction: column;
 }
 
+.gallery_imgs_wrapper {
+  position: relative;
+}
+
 .gallery_imgs {
   height: 80rem;
 

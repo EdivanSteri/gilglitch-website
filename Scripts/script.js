@@ -1,66 +1,10 @@
 "use strict";
 
-/* Navbar */
+// dom elements
 const inspirationsItemBtn = document.querySelector(".inspirations_item");
 const menuInspirationsEl = document.querySelector(".menu_inspirations");
 const collaborationsItemBtn = document.querySelector(".collaborations_item");
 const menuCollaborations = document.querySelector(".menu_collaborations");
-
-// Functions
-
-// Variabile per gestire il timer
-let hideTimer;
-
-// Funzione per mostrare il menu
-const showMenu = function (menu) {
-  clearTimeout(hideTimer);
-  menu.classList.remove("u-hide");
-};
-
-// Funzione che verifica se il mouse esce sia dal link che dal menu e nasconde il menu dopo un breve ritardo
-function hideMenu(link, menu) {
-  hideTimer = setTimeout(() => {
-    if (!link.matches(":hover") && !menu.matches(":hover")) {
-      menu.classList.add("u-hide");
-    }
-  }, 10);
-}
-
-// Event listner
-// --- Gestione per il menu Inspirations ---
-inspirationsItemBtn.addEventListener("mouseenter", () =>
-  showMenu(menuInspirationsEl)
-);
-inspirationsItemBtn.addEventListener("mouseleave", () =>
-  hideMenu(inspirationsItemBtn, menuInspirationsEl)
-);
-
-menuInspirationsEl.addEventListener("mouseenter", () =>
-  showMenu(menuInspirationsEl)
-);
-menuInspirationsEl.addEventListener("mouseleave", () =>
-  hideMenu(inspirationsItemBtn, menuInspirationsEl)
-);
-
-// --- Gestione per il menu Collaborations ---
-collaborationsItemBtn.addEventListener("mouseenter", () =>
-  showMenu(menuCollaborations)
-);
-collaborationsItemBtn.addEventListener("mouseleave", () =>
-  hideMenu(collaborationsItemBtn, menuCollaborations)
-);
-
-menuCollaborations.addEventListener("mouseenter", () =>
-  showMenu(menuCollaborations)
-);
-menuCollaborations.addEventListener("mouseleave", () =>
-  hideMenu(collaborationsItemBtn, menuCollaborations)
-);
-
-////////////////////////////////////////////////////////////////////////////
-/* gallery */
-
-// dom elements
 const containerGalleryImgs = document.querySelector(".gallery_imgs");
 const containerGalleryContent = document.querySelector(".gallery_content");
 const arrowDropDownIconPeriodEL = document.querySelector(
@@ -76,7 +20,19 @@ const filterByOldestEL = document.querySelector(".filter_by_oldest");
 const dateFilterActiveEl = document.querySelector(".date_filter_active");
 const artistFilterActiveEl = document.querySelector(".artist_filter_active");
 const containerAtistFilterList = document.querySelector(".artist_filter_list");
+const dateFilterList = document.querySelector(".date_filter_list");
+const containerImgageGalleryModal =
+  document.querySelector(".img_gallery_modal");
+const modalContent = document.querySelector(".modal_content");
+const imageModal = document.querySelector(".img_modal");
+const titleModalEl = document.querySelector(".modal_title");
+const descriptionModalEl = document.querySelector(".modal_description");
+const dateModalEl = document.querySelector(".modal_date");
 
+/* Navbar */
+
+// Variabile per gestire il timer
+let hideTimer;
 // variables
 const artPieces = [
   {
@@ -580,10 +536,25 @@ const artPieces = [
     songName: "Sinfonia",
   },
 ];
-
+artPieces.sort((a, b) => new Date(a.date) - new Date(b.date));
 const artistsList = [...new Set(artPieces.flatMap((art) => art.artist))];
 
-// functions
+// Functions
+// Funzione per mostrare il menu
+const showMenu = function (menu) {
+  clearTimeout(hideTimer);
+  menu.classList.remove("u-hide");
+};
+
+// Funzione che verifica se il mouse esce sia dal link che dal menu e nasconde il menu dopo un breve ritardo
+function hideMenu(link, menu) {
+  hideTimer = setTimeout(() => {
+    if (!link.matches(":hover") && !menu.matches(":hover")) {
+      menu.classList.add("u-hide");
+    }
+  }, 10);
+}
+
 const displayGalleryImgs = function (artPieces) {
   containerGalleryImgs.innerHTML = "";
 
@@ -596,23 +567,53 @@ const displayGalleryImgs = function (artPieces) {
   containerGalleryImgs.insertAdjacentHTML("afterbegin", [html.join("")]);
 };
 
-const displaArtistsFilterMenu = function () {
-  containerAtistFilterList.innerHTML = '<li class="artist_0">All Artists</li>';
+const displayArtistsFilterMenu = function () {
+  containerAtistFilterList.innerHTML =
+    '<li class="artist_link">All Artists</li>';
 
-  let counter = 1;
   const html = artistsList.map((art) => {
-    return `<li class=\"artist_${counter++}\">${art}</li>`;
+    return `<li class=\"artist_link\">${art}</li>`;
   });
 
   containerAtistFilterList.insertAdjacentHTML("beforeend", [html.join("")]);
 };
 
-artPieces.sort((a, b) => new Date(a.date) - new Date(b.date));
+// Event listner
+// --- Gestione per il menu Inspirations ---
+inspirationsItemBtn.addEventListener("mouseenter", () =>
+  showMenu(menuInspirationsEl)
+);
+inspirationsItemBtn.addEventListener("mouseleave", () =>
+  hideMenu(inspirationsItemBtn, menuInspirationsEl)
+);
+
+menuInspirationsEl.addEventListener("mouseenter", () =>
+  showMenu(menuInspirationsEl)
+);
+menuInspirationsEl.addEventListener("mouseleave", () =>
+  hideMenu(inspirationsItemBtn, menuInspirationsEl)
+);
+
+// --- Gestione per il menu Collaborations ---
+collaborationsItemBtn.addEventListener("mouseenter", () =>
+  showMenu(menuCollaborations)
+);
+collaborationsItemBtn.addEventListener("mouseleave", () =>
+  hideMenu(collaborationsItemBtn, menuCollaborations)
+);
+
+menuCollaborations.addEventListener("mouseenter", () =>
+  showMenu(menuCollaborations)
+);
+menuCollaborations.addEventListener("mouseleave", () =>
+  hideMenu(collaborationsItemBtn, menuCollaborations)
+);
+
 displayGalleryImgs(artPieces);
 
-displaArtistsFilterMenu();
+displayArtistsFilterMenu();
 
-// filter by date
+// Galery Filter by dates
 arrowDropDownIconPeriodEL.addEventListener("click", function () {
   if (!artistFilterWrapperEl.classList.contains("u-hide")) {
     artistFilterWrapperEl.classList.add("u-hide");
@@ -620,29 +621,28 @@ arrowDropDownIconPeriodEL.addEventListener("click", function () {
   dateFilterWrapperEl.classList.toggle("u-hide");
 });
 
-filterByNewestEL.addEventListener("click", function () {
-  const artPiecesFilteredByLastAdded = artPieces
-    .slice()
-    .sort((a, b) => new Date(a.date) - new Date(b.date));
+// Delegazione eventi
+dateFilterList.addEventListener("click", function (e) {
+  e.preventDefault();
+  if ([...e.target.classList].some((cl) => cl.startsWith("filter_by_"))) {
+    let artPiecesFilteredByDate;
+    if (e.target.className.includes("newest")) {
+      artPiecesFilteredByDate = artPieces
+        .slice()
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
+    } else if (e.target.className.includes("oldest")) {
+      artPiecesFilteredByDate = artPieces
+        .slice()
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
 
-  dateFilterWrapperEl.classList.add("u-hide");
-  dateFilterActiveEl.textContent = filterByNewestEL.textContent;
-  displayGalleryImgs(artPiecesFilteredByLastAdded);
+    dateFilterWrapperEl.classList.add("u-hide");
+    dateFilterActiveEl.textContent = e.target.textContent;
+    displayGalleryImgs(artPiecesFilteredByDate);
+  }
 });
 
-filterByOldestEL.addEventListener("click", function () {
-  const artPiecesFilteredByOlder = artPieces
-    .slice()
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
-
-  console.log(artPiecesFilteredByOlder);
-
-  dateFilterWrapperEl.classList.add("u-hide");
-  dateFilterActiveEl.textContent = filterByOldestEL.textContent;
-  displayGalleryImgs(artPiecesFilteredByOlder);
-});
-
-// filter by artist
+// Gallery filter by artist
 arrowDropDownIconArtistEL.addEventListener("click", function () {
   if (!dateFilterWrapperEl.classList.contains("u-hide")) {
     dateFilterWrapperEl.classList.add("u-hide");
@@ -650,41 +650,22 @@ arrowDropDownIconArtistEL.addEventListener("click", function () {
   artistFilterWrapperEl.classList.toggle("u-hide");
 });
 
-// Seleziona tutti gli <li> con classi che iniziano con "artist-"
-const artistItems = document.querySelectorAll('li[class^="artist_"]');
-
-// Aggiungi un event listener a ciascun elemento
-artistItems.forEach((item) => {
-  item.addEventListener("click", (event) => {
-    // Qui inserisci il codice da eseguire all'evento click
-    if (event.currentTarget.textContent !== "All Artists") {
+// Delegazione degli eventi
+containerAtistFilterList.addEventListener("click", function (e) {
+  e.preventDefault();
+  if (e.target.classList.contains("artist_link")) {
+    if (e.target.textContent !== "All Artists") {
       const artPiecesFilteredByArtist = artPieces
         .slice()
-        .filter((art) =>
-          art.artist.includes(`${event.currentTarget.textContent}`)
-        );
-
+        .filter((art) => art.artist.includes(`${e.target.textContent}`));
       displayGalleryImgs(artPiecesFilteredByArtist);
     } else {
       displayGalleryImgs(artPieces);
     }
-
     artistFilterWrapperEl.classList.add("u-hide");
-    artistFilterActiveEl.textContent = `${event.currentTarget.textContent}`;
-  });
+    artistFilterActiveEl.textContent = `${e.target.textContent}`;
+  }
 });
-
-// image modal details
-const containerImgageGalleryModal =
-  document.querySelector(".img_gallery_modal");
-const modalContent = document.querySelector(".modal_content");
-const imageModal = document.querySelector(".img_modal");
-const titleModalEl = document.querySelector(".modal_title");
-const descriptionModalEl = document.querySelector(".modal_description");
-const dateModalEl = document.querySelector(".modal_date");
-
-// Seleziona tutti le immagini della galleria, hanno tutte una classe che inizia con "artist_"
-const imagesItems = document.querySelectorAll('img[class^="image_"]');
 
 // Funzione che apre il modale
 const openModal = function () {
@@ -712,6 +693,7 @@ const createModalContainer = function (idImage) {
 };
 
 // funziona sia per la galleria impostata di default e anche quando viene applicato un filtro su di essa
+// delegazione eventi
 containerGalleryContent.addEventListener("click", function (e) {
   // controllo se la classe dell'elemento inizia con quella stringa, cioè se è una immagine della galleria
   if ([...e.target.classList].some((c) => c.startsWith("image_"))) {
@@ -721,16 +703,6 @@ containerGalleryContent.addEventListener("click", function (e) {
     openModal();
   }
 });
-
-// funziona solo per la galleria impostata di default, mentre quando viene applicato un filtro si di essa non funziona
-// imagesItems.forEach((img) => {
-//   img.addEventListener("click", function () {
-//     console.log(img);
-//     createModalContainer(img.id);
-
-//     openModal();
-//   });
-// });
 
 // Quando clicchi fuori dal modale (cioè sul container che fa da overlay)
 containerImgageGalleryModal.addEventListener("click", (e) => {
@@ -864,63 +836,47 @@ filterIconEl.addEventListener("click", function () {
   filterIconEl.classList.toggle("u-hide");
   closeFilterMenuBtn.classList.toggle("u-hide");
 
-  const dateFilterItems = containerFilterList.querySelectorAll(
-    ".filter_by_newest, .filter_by_oldest"
-  );
+  // Delegazione degli eventi
+  containerFilterList.addEventListener("click", function (e) {
+    e.preventDefault();
 
-  dateFilterItems.forEach((item) => {
-    item.addEventListener("click", function (e) {
-      const selectedFilter = e.target.classList.contains("filter_by_newest")
-        ? "newest"
-        : "oldest";
-
-      // Ordina in base alla scelta
-      const sortedArtPieces = artPieces.slice().sort((a, b) => {
-        return selectedFilter === "newest"
-          ? new Date(b.date) - new Date(a.date)
-          : new Date(a.date) - new Date(b.date);
-      });
-
-      console.log(sortedArtPieces);
-
-      // Aggiorna il testo del filtro attivo
-      dateFilterActiveEl.textContent = e.target.textContent;
-
-      // Mostra le immagini filtrate
-      displayGalleryImgs(sortedArtPieces);
-
-      // Chiude il menu e mostra di nuovo l'icona
-      containerFilterList.classList.toggle("u-hide");
-      filterIconEl.classList.toggle("u-hide");
-      closeFilterMenuBtn.classList.toggle("u-hide");
-    });
-  });
-
-  // Riassegna l'event listener per i <li> appena creati
-  const newArtistItems = containerFilterList.querySelectorAll(
-    'li[class^="artist_"]'
-  );
-  newArtistItems.forEach((item) => {
-    item.addEventListener("click", (event) => {
-      if (event.target.textContent !== "All Artists") {
-        const artPiecesFilteredByArtist = artPieces
+    let artPiecesFiltered;
+    if (e.target.classList.contains("artist_link")) {
+      if (e.target.textContent !== "All Artists") {
+        artPiecesFiltered = artPieces
           .slice()
-          .filter((art) => art.artist.includes(event.target.textContent));
-        displayGalleryImgs(artPiecesFilteredByArtist);
+          .filter((art) => art.artist.includes(`${e.target.textContent}`));
+        displayGalleryImgs(artPiecesFiltered);
       } else {
         displayGalleryImgs(artPieces);
       }
 
-      artistFilterActiveEl.textContent = event.target.textContent;
-      containerFilterList.classList.toggle("u-hide");
-      filterIconEl.classList.toggle("u-hide");
-      closeFilterMenuBtn.classList.toggle("u-hide");
-    });
+      artistFilterActiveEl.textContent = `${e.target.textContent}`;
+    } else if (
+      [...e.target.classList].some((cl) => cl.startsWith("filter_by_"))
+    ) {
+      if (e.target.className.includes("newest")) {
+        artPiecesFiltered = artPieces
+          .slice()
+          .sort((a, b) => new Date(a.date) - new Date(b.date));
+      } else if (e.target.className.includes("oldest")) {
+        artPiecesFiltered = artPieces
+          .slice()
+          .sort((a, b) => new Date(b.date) - new Date(a.date));
+      }
+
+      dateFilterActiveEl.textContent = e.target.textContent;
+      displayGalleryImgs(artPiecesFiltered);
+    }
+
+    containerFilterList.classList.add("u-hide");
+    filterIconEl.classList.remove("u-hide");
+    closeFilterMenuBtn.classList.add("u-hide");
   });
 });
 
 closeFilterMenuBtn.addEventListener("click", function () {
-  containerFilterList.classList.toggle("u-hide");
-  closeFilterMenuBtn.classList.toggle("u-hide");
-  filterIconEl.classList.toggle("u-hide");
+  containerFilterList.classList.add("u-hide");
+  filterIconEl.classList.remove("u-hide");
+  closeFilterMenuBtn.classList.add("u-hide");
 });
