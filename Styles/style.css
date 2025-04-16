@@ -94,8 +94,8 @@ body {
   margin-bottom: 0.8rem;
 }
 
-.explore_btn:link,
-.explore_btn:visited {
+.explore_gallery_btn:link,
+.explore_gallery_btn:visited {
   font-size: 1.6rem;
   width: fit-content;
 
@@ -117,8 +117,8 @@ body {
   transition: all 0.3s;
 }
 
-.explore_btn:hover,
-.explore_btn:active {
+.eexplore_gallery_btn:hover,
+.explore_gallery_btn:active {
   cursor: pointer;
   background-color: #602378;
   color: #FEFAF6;

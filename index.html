@@ -27,12 +27,16 @@
     <title>Gilglitch - Where Music Meets Art</title>
   </head>
   <body>
-    <header class="hero_section u-mb-1-2-8">
+    <header class="hero_section u-mb-1-2-8" id="section__1">
       <div class="left_hero_section">
         <div class="hero_header">
           <h1 class="primary_heading">GILGLITCH</h1>
           <p class="hero_slogan">Where Music Meets Art</p>
-          <a class="btn explore_btn" href="#">Explore the gallery</a>
+          <a
+            class="btn explore_gallery_btn scroll_to_gallery"
+            href="#section__2"
+            >Explore the gallery</a
+          >
         </div>
       </div>
       <div class="right_hero_section">
@@ -41,8 +45,12 @@
         </div>
         <nav class="navbar">
           <ul class="navbar_list">
-            <li><a class="btn navbar_item" href="#">Home</a></li>
-            <li><a class="btn navbar_item" href="#">Gallery</a></li>
+            <li><a class="btn navbar_item" href="#section__1">Home</a></li>
+            <li>
+              <a class="btn navbar_item scroll_to_gallery" href="#section__2"
+                >Gallery</a
+              >
+            </li>
             <li>
               <a class="btn navbar_item inspirations_item" href="#"
                 >Inspirations</a
@@ -85,7 +93,7 @@
         </div>
       </div>
     </header>
-    <section class="gallery_section u-mb-1-2-8">
+    <section class="gallery_section u-mb-1-2-8" id="section__2">
       <div class="gallery_heading">
         <h2 class="secondary_heading">
           Every stroke, a beat. Every color, a note.
