@@ -721,11 +721,36 @@ document.addEventListener("keydown", (e) => {
 
 /////////////////////////////////////////////////////////////////
 /* smooth scroll*/
+const navbar_list = document.querySelector(".navbar_list");
 const scrollToTopBtn = document.querySelector(".scroll_to_top_btn");
-const section1 = document.querySelector("#section__1");
-
 const scrollToGalleryBtns = document.querySelectorAll(".scroll_to_gallery");
+const section1 = document.querySelector("#section__1");
 const section2 = document.querySelector("#section__2");
+const section3 = document.querySelector("#section__3");
+
+// scrool smooth per i link della navbar, delegazione degli eventi
+navbar_list.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const link = e.target.closest(".navbar_item");
+
+  if (!link) return;
+
+  let href = link.getAttribute("href");
+  console.log(href);
+
+  if (href !== "#")
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+});
+
+scrollToGalleryBtns.forEach((btn) => {
+  btn.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    // Scrolling with smooth effect modern version
+    section2.scrollIntoView({ behavior: "smooth" });
+  });
+});
 
 // scrollToTopBtn.addEventListener("click", (e) => {
 //   e.preventDefault();
@@ -746,67 +771,6 @@ const section2 = document.querySelector("#section__2");
 // });
 
 // observer.observe(section2);
-
-scrollToGalleryBtns.forEach((btn) => {
-  btn.addEventListener("click", function (e) {
-    e.preventDefault();
-
-    /*
-      In questo blocco di codice utilizzo diverse proprietà e metodi per ottenere informazioni sulla posizione e sulle dimensioni 
-      degli elementi e della viewport.
-  
-      1. Ottengo le coordinate e le dimensioni di "section2" relativamente alla viewport.
-        - Utilizzo il metodo getBoundingClientRect() su "section2", che restituisce un oggetto contenente le proprietà
-          top, right, bottom, left, width e height.
-        - Le coordinate ottenute sono relative all'area visibile (viewport) e non alla pagina intera.
-        - Successivamente, stampo queste coordinate nel console.log per un eventuale debug.
-        
-        const s2coords = section2.getBoundingClientRect();
-        console.log(s2coords);
-  
-      2. Stampo le coordinate dell'elemento su cui è stato fatto click.
-        - e.target rappresenta l'elemento che ha ricevuto il click, e anch'esso viene sottoposto a getBoundingClientRect()
-          per ottenere le sue dimensioni e posizione relative alla viewport.
-        
-        console.log(e.target.getBoundingClientRect());
-  
-      3. Visualizzo la quantità di scroll corrente lungo l'asse X e Y.
-        - window.pageXOffset e pageYOffset forniscono rispettivamente la distanza in pixel scorsa orizzontalmente e verticalmente 
-          dalla posizione iniziale in cui la pagina è caricata.
-        - Questo permette di comprendere di quanto la pagina si è spostata dallo stato iniziale a causa dello scrolling.
-        
-        console.log("Current scroll (X/Y)", window.pageXOffset, pageYOffset);
-  
-      4. Ottengo le dimensioni esatte della viewport attuale.
-        - Utilizzo document.documentElement.clientHeight e document.documentElement.clientWidth per misurare l'altezza e la larghezza 
-          dell'area visibile della pagina.
-        - Queste proprietà sono utili per capire la dimensione dell'area di visualizzazione attuale e adattare eventuali 
-          comportamenti dinamici in base allo spazio disponibile.
-        
-        console.log(
-          "hight/width viewport",
-          document.documentElement.clientHeight,
-          document.documentElement.clientWidth
-        );
-    */
-
-    // Scrolling without smooth effect old version
-    // window.scrollTo(
-    //   s2coords.left + window.pageXOffset,
-    //   s2coords.top + window.pageYOffset
-    // );
-
-    // Scrolling with smooth effect old version
-    // window.scrollTo({
-    //   left: s2coords.left + window.pageXOffset,
-    //   top: s2coords.top + window.pageYOffset,
-    //   behavior: "smooth",
-    // });
-
-    // Scrolling with smooth effect modern version
-    section2.scrollIntoView({ behavior: "smooth" });
-  });
-});
 
 //gallery response
 // Seleziono gli elementi interessati
