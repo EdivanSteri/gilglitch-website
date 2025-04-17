@@ -35,6 +35,8 @@ body {
   text-decoration: none;
 }
 
+/* 
+scrrol to top
 .wrapper_scroll_to_top_btn {
   height: 6.2rem;
   width: 6.2rem;
@@ -77,7 +79,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
 /* Hero Section */
 .hero_section {
@@ -565,13 +567,101 @@ body {
   align-self: flex-end;
 }
 
-/* Utlities class */
-.u-hide {
-  display: none;
+/* music inspiration section */
+.music_inspiration_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4.8rem;
+
+  height: 100%;
+  width: 65%;
+
+  /* centered a section*/
+  margin: 0 auto;
 }
 
-.u-mb-1-2-8 {
-  margin-bottom: 12.8rem;
+.music_inspiration_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+
+.artist_inspiration {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper_img_inspiration {
+  height: 38rem;
+  width: 32rem;
+
+  position: relative;
+}
+
+.img_background {
+  height: 100%;
+  width: 100%;
+
+
+  background-color: #4e0b69;
+  border-radius: .9rem;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  z-index: -1;
+}
+
+.img_background__left {
+  clip-path: polygon(0 60%, 100% 100%, 100% 100%, 0% 100%);
+}
+
+.img_background__right {
+  clip-path: polygon(0 100%, 100% 60%, 100% 100%, 0% 100%);
+}
+
+.img_inspiration {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  z-index: 2;
+}
+
+.description_inspiration {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 9.6rem;
+}
+
+.description_inspiration p {
+  text-align: justify;
+
+  font-size: 2rem;
+  letter-spacing: .2rem;
+}
+
+/* Utlities class */
+.u-hide {
+  display: none !important;
+}
+
+.u-mb-1-9-6 {
+  margin-bottom: 19.6rem;
 }
 
 /*
