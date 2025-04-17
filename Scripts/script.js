@@ -568,6 +568,7 @@ function hideMenu(link, menu) {
   }, 10);
 }
 
+// funciton to display gallery images
 const displayGalleryImgs = function (artPieces) {
   containerGalleryImgs.innerHTML = "";
 
@@ -580,6 +581,7 @@ const displayGalleryImgs = function (artPieces) {
   containerGalleryImgs.insertAdjacentHTML("afterbegin", [html.join("")]);
 };
 
+// function to display Artists Filter Menu
 const displayArtistsFilterMenu = function () {
   containerAtistFilterList.innerHTML =
     '<li class="artist_link">All Artists</li>';
@@ -591,9 +593,33 @@ const displayArtistsFilterMenu = function () {
   containerAtistFilterList.insertAdjacentHTML("beforeend", [html.join("")]);
 };
 
-//////////////////////////////////////////
-// Event listner
-// Fade menu animation
+// Funzione che apre il modale
+const openModal = function () {
+  containerImgageGalleryModal.classList.remove("u-hide");
+  containerGalleryImgs.style.overflowY = "hidden";
+  document.body.style.overflow = "hidden";
+  containerGalleryContent.style.filter = "blur(.35rem)";
+};
+
+// Funzione che chiude il modale
+const closeModal = function () {
+  containerImgageGalleryModal.classList.add("u-hide");
+  containerGalleryContent.style.filter = "none";
+  containerGalleryImgs.style.overflowY = "scroll";
+  document.body.style.overflow = "auto";
+};
+
+// Funzione che crea il modale
+const createModalContainer = function (idImage) {
+  const objImage = artPieces.find((art) => art.id === +idImage);
+
+  imageModal.src = `${objImage.src}`;
+  titleModalEl.textContent = `${objImage.title}`;
+  descriptionModalEl.textContent = `${objImage.description}`;
+  dateModalEl.textContent = `${objImage.date}`;
+};
+
+// function to fade animation
 const handHover = function (e) {
   e.preventDefault();
   if (e.target.classList.contains("navbar_item")) {
@@ -627,18 +653,14 @@ const handHover = function (e) {
   }
 };
 
+//////////////////////////////////////////
+// Event listner
+// Fade menu animation
 navbarListEl.addEventListener("mouseover", handHover.bind(0.5));
 navbarListEl.addEventListener("mouseout", handHover.bind(1));
 
 // --- Gestione per il menu Inspirations ---
 inspirationsItemBtn.addEventListener("mouseenter", () =>
-  showMenu(menuInspirationsEl)
-);
-inspirationsItemBtn.addEventListener("mouseleave", () =>
-  hideMenu(inspirationsItemBtn, menuInspirationsEl)
-);
-
-menuInspirationsEl.addEventListener("mouseenter", () =>
   showMenu(menuInspirationsEl)
 );
 menuInspirationsEl.addEventListener("mouseleave", () =>
@@ -649,13 +671,7 @@ menuInspirationsEl.addEventListener("mouseleave", () =>
 collaborationsItemBtn.addEventListener("mouseenter", () =>
   showMenu(menuCollaborations)
 );
-collaborationsItemBtn.addEventListener("mouseleave", () =>
-  hideMenu(collaborationsItemBtn, menuCollaborations)
-);
 
-menuCollaborations.addEventListener("mouseenter", () =>
-  showMenu(menuCollaborations)
-);
 menuCollaborations.addEventListener("mouseleave", () =>
   hideMenu(collaborationsItemBtn, menuCollaborations)
 );
@@ -713,31 +729,6 @@ containerAtistFilterList.addEventListener("click", function (e) {
     artistFilterActiveEl.textContent = `${e.target.textContent}`;
   }
 });
-
-// Funzione che apre il modale
-const openModal = function () {
-  containerImgageGalleryModal.classList.remove("u-hide");
-  containerGalleryImgs.style.overflowY = "hidden";
-  document.body.style.overflow = "hidden";
-  containerGalleryContent.style.filter = "blur(.35rem)";
-};
-
-// Funzione che chiude il modale
-const closeModal = function () {
-  containerImgageGalleryModal.classList.add("u-hide");
-  containerGalleryContent.style.filter = "none";
-  containerGalleryImgs.style.overflowY = "scroll";
-  document.body.style.overflow = "auto";
-};
-
-const createModalContainer = function (idImage) {
-  const objImage = artPieces.find((art) => art.id === +idImage);
-
-  imageModal.src = `${objImage.src}`;
-  titleModalEl.textContent = `${objImage.title}`;
-  descriptionModalEl.textContent = `${objImage.description}`;
-  dateModalEl.textContent = `${objImage.date}`;
-};
 
 // funziona sia per la galleria impostata di default e anche quando viene applicato un filtro su di essa
 // delegazione eventi
