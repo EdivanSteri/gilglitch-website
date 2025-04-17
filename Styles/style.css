@@ -204,6 +204,8 @@ scrrol to top
   box-shadow: 0 2.4rem 4.8rem rgba(255, 255, 255, 0.075);
 
   padding: 1.2rem;
+
+  display: none;
 }
 
 .inspirations_list,
