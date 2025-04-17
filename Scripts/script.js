@@ -21,6 +21,7 @@ const dateFilterActiveEl = document.querySelector(".date_filter_active");
 const artistFilterActiveEl = document.querySelector(".artist_filter_active");
 const containerAtistFilterList = document.querySelector(".artist_filter_list");
 const dateFilterList = document.querySelector(".date_filter_list");
+
 const containerImgageGalleryModal =
   document.querySelector(".img_gallery_modal");
 const modalContent = document.querySelector(".modal_content");
@@ -28,6 +29,18 @@ const imageModal = document.querySelector(".img_modal");
 const titleModalEl = document.querySelector(".modal_title");
 const descriptionModalEl = document.querySelector(".modal_description");
 const dateModalEl = document.querySelector(".modal_date");
+
+const navbar_list = document.querySelector(".navbar_list");
+const scrollToTopBtn = document.querySelector(".scroll_to_top_btn");
+const scrollToGalleryBtns = document.querySelectorAll(".scroll_to_gallery");
+const section1 = document.querySelector("#section__1");
+const section2 = document.querySelector("#section__2");
+const section3 = document.querySelector("#section__3");
+
+const filterIconEl = document.querySelector(".filter_icon");
+const closeFilterMenuBtn = document.querySelector(".close_filter_menu_btn");
+const containerFilterList = document.querySelector(".filter_list");
+const navbarListEl = document.querySelector(".navbar_list");
 
 /* Navbar */
 
@@ -543,14 +556,14 @@ const artistsList = [...new Set(artPieces.flatMap((art) => art.artist))];
 // Funzione per mostrare il menu
 const showMenu = function (menu) {
   clearTimeout(hideTimer);
-  menu.classList.remove("u-hide");
+  menu.style.display = "block";
 };
 
 // Funzione che verifica se il mouse esce sia dal link che dal menu e nasconde il menu dopo un breve ritardo
 function hideMenu(link, menu) {
   hideTimer = setTimeout(() => {
     if (!link.matches(":hover") && !menu.matches(":hover")) {
-      menu.classList.add("u-hide");
+      menu.style.display = "none";
     }
   }, 10);
 }
@@ -578,7 +591,45 @@ const displayArtistsFilterMenu = function () {
   containerAtistFilterList.insertAdjacentHTML("beforeend", [html.join("")]);
 };
 
+//////////////////////////////////////////
 // Event listner
+// Fade menu animation
+const handHover = function (e) {
+  e.preventDefault();
+  if (e.target.classList.contains("navbar_item")) {
+    const link = e.target;
+    const allLinks = link.closest(".navbar").querySelectorAll(".navbar_item");
+
+    console.log(link.classList);
+    allLinks.forEach((l) => {
+      // le classi “speciali” da gestire diversamente
+      const specialClasses = ["inspirations_item", "collaborations_item"];
+      // qual è (se c’è) la classe speciale applicata al link corrente
+      const currentSpecial = specialClasses.find((c) =>
+        link.classList.contains(c)
+      );
+
+      if (l !== link) {
+        if (currentSpecial) {
+          // se siamo su un link “speciale”, escludi menu_link e gli altri con la stessa classe
+          if (
+            !l.classList.contains("menu_link") &&
+            !l.classList.contains(currentSpecial)
+          ) {
+            l.style.opacity = this;
+          }
+        } else {
+          // altrimenti (link normale), applica l’opacità a tutti gli altri
+          l.style.opacity = this;
+        }
+      }
+    });
+  }
+};
+
+navbarListEl.addEventListener("mouseover", handHover.bind(0.5));
+navbarListEl.addEventListener("mouseout", handHover.bind(1));
+
 // --- Gestione per il menu Inspirations ---
 inspirationsItemBtn.addEventListener("mouseenter", () =>
   showMenu(menuInspirationsEl)
@@ -608,10 +659,6 @@ menuCollaborations.addEventListener("mouseenter", () =>
 menuCollaborations.addEventListener("mouseleave", () =>
   hideMenu(collaborationsItemBtn, menuCollaborations)
 );
-
-displayGalleryImgs(artPieces);
-
-displayArtistsFilterMenu();
 
 // Galery Filter by dates
 arrowDropDownIconPeriodEL.addEventListener("click", function () {
@@ -721,15 +768,9 @@ document.addEventListener("keydown", (e) => {
 
 /////////////////////////////////////////////////////////////////
 /* smooth scroll*/
-const navbar_list = document.querySelector(".navbar_list");
-const scrollToTopBtn = document.querySelector(".scroll_to_top_btn");
-const scrollToGalleryBtns = document.querySelectorAll(".scroll_to_gallery");
-const section1 = document.querySelector("#section__1");
-const section2 = document.querySelector("#section__2");
-const section3 = document.querySelector("#section__3");
 
 // scrool smooth per i link della navbar, delegazione degli eventi
-navbar_list.addEventListener("click", function (e) {
+navbarListEl.addEventListener("click", function (e) {
   e.preventDefault();
 
   const link = e.target.closest(".navbar_item");
@@ -773,11 +814,6 @@ scrollToGalleryBtns.forEach((btn) => {
 // observer.observe(section2);
 
 //gallery response
-// Seleziono gli elementi interessati
-const filterIconEl = document.querySelector(".filter_icon");
-const closeFilterMenuBtn = document.querySelector(".close_filter_menu_btn");
-const containerFilterList = document.querySelector(".filter_list");
-
 filterIconEl.addEventListener("click", function () {
   // Costruisco il contenuto HTML da inserire nel container
   const html = `
@@ -844,3 +880,7 @@ closeFilterMenuBtn.addEventListener("click", function () {
   filterIconEl.classList.remove("u-hide");
   closeFilterMenuBtn.classList.add("u-hide");
 });
+
+/* main */
+displayGalleryImgs(artPieces);
+displayArtistsFilterMenu();
