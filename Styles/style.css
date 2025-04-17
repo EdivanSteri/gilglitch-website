@@ -657,7 +657,7 @@ scrrol to top
 
 /* Utlities class */
 .u-hide {
-  display: none !important;
+  display: none;
 }
 
 .u-mb-1-9-6 {
