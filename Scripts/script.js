@@ -49,7 +49,7 @@ const navbarListEl = document.querySelector(".navbar_list");
 // Variabile per gestire il timer
 let hideTimer;
 // variables
-const artPieces = [
+let artPieces = [
   {
     id: 1,
     src: "./Media/sketches/BHXP3462.JPG",
@@ -551,6 +551,36 @@ const artPieces = [
     songName: "Sinfonia",
   },
 ];
+
+const loadedImages = [];
+
+// aggiungo le immagini lazy all'array da rivedere
+const artPiecesLazy = artPieces.map((item) => {
+  const originalSrc = item.src;
+  // estrai solo il file-name (anche se ci fossero '\' o '/')
+  const fileName = originalSrc.replace(/^.*[\/\\]/, "");
+  // trova l'ultimo punto
+  const dotIndex = fileName.lastIndexOf(".");
+  if (dotIndex < 0) {
+    console.warn(`Attenzione: "${fileName}" non ha estensione, salto.`);
+    return { ...item };
+  }
+  const name = fileName.substring(0, dotIndex);
+  const ext = fileName.substring(dotIndex); // include il punto
+
+  return {
+    ...item,
+    // nuova src punta alla folder "Media/sketches lazy"
+    src: `./Media/sketches lazy/${name}-lazy${ext}`,
+    // dataSrc conserva il path originale
+    dataSrc: originalSrc,
+  };
+});
+
+// Se vuoi proprio sovrascrivere artPieces:
+artPieces = artPiecesLazy;
+console.log(artPieces);
+
 artPieces.sort((a, b) => new Date(a.date) - new Date(b.date));
 const artistsList = [...new Set(artPieces.flatMap((art) => art.artist))];
 
@@ -571,17 +601,74 @@ function hideMenu(link, menu) {
 }
 
 // funciton to display gallery images
-const displayGalleryImgs = function (artPieces) {
+const displayGalleryImgs = function (artPieces, removeLazy = false) {
   containerGalleryImgs.innerHTML = "";
 
+  const lazyClass = removeLazy ? "" : "lazy_img";
   const html = artPieces.map((art) => {
     return `<div class="img_wrapper">
-    <img class="image_${art.id}" id="${art.id}" src="${art.src}" alt="${art.title}" />
-  </div>`;
+      <img
+        class="image_${art.id} ${lazyClass}"
+        id="${art.id}"
+        src="${art.src}"
+        data-src="${art.dataSrc}"
+        alt="${art.title}"
+      />
+    </div>`;
   });
 
   containerGalleryImgs.insertAdjacentHTML("afterbegin", [html.join("")]);
 };
+
+// lazy loading gallery images
+window.addEventListener("DOMContentLoaded", () => {
+  const imgaesLazy = document.querySelectorAll("img[data-src]");
+
+  const lazyLoading = function (entries, observer) {
+    const [entry] = entries;
+
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+
+      const img = entry.target;
+
+      // Sostituisci il src con data-src se l'immagine è visibile
+      if (!loadedImages.includes(artPieces.find((a) => a.id === +img.id))) {
+        // Replace src with data-src
+        img.src = img.dataset.src;
+
+        img.addEventListener("load", function () {
+          img.classList.remove("lazy_img");
+
+          img.addEventListener("mouseenter", function () {
+            img.style.transform = "transform: scale(1.1)";
+          });
+
+          // Se l'immagine è già caricata (nel caso in cui sia già presente nel cache)
+          if (img.complete) {
+            // aggiungo l'hover all'immagine che la ingradisca: transform: scale(1.1)
+            img.classList.add("loaded");
+          }
+
+          loadedImages.push(artPieces.find((a) => a.id === +img.id));
+        });
+      }
+    });
+
+    observer.unobserve(entry.target);
+  };
+
+  const lazyLoadingObserver = new IntersectionObserver(lazyLoading, {
+    root: containerGalleryImgs,
+    threshold: 0,
+    rootMargin: "-50px",
+  });
+
+  // resto del codice qui dentro
+  imgaesLazy.forEach((img) => {
+    lazyLoadingObserver.observe(img);
+  });
+});
 
 // function to display Artists Filter Menu
 const displayArtistsFilterMenu = function () {
@@ -614,6 +701,16 @@ const closeModal = function () {
 // Funzione che crea il modale
 const createModalContainer = function (idImage) {
   const objImage = artPieces.find((art) => art.id === +idImage);
+
+  // Forza il caricamento dell'immagine nel modale
+  if (!loadedImages.includes(artPieces.includes(objImage))) {
+    console.log("lazy image on modal");
+    console.log(objImage.src);
+    objImage.src = objImage.dataSrc;
+    console.log(objImage.src);
+
+    imageModal.classList.remove("lazy_image");
+  }
 
   imageModal.src = `${objImage.src}`;
   titleModalEl.textContent = `${objImage.title}`;
@@ -701,9 +798,14 @@ dateFilterList.addEventListener("click", function (e) {
         .sort((a, b) => new Date(b.date) - new Date(a.date));
     }
 
+    artPiecesFilteredByDate.forEach((artFiltered) => {
+      // Cambia il src per corrispondere a dataSrc
+      artFiltered.src = artFiltered.dataSrc;
+    });
+
     dateFilterWrapperEl.classList.add("u-hide");
     dateFilterActiveEl.textContent = e.target.textContent;
-    displayGalleryImgs(artPiecesFilteredByDate);
+    displayGalleryImgs(artPiecesFilteredByDate, true);
   }
 });
 
@@ -723,9 +825,20 @@ containerAtistFilterList.addEventListener("click", function (e) {
       const artPiecesFilteredByArtist = artPieces
         .slice()
         .filter((art) => art.artist.includes(`${e.target.textContent}`));
-      displayGalleryImgs(artPiecesFilteredByArtist);
+
+      artPiecesFilteredByArtist.forEach((artFiltered) => {
+        // Cambia il src per corrispondere a dataSrc
+        artFiltered.src = artFiltered.dataSrc;
+      });
+      displayGalleryImgs(artPiecesFilteredByArtist, true);
     } else {
-      displayGalleryImgs(artPieces);
+      const tmp = artPieces.slice().map((artFiltered) => {
+        return {
+          ...artFiltered,
+          src: artFiltered.dataSrc,
+        };
+      });
+      displayGalleryImgs(tmp, true);
     }
     artistFilterWrapperEl.classList.add("u-hide");
     artistFilterActiveEl.textContent = `${e.target.textContent}`;
@@ -906,9 +1019,21 @@ filterIconEl.addEventListener("click", function () {
         artPiecesFiltered = artPieces
           .slice()
           .filter((art) => art.artist.includes(`${e.target.textContent}`));
-        displayGalleryImgs(artPiecesFiltered);
+
+        artPiecesFiltered.forEach((artFiltered) => {
+          // Cambia il src per corrispondere a dataSrc
+          artFiltered.src = artFiltered.dataSrc;
+        });
+
+        displayGalleryImgs(artPiecesFiltered, true);
       } else {
-        displayGalleryImgs(artPieces);
+        const tmp = artPieces.slice().map((artFiltered) => {
+          return {
+            ...artFiltered,
+            src: artFiltered.dataSrc,
+          };
+        });
+        displayGalleryImgs(tmp, true);
       }
 
       artistFilterActiveEl.textContent = `${e.target.textContent}`;
@@ -925,8 +1050,13 @@ filterIconEl.addEventListener("click", function () {
           .sort((a, b) => new Date(b.date) - new Date(a.date));
       }
 
+      artPiecesFiltered.forEach((artFiltered) => {
+        // Cambia il src per corrispondere a dataSrc
+        artFiltered.src = artFiltered.dataSrc;
+      });
+
       dateFilterActiveEl.textContent = e.target.textContent;
-      displayGalleryImgs(artPiecesFiltered);
+      displayGalleryImgs(artPiecesFiltered, true);
     }
 
     containerFilterList.classList.add("u-hide");
