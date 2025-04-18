@@ -158,16 +158,16 @@
     font-size: 1.6rem;
   }
 
-    /* music inspiration */
-    .wrapper_img_inspiration {
-      height: 34rem;
-      width: 28rem; 
-    }
+  /* music inspiration */
+  .wrapper_img_inspiration {
+    height: 34rem;
+    width: 28rem;
+  }
 
-    .description_inspiration p {
-      font-size: 1.8rem;
-      letter-spacing: .1rem;
-    }
+  .description_inspiration p {
+    font-size: 1.8rem;
+    letter-spacing: .1rem;
+  }
 }
 
 /* 
@@ -189,7 +189,7 @@
   /* music inspiration */
   .wrapper_img_inspiration {
     height: 32rem;
-    width: 26rem; 
+    width: 26rem;
   }
 
   .description_inspiration p {
@@ -228,7 +228,7 @@
   /* music inspiration */
   .wrapper_img_inspiration {
     height: 30rem;
-    width: 24rem; 
+    width: 24rem;
   }
 
   .description_inspiration {
@@ -278,6 +278,15 @@
 @media (max-width: 50em) {
   .primary_heading {
     font-size: 3rem;
+  }
+
+  .wrapper_scroll_to_top_btn {
+    padding: .4rem;
+    margin: .2rem;  
+  }
+
+  .arrow_up_icon {
+    font-size: 2.4rem;
   }
 
   .hero_slogan {
