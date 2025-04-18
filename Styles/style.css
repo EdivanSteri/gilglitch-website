@@ -60,7 +60,7 @@ body {
   transition: all .2s;
 }
 
-.wrapper_scroll_to_top_btn:hover{
+.wrapper_scroll_to_top_btn:hover {
   cursor: pointer;
   transform: translateY(-10%);
   box-shadow: 0 .4rem .8rem 0 #000000;
@@ -71,8 +71,6 @@ body {
   text-decoration: none;
 }
 
-
-
 .arrow_up_icon {
   font-size: 3.6rem;
   color: #F1C7A2;
@@ -80,6 +78,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.section_to_fade {
+  transition: transform 1s, opacity 1s;
 }
 
 /* Hero Section */
@@ -815,6 +817,11 @@ body {
 
 .u-mb-1-9-6 {
   margin-bottom: 19.6rem;
+}
+
+.section--hide {
+  opacity: 0;
+  transform: translateY(8rem);
 }
 
 /*

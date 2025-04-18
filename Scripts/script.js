@@ -776,13 +776,26 @@ navbarListEl.addEventListener("click", function (e) {
   let href = link.getAttribute("href");
   console.log(href);
 
-  if (href !== "#")
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+  if (href !== "#") {
+    const sectionToScroll = document.querySelector(href);
+
+    /* Disattivo l'effetto fade-in per permettere allo smooth scroll di posizionare la sezione esattamente all'inizio, senza offset */
+    sectionToScroll.style.transform = "translateY(0)";
+    sectionToScroll.style.transition = "none";
+    sectionToScroll.style.opacity = 1;
+
+    sectionToScroll?.scrollIntoView({ behavior: "smooth" });
+  }
 });
 
 scrollToGalleryBtns.forEach((btn) => {
   btn.addEventListener("click", function (e) {
     e.preventDefault();
+
+    /* Disattivo l'effetto fade-in per permettere allo smooth scroll di posizionare la sezione esattamente all'inizio, senza offset */
+    section2.style.transition = "none";
+    section2.style.transform = "translateY(0)";
+    section2.style.opacity = 1;
 
     // Scrolling with smooth effect modern version
     section2.scrollIntoView({ behavior: "smooth" });
@@ -837,6 +850,27 @@ window.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("resize", () => {
   updateHeaderMeasurements();
   setupHeaderObserver();
+});
+
+// section fade entry
+const allSectionToFade = document.querySelectorAll(".section_to_fade");
+
+const sectionFadeAnimation = function (entries, observe) {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+
+    entry.target.classList.remove("section--hide");
+  });
+};
+
+const sectionObserver = new IntersectionObserver(sectionFadeAnimation, {
+  root: null,
+  threshold: 0.2,
+});
+
+allSectionToFade.forEach((section) => {
+  sectionObserver.observe(section);
+  section.classList.add("section--hide");
 });
 
 //gallery response
