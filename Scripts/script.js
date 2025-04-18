@@ -31,7 +31,9 @@ const descriptionModalEl = document.querySelector(".modal_description");
 const dateModalEl = document.querySelector(".modal_date");
 
 const navbar_list = document.querySelector(".navbar_list");
-const scrollToTopBtn = document.querySelector(".scroll_to_top_btn");
+const wrapperScrollToTopBtn = document.querySelector(
+  ".wrapper_scroll_to_top_btn"
+);
 const scrollToGalleryBtns = document.querySelectorAll(".scroll_to_gallery");
 const section1 = document.querySelector("#section__1");
 const section2 = document.querySelector("#section__2");
@@ -738,6 +740,7 @@ containerGalleryContent.addEventListener("click", function (e) {
     const img = e.target;
     createModalContainer(img.id);
 
+    wrapperScrollToTopBtn.style.opacity = 0;
     openModal();
   }
 });
@@ -747,6 +750,7 @@ containerImgageGalleryModal.addEventListener("click", (e) => {
   // Se il click è proprio sull'overlay e NON dentro il modale
   if (!modalContent.contains(e.target)) {
     closeModal();
+    wrapperScrollToTopBtn.style.opacity = 1;
   }
 });
 
@@ -754,6 +758,7 @@ containerImgageGalleryModal.addEventListener("click", (e) => {
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     closeModal();
+    wrapperScrollToTopBtn.style.opacity = 1;
   }
 });
 
@@ -784,25 +789,55 @@ scrollToGalleryBtns.forEach((btn) => {
   });
 });
 
-// scrollToTopBtn.addEventListener("click", (e) => {
-//   e.preventDefault();
+///////////////////////////////////////////////////////////////
+// smoth scroll to top btn
+wrapperScrollToTopBtn.addEventListener("click", (e) => {
+  e.preventDefault();
 
-//   // Scrolling with smooth effect modern version
-//   section1.scrollIntoView({ behavior: "smooth" });
-// });
+  // Scrolling with smooth effect modern version
+  section1.scrollIntoView({ behavior: "smooth" });
+});
 
-// // mi permette di visualizzare il bottono scrool_to_top dalla sezione 2 in poi
-// const observer = new IntersectionObserver((entries) => {
-//   entries.forEach((entry) => {
-//     if (entry.isIntersecting) {
-//       scrollToTopBtn.classList.remove("u-hide");
-//     } else {
-//       scrollToTopBtn.classList.add("u-hide");
-//     }
-//   });
-// });
+// 1. Riferimenti e variabili
+let sec1Height, sec1MB, headerObserver;
 
-// observer.observe(section2);
+// 2. Calcola height e margin-bottom
+function updateHeaderMeasurements() {
+  sec1Height = section1.getBoundingClientRect().height;
+  sec1MB = parseFloat(window.getComputedStyle(section1).marginBottom);
+}
+
+// 3. (Ri)crea l’IntersectionObserver con il rootMargin corretto
+function setupHeaderObserver() {
+  // Scollega il vecchio observer, se esiste
+  if (headerObserver) headerObserver.disconnect();
+
+  // Offset in px
+  const offset = sec1Height - sec1MB;
+
+  headerObserver = new IntersectionObserver(scroollToTopBtnVisibility, {
+    root: null,
+    threshold: 0,
+    rootMargin: `-${offset}px 0px 0px 0px`,
+  });
+  headerObserver.observe(section1);
+}
+
+// 4. Callback di visibilità
+function scroollToTopBtnVisibility(entries) {
+  const entry = entries[0];
+  wrapperScrollToTopBtn.style.opacity = entry.isIntersecting ? 0 : 1;
+}
+
+// 5. Inizializza e aggiorna al resize
+window.addEventListener("DOMContentLoaded", () => {
+  updateHeaderMeasurements();
+  setupHeaderObserver();
+});
+window.addEventListener("resize", () => {
+  updateHeaderMeasurements();
+  setupHeaderObserver();
+});
 
 //gallery response
 filterIconEl.addEventListener("click", function () {
