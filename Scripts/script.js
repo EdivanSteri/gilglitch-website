@@ -47,12 +47,11 @@ const navbarListEl = document.querySelector(".navbar_list");
 const collabSliders = document.querySelectorAll(".slide");
 const collabSlideBtnLeft = document.querySelector(".slide_left_btn");
 const collabSlideBtnRight = document.querySelector(".slide_right_btn");
+const section4 = document.querySelector("#section__4");
 
-/* Navbar */
-
-// Variabile per gestire il timer
+// Variabile per gestire il timer dell'hover sui link della navbar
 let hideTimer;
-// variables
+// variabile che contiene le info dei disegni da poter inserirli dinamicamente
 let artPieces = [
   {
     id: 1,
@@ -555,8 +554,10 @@ let artPieces = [
     songName: "Sinfonia",
   },
 ];
-
+// Variabile che salva le immagini(gli oggetti corrispondenti dell'array artPieces) caricate e non più lazy
 const loadedImages = [];
+// flag per evitare di registrare più volte l'evento delle lsider con le frecce della tastiera
+let arrowsSlideListenerActive = false;
 
 // aggiungo le immagini lazy all'array da rivedere
 const artPiecesLazy = artPieces.map((item) => {
@@ -1077,7 +1078,6 @@ closeFilterMenuBtn.addEventListener("click", function () {
 ///////////////////////////////////////////////////////////////////////////////////
 //Slider
 
-
 let currentCollabSlide = 0;
 const maxCollabSlides = collabSliders.length;
 
@@ -1103,13 +1103,41 @@ const goToPreviouslySlide = function () {
   goToSlide(currentCollabSlide);
 };
 
-collabSlideBtnRight.addEventListener("click", function () {
-  goToNextSlide();
+collabSlideBtnRight.addEventListener("click", goToNextSlide);
+collabSlideBtnLeft.addEventListener("click", goToPreviouslySlide);
+
+// Slider effect with arros only if the section is on the viewport at least 25% visible
+const arrowKeyHandler = function arrowKeyHandler(e) {
+  if (e.key === "ArrowRight") goToNextSlide();
+  if (e.key === "ArrowLeft") goToPreviouslySlide();
+};
+
+const slideWithArrwsKey = function (entries) {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      // la sezione è dentro la viewport
+      if (!arrowsSlideListenerActive) {
+        document.addEventListener("keydown", arrowKeyHandler);
+        arrowsSlideListenerActive = true;
+        console.log("Listener frecce ATTIVATO");
+      }
+    } else {
+      // la sezione è uscita dalla viewport
+      if (arrowsSlideListenerActive) {
+        document.removeEventListener("keydown", arrowKeyHandler);
+        arrowsSlideListenerActive = false;
+        console.log("Listener frecce DISATTIVATO");
+      }
+    }
+  });
+};
+
+const slideObserver = new IntersectionObserver(slideWithArrwsKey, {
+  root: null,
+  threshold: 0.25,
 });
 
-collabSlideBtnLeft.addEventListener("click", function () {
-  goToPreviouslySlide();
-});
+slideObserver.observe(section4);
 
 /* main */
 displayGalleryImgs(artPieces);
