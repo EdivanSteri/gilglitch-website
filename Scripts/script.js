@@ -44,6 +44,10 @@ const closeFilterMenuBtn = document.querySelector(".close_filter_menu_btn");
 const containerFilterList = document.querySelector(".filter_list");
 const navbarListEl = document.querySelector(".navbar_list");
 
+const collabSliders = document.querySelectorAll(".slide");
+const collabSlideBtnLeft = document.querySelector(".slide_left_btn");
+const collabSlideBtnRight = document.querySelector(".slide_right_btn");
+
 /* Navbar */
 
 // Variabile per gestire il timer
@@ -579,7 +583,6 @@ const artPiecesLazy = artPieces.map((item) => {
 
 // Se vuoi proprio sovrascrivere artPieces:
 artPieces = artPiecesLazy;
-console.log(artPieces);
 
 artPieces.sort((a, b) => new Date(a.date) - new Date(b.date));
 const artistsList = [...new Set(artPieces.flatMap((art) => art.artist))];
@@ -1071,6 +1074,45 @@ closeFilterMenuBtn.addEventListener("click", function () {
   closeFilterMenuBtn.classList.add("u-hide");
 });
 
+///////////////////////////////////////////////////////////////////////////////////
+//Slider
+
+
+let currentCollabSlide = 0;
+const maxCollabSlides = collabSliders.length;
+
+const goToSlide = function (slide) {
+  collabSliders.forEach((s, i) => {
+    s.style.transform = `translateX(${100 * (i - slide)}%)`;
+  });
+};
+
+const goToNextSlide = function () {
+  currentCollabSlide === maxCollabSlides - 1
+    ? (currentCollabSlide = 0)
+    : currentCollabSlide++;
+
+  goToSlide(currentCollabSlide);
+};
+
+const goToPreviouslySlide = function () {
+  currentCollabSlide === 0
+    ? (currentCollabSlide = maxCollabSlides - 1)
+    : currentCollabSlide--;
+
+  goToSlide(currentCollabSlide);
+};
+
+collabSlideBtnRight.addEventListener("click", function () {
+  goToNextSlide();
+});
+
+collabSlideBtnLeft.addEventListener("click", function () {
+  goToPreviouslySlide();
+});
+
 /* main */
 displayGalleryImgs(artPieces);
 displayArtistsFilterMenu();
+
+goToSlide(0);
