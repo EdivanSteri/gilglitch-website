@@ -856,6 +856,29 @@ body {
   transition: cursor .3s, box-shadow .3s;
 }
 
+.cta_to_form_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 3.6rem;
+}
+
+.cta_to_form {
+  text-align: center;
+  color: #4e0b69;
+
+  font-size: 2rem;
+
+  transition: color .3s, text-decoration .3s, cursor .3s;
+}
+
+.cta_to_form:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #0f1e2a;
+}
+
 /* Utlities class */
 .u-hide {
   display: none;
