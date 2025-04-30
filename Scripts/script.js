@@ -49,6 +49,8 @@ const collabSlideBtnLeft = document.querySelector(".slide_left_btn");
 const collabSlideBtnRight = document.querySelector(".slide_right_btn");
 const section4 = document.querySelector("#section__4");
 
+const barsEl = document.querySelectorAll(".bar");
+
 // Variabile per gestire il timer dell'hover sui link della navbar
 let hideTimer;
 // variabile che contiene le info dei disegni da poter inserirli dinamicamente
@@ -1138,6 +1140,38 @@ const slideObserver = new IntersectionObserver(slideWithArrwsKey, {
 });
 
 slideObserver.observe(section4);
+
+// skills bars
+const setSkillsBarsWidthAndStyleTransition = function (
+  transitionDuration,
+  isIntersecting
+) {
+  barsEl.forEach((el) => {
+    console.log(el, el.dataset.width);
+    el.style.transitionDuration = `${transitionDuration}s`;
+    el.style.width = `${isIntersecting ? el.dataset.width + "%" : 0}`;
+  });
+};
+
+const setSkillsBarsAnimation = function (entries) {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      /* nella viewport */
+      setSkillsBarsWidthAndStyleTransition(3, entry.isIntersecting);
+    } else {
+      /* non nella viewport */
+      setSkillsBarsWidthAndStyleTransition(0.3, entry.isIntersecting);
+    }
+  });
+};
+
+const skillsObserver = new IntersectionObserver(setSkillsBarsAnimation, {
+  root: null,
+  threshold: 0,
+});
+
+const section5 = document.querySelector("#section__6");
+skillsObserver.observe(section5);
 
 /* main */
 displayGalleryImgs(artPieces);
