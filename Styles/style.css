@@ -891,7 +891,7 @@ body {
 .about_me_content {
   margin-top: 3.2rem;
 
-  height: 50rem;
+  height: 60rem;
   width: 100%;
 
   display: flex;
@@ -914,26 +914,46 @@ body {
   position: relative;
 }
 
+.about_me_img_wrapper {
+  position: relative;
+ 
+  animation: float 2s infinite ease-in-out;
+}
+
 .about_me_img_wrapper img {
-  width: 45rem;
+  /* elimina eventuali spazi bianchi sotto l’immagine */
+  display: block;
+  width: 55rem;
 }
 
 .about_me_img_wrapper::after {
   content: "";
 
   height: 5rem;
-  width: 50rem;
+  width: 60rem;
 
   background-color: #4e0b69;
   border-radius: 50%;
   box-shadow: 0px 1.9rem 1.5rem -.1rem rgba(0, 0, 0, 0.5);
 
   position: absolute;
-  top: 50%;
-  left: 0;
-
-  transform: translate(25%, 270%);
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 30%);
   z-index: -1;
+}
+
+/* keyframes per un leggero molleggio verticale */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-.5rem);
+  }
 }
 
 .about_me_right {
