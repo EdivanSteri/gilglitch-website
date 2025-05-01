@@ -84,6 +84,31 @@
   .right_hero_section {
     width: 42.5%;
   }
+
+  /* about me section */
+  .about_me_image {
+    width: 40rem;
+  }
+
+  .about_me_img_wrapper::after {
+    width: 45rem;
+  }
+
+  .about_me_description {
+    font-size: 1.6rem;
+  }
+
+  .about_me_info ul li {
+    font-size: 1.4rem;
+  }
+
+  .about_me_info ul li:not(:last-child) {
+    padding-right: 1rem;
+  }
+
+  .about_me_info ul li:not(:first-child) {
+    padding-left: 1rem;
+  }
 }
 
 /* 
@@ -193,12 +218,39 @@
   }
 
   .description_inspiration p {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     letter-spacing: .1rem;
   }
 
   .description_inspiration {
     padding: 8rem;
+  }
+
+  /* about me section */
+  .about_me_image {
+    width: 30rem;
+  }
+
+  .about_me_img_wrapper::after {
+    width: 35rem;
+  }
+}
+
+/* 
+  Netbook / Laptop Piccolo (1184px -> 1184px/16 = 74em)
+*/
+@media(max-width: 74em) {
+
+  /* music inspiration */
+  .about_me_content {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .about_me_right {
+    grid-row: 1;
+    padding: 0 6.4rem;
+    gap: 5rem;
   }
 }
 
@@ -270,6 +322,35 @@
   .description_inspiration {
     padding: 3.6rem;
   }
+
+  /* about me section */
+  .about_me_section {
+    padding: 0 6.4rem;
+  }
+
+  .about_me_image {
+    width: 20rem;
+  }
+
+  .about_me_img_wrapper::after {
+    width: 25rem;
+  }
+
+  /* skills section */
+  .skills_section{
+    padding: 2.4rem 6.4rem;
+  }
+
+  .skills_bar,
+  .bar {
+    height: 2rem;
+    border-radius: 2rem;
+  }
+
+  .skills_title {
+    font-size: 1.8rem;
+  }
+
 }
 
 /* 
@@ -282,7 +363,7 @@
 
   .wrapper_scroll_to_top_btn {
     padding: .4rem;
-    margin: .2rem;  
+    margin: .2rem;
   }
 
   .arrow_up_icon {
@@ -328,6 +409,26 @@
   /* music inspiration */
   .description_inspiration {
     padding: 2.4rem;
+  }
+
+  /* about me section */
+  .about_me_image {
+    width: 15rem;
+  }
+
+  .about_me_img_wrapper::after {
+    width: 20rem;
+  }
+
+  .about_me_right {
+    padding: 0;
+  }
+
+  /* skills section */
+  .skills_bar,
+  .bar {
+    height: 1rem;
+    border-radius: 1rem;
   }
 }
 

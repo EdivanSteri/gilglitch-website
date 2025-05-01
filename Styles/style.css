@@ -891,18 +891,20 @@ body {
 .about_me_content {
   margin-top: 3.2rem;
 
-  height: 50rem;
+  height: 60rem;
   width: 100%;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns:  1fr 1fr;
+  grid-template-rows: 1fr;
+  align-content: center;
+  justify-items: center;
 }
 
 .about_me_left,
 .about_me_right {
   height: 100%;
-  width: 50%;
+  width: 100%;
 
   display: flex;
 }
@@ -914,26 +916,46 @@ body {
   position: relative;
 }
 
-.about_me_img_wrapper img {
-  width: 45rem;
+.about_me_img_wrapper {
+  position: relative;
+ 
+  animation: float 2s infinite ease-in-out;
+}
+
+.about_me_image {
+  /* elimina eventuali spazi bianchi sotto l’immagine */
+  display: block;
+  width: 55rem;
 }
 
 .about_me_img_wrapper::after {
   content: "";
 
   height: 5rem;
-  width: 50rem;
+  width: 60rem;
 
   background-color: #4e0b69;
   border-radius: 50%;
   box-shadow: 0px 1.9rem 1.5rem -.1rem rgba(0, 0, 0, 0.5);
 
   position: absolute;
-  top: 50%;
-  left: 0;
-
-  transform: translate(25%, 270%);
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 30%);
   z-index: -1;
+}
+
+/* keyframes per un leggero molleggio verticale */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-.5rem);
+  }
 }
 
 .about_me_right {
@@ -941,7 +963,7 @@ body {
   align-items: center;
   justify-content: center;
 
-  padding-right: 4.8rem;
+  padding-right: 12.8rem;
   gap: 10rem;
 }
 
@@ -1017,20 +1039,6 @@ body {
   width: 0;
   transition: width 3s ease;
 }
-
-/* .bar:first-child{
-  animation: scrollBar 3s ease;
-}
-
-@keyframes scrollBar {
-  0%{
-    width: 0;
-  }
-
-  100%{
-    width: 90%;
-  }
-} */
 
 
 /* Utlities class */
