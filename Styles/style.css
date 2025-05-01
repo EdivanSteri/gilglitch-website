@@ -894,15 +894,17 @@ body {
   height: 60rem;
   width: 100%;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns:  1fr 1fr;
+  grid-template-rows: 1fr;
+  align-content: center;
+  justify-items: center;
 }
 
 .about_me_left,
 .about_me_right {
   height: 100%;
-  width: 50%;
+  width: 100%;
 
   display: flex;
 }
@@ -920,7 +922,7 @@ body {
   animation: float 2s infinite ease-in-out;
 }
 
-.about_me_img_wrapper img {
+.about_me_image {
   /* elimina eventuali spazi bianchi sotto l’immagine */
   display: block;
   width: 55rem;
@@ -961,7 +963,7 @@ body {
   align-items: center;
   justify-content: center;
 
-  padding-right: 4.8rem;
+  padding-right: 12.8rem;
   gap: 10rem;
 }
 
@@ -1037,20 +1039,6 @@ body {
   width: 0;
   transition: width 3s ease;
 }
-
-/* .bar:first-child{
-  animation: scrollBar 3s ease;
-}
-
-@keyframes scrollBar {
-  0%{
-    width: 0;
-  }
-
-  100%{
-    width: 90%;
-  }
-} */
 
 
 /* Utlities class */
