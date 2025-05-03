@@ -895,7 +895,7 @@ body {
   width: 100%;
 
   display: grid;
-  grid-template-columns:  1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   align-content: center;
   justify-items: center;
@@ -918,7 +918,7 @@ body {
 
 .about_me_img_wrapper {
   position: relative;
- 
+
   animation: float 2s infinite ease-in-out;
 }
 
@@ -1040,6 +1040,275 @@ body {
   transition: width 3s ease;
 }
 
+/* work with me */
+.work_with_me_section {
+  padding: 0 19.6rem;
+}
+
+.work_with_me_container {
+  height: 60rem;
+  width: 90%;
+
+  /* centered horizontally*/
+  margin: 0 auto;
+}
+
+.work_with_me_content {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-columns: 45fr 55fr;
+  grid-template-rows: 1fr;
+
+  box-shadow: .5rem -.1rem 1.2rem .5rem #000;
+
+  position: relative;
+}
+/* 
+.work_me_content_left {
+  height: 100%;
+  width: 100%;
+
+  background-color: #4e0b69;
+  box-shadow: -.5rem -.1rem 1.2rem .5rem #000;
+} */
+
+.work_me_content_left {
+  height: 100%;
+  width: 45%;
+
+  background-color: #4e0b69;
+  box-shadow: -.5rem -.1rem 1.2rem .5rem #000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  transition: transform .8s ease;
+}
+
+
+.collab_sponsor_content_left,
+.commission_content_left {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+
+  padding: 0 6.4rem;
+}
+
+.collab_sponsor_content_left h2,
+.commission_content_left h2 {
+  color: #f6dcc5;
+}
+
+.collab_sponsor_content_left p,
+.commission_content_left p {
+  color: #fffcfc;
+
+  font-size: 2.4rem;
+  text-align: center;
+}
+
+.btn_go_to_commission_form,
+.btn_go_to_collab_sponsor_form {
+  background-color: #f1cfff;
+
+  border: none;
+  border-radius: 1.3rem;
+
+  font-size: 1.4rem;
+  font-weight: 500;
+  padding: 0.4rem 1.2rem;
+
+  transition: all .3s;
+}
+
+.btn_go_to_commission_form:hover,
+.btn_go_to_collab_sponsor_form:hover {
+  cursor: pointer;
+  background-color: #d9bae6;
+  color: #281606;
+}
+
+
+.collab_sponsor_content_right,
+.commission_content_right {
+  height: 100%;
+  width: 100%;
+
+  box-shadow: .5rem -.1rem 1.2rem .5rem #4e0b69;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  padding: 0 1.2rem;
+}
+
+.collab_sponsor_content_right { 
+  grid-area: 1 / 2 / 2 / 3;
+  opacity: 100%;
+}
+
+.commission_content_right {
+  grid-area: 1 / 1 / 2 / 2;
+  opacity: 0;
+  z-index: -1;
+}
+
+.collab_sponsor_content_right h2,
+.commission_content_right h2 {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form h3 {
+  font-size: 3.6rem;
+  font-weight: 500;
+}
+
+.form_inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form_inputs input:not([type="radio"]),
+.form_inputs select {
+  padding: 0.4rem 1.2rem;
+  font-size: 2.4rem;
+  border-radius: .9rem;
+
+  color: #4e0b69;
+
+  border: none;
+  box-shadow: 0 0 0 .1rem #835496;
+
+  transition: all 0.3s;
+}
+
+/* Colore grigio (placeholder) */
+.form_inputs select {
+  color: #757575;
+}
+
+/* Colore viola per tutte le altre, indipendentemente dallo stato di selezione */
+.form_inputs select:valid {
+  color: #4e0b69;
+}
+
+.form_inputs input[type="number"],
+.form_inputs input[type="date"] {
+  font-size: 1.6rem;
+}
+
+.form_inputs input:focus {
+  border: transparent;
+  outline: none;
+  box-shadow: 0 0 0 .2rem #4e0b69;
+}
+
+.form_inputs input:focus::placeholder {
+  color: #602378;
+}
+
+
+.input_type_collab,
+.input_type_commssion,
+.input_size {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 2.4rem;
+
+  padding-top: 1.2rem;
+}
+
+.input_type_collab p,
+.input_type_commssion p,
+.input_size p {
+  font-size: 2.4rem;
+}
+
+.input_type_collab label,
+.input_type_commssion label,
+.input_size label {
+  font-size: 1.8rem;
+}
+
+.input_radio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.date_range {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.date_range p {
+  font-size: 2.4rem;
+}
+
+.budjet {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.budjet p {
+  font-size: 2.4rem;
+}
+
+.btn_submit {
+  font-size: 1.8rem;
+
+  background-color: #4e0b69;
+  color: #f1cfff;
+
+  border: none;
+  border-radius: 1.5rem;
+
+  padding: 0.4rem 2.4rem;
+
+  transition: all 0.3s;
+}
+
+.btn_submit_collab_sponsor {
+  align-self: end;
+}
+
+.btn_submit_commission {
+  align-self: start;
+}
+
+.btn_submit:hover {
+  cursor: pointer;
+
+  background-color: #d9bae6;
+  color: #281606;
+}
 
 /* Utlities class */
 .u-hide {
