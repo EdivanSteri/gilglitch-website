@@ -971,10 +971,18 @@ window.addEventListener("resize", () => {
   setupHeaderObserver();
 });
 
+// Smooth scroll to section
+const ctaToFormBtn = document.querySelector(".cta_to_form");
+ctaToFormBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+  const href = e.target.getAttribute("href");
+  document.querySelector(href).scrollIntoView({ behavior: "smooth" });
+});
+
 // section fade entry
 const allSectionToFade = document.querySelectorAll(".section_to_fade");
 
-const sectionFadeAnimation = function (entries, observe) {
+const sectionFadeAnimation = function (entries) {
   entries.forEach((entry) => {
     if (!entry.isIntersecting) return;
 
@@ -1147,7 +1155,6 @@ const setSkillsBarsWidthAndStyleTransition = function (
   isIntersecting
 ) {
   barsEl.forEach((el) => {
-    console.log(el, el.dataset.width);
     el.style.transitionDuration = `${transitionDuration}s`;
     el.style.width = `${isIntersecting ? el.dataset.width + "%" : 0}`;
   });
@@ -1172,6 +1179,72 @@ const skillsObserver = new IntersectionObserver(setSkillsBarsAnimation, {
 
 const section5 = document.querySelector("#section__6");
 skillsObserver.observe(section5);
+
+/* work with me section */
+const goToCommissionFormBtn = document.querySelector(
+  ".btn_go_to_commission_form"
+);
+const goToCollabSponsorFormBtn = document.querySelector(
+  ".btn_go_to_collab_sponsor_form"
+);
+const workWithMeContentEl = document.querySelector(".work_with_me_content");
+const workMeContentLeftEl = document.querySelector(".work_me_content_left");
+const collabSponsorContentLeft = document.querySelector(
+  ".collab_sponsor_content_left"
+);
+const commissionContentLeft = document.querySelector(
+  ".commission_content_left"
+);
+const collabSponsorContentRight = document.querySelector(
+  ".collab_sponsor_content_right"
+);
+const commissionContentRight = document.querySelector(
+  ".commission_content_right"
+);
+
+goToCommissionFormBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  workMeContentLeftEl.style.transform = "translateX(123%)";
+
+  workWithMeContentEl.style.gridTemplateColumns = "55fr 45fr";
+  workWithMeContentEl.style.gridTemplateRows = "1fr";
+
+  collabSponsorContentLeft.classList.toggle("u-hide");
+  commissionContentLeft.classList.toggle("u-hide");
+
+  collabSponsorContentRight.style.transition = "opacity 0s";
+  collabSponsorContentRight.style.transitionDelay = "0";
+  collabSponsorContentRight.style.opacity = "0";
+  collabSponsorContentRight.style.zIndex = -1;
+
+  commissionContentRight.style.transition = "opacity .8s";
+  commissionContentRight.style.transitionDelay = ".5s";
+  commissionContentRight.style.opacity = "100%";
+  commissionContentRight.style.zIndex = 1;
+});
+
+goToCollabSponsorFormBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  workMeContentLeftEl.style.transform = "translateX(0)";
+
+  workWithMeContentEl.style.gridTemplateColumns = "45fr 55fr";
+  workWithMeContentEl.style.gridTemplateRows = "1fr";
+
+  commissionContentLeft.classList.toggle("u-hide");
+  collabSponsorContentLeft.classList.toggle("u-hide");
+
+  collabSponsorContentRight.style.transition = "opacity .8s";
+  collabSponsorContentRight.style.transitionDelay = ".5s";
+  collabSponsorContentRight.style.opacity = "100%";
+  collabSponsorContentRight.style.zIndex = 1;
+
+  commissionContentRight.style.transition = "opacity 0s";
+  commissionContentRight.style.transitionDelay = "0";
+  commissionContentRight.style.opacity = "0";
+  commissionContentRight.style.zIndex = -1;
+});
 
 /* main */
 displayGalleryImgs(artPieces);
