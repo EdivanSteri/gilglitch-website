@@ -444,8 +444,8 @@
     <!-- work with me section -->
     <section class="work_with_me_section section_to_fade u-mb-1-9-6" id="section__7">
       <div class="work_with_me_container">
-        <div class="work_with_me_content">
-          <div class="work_me_content_left">
+        <div class="work_with_me_content mode_collab_sponsor-work_me_content">
+          <div class="work_me_content_left mode_collab_sponsor-work_me_content_left">
             <div class="collab_sponsor_content_left">
               <h2 class="secondary_heading">Own a Piece of Art</h2>
               <p>
@@ -453,7 +453,7 @@
                 <strong><i>GilGlitch</i></strong>.</br>
                 Let your space tell a unique story.
               </p>
-              <button class="btn_go_to_commission_form">View Art Commissions</button>
+              <button class="btn_slide_effect btn_go_to_commission_form">View Art Commissions</button>
             </div>
             <div class="commission_content_left u-hide">
               <h2 class="secondary_heading">Let's Collaborate</h2>
@@ -461,10 +461,10 @@
                 Partner with GilGlitch to create innovative and inspiring projects.</br>
                 Join forces to push creative boundaries.
               </p>
-              <button class="btn_go_to_collab_sponsor_form">Switch to Custom Art Options</button>
+              <button class="btn_slide_effect btn_go_to_collab_sponsor_form">Switch to Custom Art Options</button>
             </div>
           </div>
-          <div class="collab_sponsor_content_right">
+          <div class="collab_sponsor_content_right mode_collab_sponsor-collab_sponsor_content_right">
             <h2 class="secondary_heading">Sponsorship / Collab Inquiry</h2>
             <form class="form" action="#section__7">
               <div class="contact_info">
@@ -476,7 +476,7 @@
                 </div>
               </div>
               <div class="input_type_collab">
-                <p>In what form would you like to work with me?</p>                
+                <p>Form of the work?</p>                
                 <div class="input_radio">
                   <input type="radio" id="collaboration" name="form_of_work_with_me" value="collaboration" checked required/>
                   <label for="collaboration">Collaboration</label>            
@@ -499,8 +499,10 @@
                   <input type="text" placeholder="Describe your idea, goals, vibe, and how I can be involved" required>
                   <div class="date_range">
                     <p class="">Project period (start - end): </p>
-                    <input type="date" id="start_date" required>
-                    <input type="date" id="end_date" required>
+                    <div class="date_range_inputs">
+                      <input type="date" id="start_date" required>
+                      <input type="date" id="end_date" required>
+                    </div>
                   </div>
 
                   <div class="budjet u-hide">
@@ -528,7 +530,7 @@
               <button class="btn_submit btn_submit_collab_sponsor">Let’s Connect</button>
             </form>
           </div>
-          <div class="commission_content_right">
+          <div class="commission_content_right mode_collab_sponsor-commission_content-right">
             <h2 class="secondary_heading">Own a Piece of GilGlitch</h2>
             <form class="form" action="#section__7">
               <div class="contact_info">

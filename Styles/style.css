@@ -1058,21 +1058,13 @@ body {
   height: 100%;
 
   display: grid;
-  grid-template-columns: 45fr 55fr;
+
   grid-template-rows: 1fr;
 
   box-shadow: .5rem -.1rem 1.2rem .5rem #000;
 
   position: relative;
 }
-/* 
-.work_me_content_left {
-  height: 100%;
-  width: 100%;
-
-  background-color: #4e0b69;
-  box-shadow: -.5rem -.1rem 1.2rem .5rem #000;
-} */
 
 .work_me_content_left {
   height: 100%;
@@ -1093,7 +1085,6 @@ body {
 
   transition: transform .8s ease;
 }
-
 
 .collab_sponsor_content_left,
 .commission_content_left {
@@ -1149,8 +1140,6 @@ body {
   height: 100%;
   width: 100%;
 
-  box-shadow: .5rem -.1rem 1.2rem .5rem #4e0b69;
-
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -1158,15 +1147,12 @@ body {
   padding: 0 1.2rem;
 }
 
-.collab_sponsor_content_right { 
+.collab_sponsor_content_right {
   grid-area: 1 / 2 / 2 / 3;
-  opacity: 100%;
 }
 
 .commission_content_right {
   grid-area: 1 / 1 / 2 / 2;
-  opacity: 0;
-  z-index: -1;
 }
 
 .collab_sponsor_content_right h2,
@@ -1245,7 +1231,7 @@ body {
 .input_type_collab p,
 .input_type_commssion p,
 .input_size p {
-  font-size: 2.4rem;
+  font-size: 2rem;
 }
 
 .input_type_collab label,
@@ -1263,8 +1249,15 @@ body {
 
 .date_range {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: start;
   justify-content: space-between;
+}
+
+.date_range_inputs {
+  display: flex;
+  align-items: center;
+  justify-content: start;
 }
 
 .date_range p {
@@ -1308,6 +1301,54 @@ body {
 
   background-color: #d9bae6;
   color: #281606;
+}
+
+/* style when collab sponsor form is active */
+.mode_collab_sponsor-work_me_content {
+  grid-template-columns: 45fr 55fr;
+}
+
+.mode_collab_sponsor-work_me_content_left {
+  transition-duration: .8s;
+  transform: translateX(0);
+}
+
+.mode_collab_sponsor-collab_sponsor_content_right {
+  transition: opacity .8s;
+  transition-delay: .5s;
+  opacity: 100%;
+  z-index: 1;
+}
+
+.mode_collab_sponsor-commission_content-right {
+  transition: opacity 0s;
+  transition-delay: 0s;
+  opacity: 0;
+  z-index: -1;
+}
+
+/* style when commission form is active */
+.mode_commission-work_me_content {
+  grid-template-columns: 55fr 45fr;
+}
+
+.mode_commission-work_me_content_left {
+  transition-duration: .8s;
+  transform: translateX(123%);
+}
+
+.mode_commission-collab_sponsor_content_right {
+  transition: opacity 0s;
+  transition-delay: 0s;
+  opacity: 0;
+  z-index: -1;
+}
+
+.mode_commission-commission_content-right {
+  transition: opacity .8s;
+  transition-delay: .5s;
+  opacity: 100%;
+  z-index: 1;
 }
 
 /* Utlities class */

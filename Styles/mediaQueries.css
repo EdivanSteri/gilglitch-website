@@ -68,6 +68,13 @@
   .gallery_filter {
     font-size: 1.8rem;
   }
+
+
+  /* work with me section*/
+  .form_inputs input:not([type="radio"]),
+  .form_inputs select {
+    font-size: 1.8rem;
+  }
 }
 
 /* 
@@ -193,10 +200,47 @@
     font-size: 1.8rem;
     letter-spacing: .1rem;
   }
+
+  /* work with me section */
+  .form h3 {
+    font-size: 2.4rem;
+    font-weight: 500;
+  }
+
+  .form_inputs input:not([type="radio"]),
+  .form_inputs select {
+    font-size: 2rem;
+  }
+
+  .input_type_collab p,
+  .input_type_commssion p,
+  .input_size p {
+    font-size: 1.8rem;
+  }
+
+  .input_type_collab label,
+  .input_type_commssion label,
+  .input_size label {
+    font-size: 1.6rem;
+  }
+
+  .date_range p {
+    font-size: 2rem;
+  }
+
+  .budjet p {
+    font-size: 2rem;
+  }
+
+  /* work with me section*/
+  .form_inputs input:not([type="radio"]),
+  .form_inputs select {
+    font-size: 1.6rem;
+  }
 }
 
 /* 
-  Netbook / Laptop Piccolo (1376px -> 1376px/16 = 865em)
+  Netbook / Laptop Piccolo (1376px -> 1376px/16 = 86em)
 */
 @media (max-width: 86em) {
   .filter_item {
@@ -233,6 +277,49 @@
 
   .about_me_img_wrapper::after {
     width: 35rem;
+  }
+
+  /* work with me section */
+  .work_with_me_content {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 3.6rem;
+
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+
+  }
+
+  .work_me_content_left {
+    grid-column: 1;
+    grid-row: 2;
+
+    position: static;
+    width: 100%;
+    height: 25rem;
+
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 1);
+
+    transition: none;
+  }
+
+  .mode_commission-work_me_content_left {
+    transform: translateX(0);
+  }
+
+  .collab_sponsor_content_right,
+  .commission_content_right {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .input_type_collab p,
+  .input_type_commssion p,
+  .input_size p {
+    font-size: 1.6rem;
+  }
+
+  .btn_submit {
+    font-size: 1.4rem;
   }
 }
 
@@ -337,7 +424,7 @@
   }
 
   /* skills section */
-  .skills_section{
+  .skills_section {
     padding: 2.4rem 6.4rem;
   }
 
@@ -351,6 +438,15 @@
     font-size: 1.8rem;
   }
 
+  /* work me section */
+  .work_with_me_section {
+    padding: 0 12.8rem;
+  }
+
+  .form_inputs input:not([type="radio"]),
+  .form_inputs select {
+    font-size: 1.4rem;
+  }
 }
 
 /* 
@@ -430,6 +526,16 @@
     height: 1rem;
     border-radius: 1rem;
   }
+
+  /* work me section */
+  .work_with_me_section {
+    padding: 0 4.8rem;
+  }
+
+  .collab_sponsor_content_left p,
+  .commission_content_left p {
+    font-size: 1.8rem;
+  }
 }
 
 /* 
@@ -459,5 +565,10 @@
   .description_inspiration p {
     font-size: 1.4rem;
     letter-spacing: .05rem;
+  }
+
+  /* work me section */
+  .work_with_me_section {
+    padding: 0 2.4rem;
   }
 }
