@@ -75,6 +75,20 @@
   .form_inputs select {
     font-size: 1.8rem;
   }
+
+  /* social section */
+  .follow_me {
+    font-size: 5.2rem;
+  }
+
+  .social_content {
+    font-size: 6.2rem;
+  }
+
+  .insta_logo {
+    width: 30rem;
+    height: 30rem
+  }
 }
 
 /* 
@@ -147,6 +161,20 @@
 
   .navbar_list {
     font-size: 1.8rem;
+  }
+
+  /* social section */
+  .follow_me {
+    font-size: 4.4rem;
+  }
+
+  .social_content {
+    font-size: 5.2rem;
+  }
+
+  .insta_logo {
+    width: 25rem;
+    height: 25rem
   }
 }
 
@@ -321,6 +349,21 @@
   .btn_submit {
     font-size: 1.4rem;
   }
+
+  /* social section */
+  .follow_me {
+    font-size: 3.6rem;
+  }
+
+  .social_content {
+    height: 10rem;
+    font-size: 4.4rem;
+  }
+
+  .insta_logo {
+    width: 15rem;
+    height: 15rem
+  }
 }
 
 /* 
@@ -372,6 +415,21 @@
 
   .description_inspiration {
     padding: 7.4rem;
+  }
+
+  /* social section */
+  .follow_me {
+    font-size: 3rem;
+  }
+
+  .social_content {
+    height: 7rem;
+    font-size: 3.6rem;
+  }
+
+  .insta_logo {
+    width: 12rem;
+    height: 12rem
   }
 }
 
@@ -446,6 +504,26 @@
   .form_inputs input:not([type="radio"]),
   .form_inputs select {
     font-size: 1.4rem;
+  }
+
+  /* social section */
+  .social_section {
+    padding: 0 12.8rem;
+  }
+
+  .follow_me {
+    font-size: 2.4rem;
+  }
+
+  .social_content {
+    height: 5rem;
+    font-size: 2.4rem;
+  }
+
+  .insta_logo {
+    width: 10rem;
+    height: 10rem;
+    border-width: .5rem;
   }
 }
 
@@ -536,6 +614,19 @@
   .commission_content_left p {
     font-size: 1.8rem;
   }
+
+  /* social section */
+  .social_section {
+    padding: 0 9.6rem;
+  }
+
+  .follow_me {
+    font-size: 2rem;
+  }
+
+  .social_content {
+    font-size: 2rem;
+  }
 }
 
 /* 
@@ -570,5 +661,18 @@
   /* work me section */
   .work_with_me_section {
     padding: 0 2.4rem;
+  }
+
+  /* social section */
+  .social_section {
+    padding: 0 2.4rem;
+  }
+
+  .follow_me {
+    font-size: 1.8rem;
+  }
+
+  .social_content {
+    font-size: 1.8rem;
   }
 }
