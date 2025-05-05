@@ -67,6 +67,8 @@ const commissionContentRight = document.querySelector(
 );
 const slideEffectBtns = document.querySelectorAll(".btn_slide_effect");
 
+const footerEl = document.querySelector(".footer");
+
 // Variabile per gestire il timer dell'hover sui link della navbar
 let hideTimer;
 // variabile che contiene le info dei disegni da poter inserirli dinamicamente
@@ -900,11 +902,11 @@ document.addEventListener("keydown", (e) => {
 /////////////////////////////////////////////////////////////////
 /* smooth scroll*/
 
-// scrool smooth per i link della navbar, delegazione degli eventi
-navbarListEl.addEventListener("click", function (e) {
+const scrollToSection = function (e) {
   e.preventDefault();
 
-  const link = e.target.closest(".navbar_item");
+  console.log(this);
+  const link = e.target.closest(`.${this}`);
 
   if (!link) return;
 
@@ -921,7 +923,11 @@ navbarListEl.addEventListener("click", function (e) {
 
     sectionToScroll?.scrollIntoView({ behavior: "smooth" });
   }
-});
+};
+
+// scrool smooth per i link della navbar e del, delegazione degli eventi
+navbarListEl.addEventListener("click", scrollToSection.bind("navbar_item"));
+footerEl.addEventListener("click", scrollToSection.bind("link_ft_to-sc"));
 
 scrollToGalleryBtns.forEach((btn) => {
   btn.addEventListener("click", function (e) {
