@@ -51,6 +51,22 @@ const section4 = document.querySelector("#section__4");
 
 const barsEl = document.querySelectorAll(".bar");
 
+const workWithMeContentEl = document.querySelector(".work_with_me_content");
+const workMeContentLeftEl = document.querySelector(".work_me_content_left");
+const collabSponsorContentLeft = document.querySelector(
+  ".collab_sponsor_content_left"
+);
+const commissionContentLeft = document.querySelector(
+  ".commission_content_left"
+);
+const collabSponsorContentRight = document.querySelector(
+  ".collab_sponsor_content_right"
+);
+const commissionContentRight = document.querySelector(
+  ".commission_content_right"
+);
+const slideEffectBtns = document.querySelectorAll(".btn_slide_effect");
+
 // Variabile per gestire il timer dell'hover sui link della navbar
 let hideTimer;
 // variabile che contiene le info dei disegni da poter inserirli dinamicamente
@@ -1181,69 +1197,45 @@ const section5 = document.querySelector("#section__6");
 skillsObserver.observe(section5);
 
 /* work with me section */
-const goToCommissionFormBtn = document.querySelector(
-  ".btn_go_to_commission_form"
-);
-const goToCollabSponsorFormBtn = document.querySelector(
-  ".btn_go_to_collab_sponsor_form"
-);
-const workWithMeContentEl = document.querySelector(".work_with_me_content");
-const workMeContentLeftEl = document.querySelector(".work_me_content_left");
-const collabSponsorContentLeft = document.querySelector(
-  ".collab_sponsor_content_left"
-);
-const commissionContentLeft = document.querySelector(
-  ".commission_content_left"
-);
-const collabSponsorContentRight = document.querySelector(
-  ".collab_sponsor_content_right"
-);
-const commissionContentRight = document.querySelector(
-  ".commission_content_right"
-);
+const updateStyleToEffectSlideOnform = function () {
+  // work with me content left
+  workMeContentLeftEl.classList.toggle(
+    "mode_collab_sponsor-work_me_content_left"
+  );
+  workMeContentLeftEl.classList.toggle("mode_commission-work_me_content_left");
 
-goToCommissionFormBtn.addEventListener("click", function (e) {
-  e.preventDefault();
-
-  workMeContentLeftEl.style.transform = "translateX(123%)";
-
-  workWithMeContentEl.style.gridTemplateColumns = "55fr 45fr";
-  workWithMeContentEl.style.gridTemplateRows = "1fr";
-
-  collabSponsorContentLeft.classList.toggle("u-hide");
-  commissionContentLeft.classList.toggle("u-hide");
-
-  collabSponsorContentRight.style.transition = "opacity 0s";
-  collabSponsorContentRight.style.transitionDelay = "0";
-  collabSponsorContentRight.style.opacity = "0";
-  collabSponsorContentRight.style.zIndex = -1;
-
-  commissionContentRight.style.transition = "opacity .8s";
-  commissionContentRight.style.transitionDelay = ".5s";
-  commissionContentRight.style.opacity = "100%";
-  commissionContentRight.style.zIndex = 1;
-});
-
-goToCollabSponsorFormBtn.addEventListener("click", function (e) {
-  e.preventDefault();
-
-  workMeContentLeftEl.style.transform = "translateX(0)";
-
-  workWithMeContentEl.style.gridTemplateColumns = "45fr 55fr";
-  workWithMeContentEl.style.gridTemplateRows = "1fr";
+  // wor with me content
+  workWithMeContentEl.classList.toggle("mode_collab_sponsor-work_me_content");
+  workWithMeContentEl.classList.toggle("mode_commission-work_me_content");
 
   commissionContentLeft.classList.toggle("u-hide");
   collabSponsorContentLeft.classList.toggle("u-hide");
 
-  collabSponsorContentRight.style.transition = "opacity .8s";
-  collabSponsorContentRight.style.transitionDelay = ".5s";
-  collabSponsorContentRight.style.opacity = "100%";
-  collabSponsorContentRight.style.zIndex = 1;
+  // collab sponsor content right
+  collabSponsorContentRight.classList.toggle(
+    "mode_collab_sponsor-collab_sponsor_content_right"
+  );
+  collabSponsorContentRight.classList.toggle(
+    "mode_commission-collab_sponsor_content_right"
+  );
 
-  commissionContentRight.style.transition = "opacity 0s";
-  commissionContentRight.style.transitionDelay = "0";
-  commissionContentRight.style.opacity = "0";
-  commissionContentRight.style.zIndex = -1;
+  // commission content right
+  commissionContentRight.classList.toggle(
+    "mode_collab_sponsor-commission_content-right"
+  );
+  commissionContentRight.classList.toggle(
+    "mode_commission-commission_content-right"
+  );
+};
+
+const handleSlideEffect = function (e) {
+  console.log(e.target);
+  e.preventDefault();
+  updateStyleToEffectSlideOnform();
+};
+
+slideEffectBtns.forEach((btn) => {
+  btn.addEventListener("click", handleSlideEffect);
 });
 
 /* main */
