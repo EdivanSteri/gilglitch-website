@@ -886,9 +886,7 @@ body {
 }
 
 .about_me_content {
-  margin-top: 3.2rem;
-
-  height: 60rem;
+  height: 50rem;
   width: 100%;
 
   display: grid;
@@ -1537,6 +1535,10 @@ body {
 .footer_icon {
   height: 3rem;
   width: 3rem;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   transition: text-decoration .3s;
 }
@@ -1553,6 +1555,10 @@ body {
 
 .u-mb-1-9-6 {
   margin-bottom: 19.6rem;
+}
+
+.u-mb-1-2-8 {
+  margin-bottom: 12.8rem;
 }
 
 .section--hide {

@@ -77,6 +77,10 @@
   }
 
   /* social section */
+  .social_container {
+    height: 30rem;
+  }
+
   .follow_me {
     font-size: 5.2rem;
   }
@@ -116,6 +120,10 @@
   }
 
   /* about me section */
+  .about_me_content {
+    height: 55rem;
+  }
+
   .about_me_image {
     width: 40rem;
   }
@@ -188,6 +196,11 @@
   }
 
   /* social section */
+
+  .social_container {
+    height: 25rem;
+  }
+
   .follow_me {
     font-size: 4.4rem;
   }
@@ -413,6 +426,10 @@
   }
 
   /* social section */
+  .social_container {
+    height: 20rem;
+  }
+
   .follow_me {
     font-size: 3.6rem;
   }
@@ -530,6 +547,10 @@
   }
 
   /* social section */
+  .social_container {
+    height: 15rem;
+  }
+
   .follow_me {
     font-size: 3rem;
   }
