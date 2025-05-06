@@ -712,6 +712,10 @@ body {
 .slide_icon {
   color: #F1C7A2;
   font-size: 4.8rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .collab_content {

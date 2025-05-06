@@ -195,8 +195,21 @@
     font-size: 1.8rem;
   }
 
-  /* social section */
+  /* collab section */
+  .art_work_description {
+    font-size: 1.8rem;
+  }
 
+  .collaborators_info p {
+    font-size: 2.4rem;
+  }
+
+  .collaborators_social img {
+    height: 2.4rem;
+    width: 2.4rem;
+  }
+
+  /* social section */
   .social_container {
     height: 25rem;
   }
@@ -373,6 +386,35 @@
     padding: 8rem;
   }
 
+  /* collab section */
+  .art_work_description {
+    font-size: 1.4rem;
+    padding: 0 1.2rem;
+  }
+
+  .collaborators_info p {
+    font-size: 2rem;
+  }
+
+  .collaborators_social img {
+    height: 1.8rem;
+    width: 1.8rem;
+  }
+
+  .collaborators_img {
+    height: 12rem;
+    width: 12rem;
+  }
+
+  .slide_left_btn {
+    left: 2%;
+  }
+  
+  .slide_right_btn {
+    right: 2%;
+  }
+  
+
   /* about me section */
   .about_me_image {
     width: 30rem;
@@ -511,6 +553,38 @@
   .list_footer {
     gap: 1.4rem;
   }
+
+  /* collab section */
+  .collab_content {
+    flex-direction: column-reverse;
+  }
+
+  .art_work_img,
+  .art_work_details {
+    width: 100%;
+  }
+
+  .art_work_details {
+    height: 65%;
+  }
+
+  .collaborators_info {
+    align-items: end;
+    padding-right: 1rem;
+  }
+
+  .art_work_img {
+    height: 35%;
+    width: 100%;
+  }
+
+  .img_background_collaborators_info {
+    display: none;
+  }
+
+  .slide_icon {
+    font-size: 2.4rem;
+  }
 }
 
 
@@ -544,6 +618,11 @@
 
   .description_inspiration {
     padding: 7.4rem;
+  }
+
+  /* collab section */
+  .collab_section {
+    padding: 0 12.8rem;
   }
 
   /* social section */
@@ -612,6 +691,16 @@
   /* music inspiration */
   .description_inspiration {
     padding: 3.6rem;
+  }
+
+  /* collab section */
+  .collab_section {
+    padding: 0 9.6rem;
+  }
+
+  .collaborators_img {
+    height: 10rem;
+    width: 10rem;
   }
 
   /* about me section */
@@ -731,6 +820,17 @@
     padding: 2.4rem;
   }
 
+  /* collab section */
+  .collab_section {
+    padding: 0 8rem;
+  }
+
+  .collaborators_img {
+    height: 7rem;
+    width: 7rem;
+  }
+
+
   /* about me section */
   .about_me_image {
     width: 15rem;
@@ -759,6 +859,11 @@
   .collab_sponsor_content_left p,
   .commission_content_left p {
     font-size: 1.8rem;
+  }
+
+  .collaborators_img {
+    height: 6.5rem;
+    width: 6.5rem;
   }
 
   /* social section */
@@ -812,6 +917,24 @@
   .description_inspiration p {
     font-size: 1.4rem;
     letter-spacing: .05rem;
+  }
+
+  /* collab section */
+  .collab_section {
+    padding: 0 2.4rem;
+  }
+
+  .collaborators_img {
+    height: 6rem;
+    width: 6rem;
+  }
+
+  .collaborators_info {
+    gap: 0;
+  }
+
+  .slide_icon {
+    font-size: 2rem;
   }
 
   /* work me section */
