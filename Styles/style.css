@@ -1504,16 +1504,45 @@ body {
   gap: 2.4rem;
 }
 
+
 .link_footer:link,
-.link_footer:visited {
+.link_footer:visited,
+.link_with_icon:link,
+.link_with_icon:visited {
   color: #F6DCC5;
 
-  transition: cursor .3s, text-decoration .3s;
+  transition: all .3s;
+}
+
+.link_footer:active,
+.link_footer:hover,
+.link_with_icon:link,
+.link_with_icon:visited {
+  cursor: pointer;
 }
 
 .link_footer:active,
 .link_footer:hover {
-  cursor: pointer;
+  text-decoration: underline;
+}
+
+.link_with_icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: .4rem;
+}
+
+.footer_icon {
+  height: 3rem;
+  width: 3rem;
+
+  transition: text-decoration .3s;
+}
+
+.tag_insta:hover,
+.tag_email:hover {
   text-decoration: underline;
 }
 

@@ -1202,6 +1202,7 @@ const skillsObserver = new IntersectionObserver(setSkillsBarsAnimation, {
 const section5 = document.querySelector("#section__6");
 skillsObserver.observe(section5);
 
+///////////////////////////////////////////////////////////////////////////////////
 /* work with me section */
 const updateStyleToEffectSlideOnform = function () {
   // work with me content left

@@ -89,6 +89,15 @@
     width: 30rem;
     height: 30rem
   }
+
+  /* footer */
+  .footer {
+    font-size: 2rem;
+  }
+
+  .footer_slogan {
+    font-size: 1.8rem;
+  }
 }
 
 /* 
@@ -129,6 +138,21 @@
 
   .about_me_info ul li:not(:first-child) {
     padding-left: 1rem;
+  }
+
+  /* footer */
+  .footer__1,
+  .footer__2,
+  .footer__3 {
+    padding: 1.2rem 8rem;
+  }
+
+  .footer__2::before,
+  .footer__3::before {
+    /* escludi il padding sinistro */
+    left: 8rem;
+    /* escludi il padding destro */
+    right: 8rem;
   }
 }
 
@@ -175,6 +199,21 @@
   .insta_logo {
     width: 25rem;
     height: 25rem
+  }
+
+  /* footer */
+  .footer__1,
+  .footer__2,
+  .footer__3 {
+    padding: 1.2rem 7.2rem;
+  }
+
+  .footer__2::before,
+  .footer__3::before {
+    /* escludi il padding sinistro */
+    left: 7.2rem;
+    /* escludi il padding destro */
+    right: 7.2rem;
   }
 }
 
@@ -263,6 +302,29 @@
   /* work with me section*/
   .form_inputs input:not([type="radio"]),
   .form_inputs select {
+    font-size: 1.6rem;
+  }
+
+  /* footer */
+  .footer {
+    font-size: 1.8rem;
+  }
+
+  .footer__1,
+  .footer__2,
+  .footer__3 {
+    padding: 1.2rem 3.2rem;
+  }
+
+  .footer__2::before,
+  .footer__3::before {
+    /* escludi il padding sinistro */
+    left: 3.2rem;
+    /* escludi il padding destro */
+    right: 3.2rem;
+  }
+
+  .footer_slogan {
     font-size: 1.6rem;
   }
 }
@@ -364,6 +426,33 @@
     width: 15rem;
     height: 15rem
   }
+
+  /* footer */
+  .footer {
+    font-size: 1.6rem;
+  }
+
+  .footer__1,
+  .footer__2,
+  .footer__3 {
+    padding: 1.2rem 2.4rem;
+  }
+
+  .footer__2::before,
+  .footer__3::before {
+    /* escludi il padding sinistro */
+    left: 2.4rem;
+    /* escludi il padding destro */
+    right: 2.4rem;
+  }
+
+  .list_footer {
+    gap: 1.8rem;
+  }
+
+  .footer_slogan {
+    font-size: 1.4rem;
+  }
 }
 
 /* 
@@ -381,6 +470,29 @@
     grid-row: 1;
     padding: 0 6.4rem;
     gap: 5rem;
+  }
+
+  /* footer */
+  .footer {
+    font-size: 1.6rem;
+  }
+
+  .footer__1,
+  .footer__2,
+  .footer__3 {
+    padding: 1.2rem 1.8rem;
+  }
+
+  .footer__2::before,
+  .footer__3::before {
+    /* escludi il padding sinistro */
+    left: 1.8rem;
+    /* escludi il padding destro */
+    right: 1.8rem;
+  }
+
+  .list_footer {
+    gap: 1.4rem;
   }
 }
 
@@ -430,6 +542,19 @@
   .insta_logo {
     width: 12rem;
     height: 12rem
+  }
+
+  /* footer */
+  .footer {
+    font-size: 1.4rem;
+  }
+
+  .list_footer {
+    gap: 1.4rem;
+  }
+
+  .footer_slogan {
+    font-size: 1.2rem;
   }
 }
 
@@ -626,6 +751,16 @@
 
   .social_content {
     font-size: 2rem;
+  }
+
+  /* footer */
+  .links_ft_to-sc>li:not(:first-of-type) {
+    display: none;
+  }
+
+  .tag_insta,
+  .tag_email {
+    display: none;
   }
 }
 
