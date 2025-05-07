@@ -13,6 +13,8 @@ const section2 = document.querySelector("#section__2");
 const section3 = document.querySelector("#section__3");
 const section4 = document.querySelector("#section__4");
 
+const allSectionToFade = document.querySelectorAll(".section_to_fade");
+
 /* header section*/
 const scrollToGalleryCtaBtn = document.querySelector(".scroll_to_gallery");
 
@@ -27,9 +29,11 @@ const navbarIconEl = document.querySelectorAll(".nav_icon");
 const hamburgherIconEl = document.querySelector(".hamburgher_icon");
 const closeIconEl = document.querySelector(".close_icon");
 
+const navbarDropdownTriggers = document.querySelectorAll(
+  ".navbar_dropdown_trigger"
+);
 const inspirationsItemBtn = document.querySelector(".inspirations_item");
 const collaborationsItemBtn = document.querySelector(".collaborations_item");
-
 const menuInspirationsEl = document.querySelector(".menu_inspirations");
 const menuCollaborations = document.querySelector(".menu_collaborations");
 
@@ -93,104 +97,6 @@ const slideEffectBtns = document.querySelectorAll(".btn_slide_effect");
 const footerEl = document.querySelector(".footer");
 
 // Functions
-// Funzione per mostrare il menu
-const showMenu = function (menu, menuToHide) {
-  clearTimeout(hideTimer);
-  menu.style.display = "block";
-  menuToHide.style.display = "none";
-};
-
-// Funzione che verifica se il mouse esce sia dal link che dal menu e nasconde il menu dopo un breve ritardo
-function hideMenu(link, menu) {
-  clearTimeout(hideTimer);
-  hideTimer = setTimeout(() => {
-    if (!link.matches(":hover") && !menu.matches(":hover")) {
-      menu.style.display = "none";
-    }
-  }, 100);
-}
-
-// funciton to display gallery images
-const displayGalleryImgs = function (artPieces, removeLazy = false) {
-  containerGalleryImgs.innerHTML = "";
-
-  const lazyClass = removeLazy ? "" : "lazy_img";
-  const html = artPieces.map((art) => {
-    return `<div class="img_wrapper">
-      <img
-        class="image_${art.id} ${lazyClass}"
-        id="${art.id}"
-        src="${art.src}"
-        data-src="${art.dataSrc}"
-        alt="${art.title}"
-      />
-    </div>`;
-  });
-
-  containerGalleryImgs.insertAdjacentHTML("afterbegin", [html.join("")]);
-};
-
-// lazy loading gallery images
-window.addEventListener("DOMContentLoaded", () => {
-  const imgaesLazy = document.querySelectorAll("img[data-src]");
-
-  const lazyLoading = function (entries, observer) {
-    const [entry] = entries;
-
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-
-      const img = entry.target;
-
-      // Sostituisci il src con data-src se l'immagine è visibile
-      if (!loadedImages.includes(artPieces.find((a) => a.id === +img.id))) {
-        // Replace src with data-src
-        img.src = img.dataset.src;
-
-        img.addEventListener("load", function () {
-          img.classList.remove("lazy_img");
-
-          img.addEventListener("mouseenter", function () {
-            img.style.transform = "transform: scale(1.1)";
-          });
-
-          // Se l'immagine è già caricata (nel caso in cui sia già presente nel cache)
-          if (img.complete) {
-            // aggiungo l'hover all'immagine che la ingradisca: transform: scale(1.1)
-            img.classList.add("loaded");
-          }
-
-          loadedImages.push(artPieces.find((a) => a.id === +img.id));
-        });
-      }
-    });
-
-    observer.unobserve(entry.target);
-  };
-
-  const lazyLoadingObserver = new IntersectionObserver(lazyLoading, {
-    root: containerGalleryImgs,
-    threshold: 0,
-    rootMargin: "-50px",
-  });
-
-  // resto del codice qui dentro
-  imgaesLazy.forEach((img) => {
-    lazyLoadingObserver.observe(img);
-  });
-});
-
-// function to display Artists Filter Menu
-const displayArtistsFilterMenu = function () {
-  containerAtistFilterList.innerHTML =
-    '<li class="artist_link">All Artists</li>';
-
-  const html = artistsList.map((art) => {
-    return `<li class=\"artist_link\">${art}</li>`;
-  });
-
-  containerAtistFilterList.insertAdjacentHTML("beforeend", [html.join("")]);
-};
 
 // aprire il menu navbar in modalità responsiva
 navbarIconEl.forEach((iconEl) => {
@@ -238,75 +144,8 @@ const createModalContainer = function (idImage) {
   dateModalEl.textContent = `${objImage.date}`;
 };
 
-// function to fade animation
-const handHover = function (e) {
-  e.preventDefault();
-  if (e.target.classList.contains("navbar_item")) {
-    const link = e.target;
-    const allLinks = link.closest(".navbar").querySelectorAll(".navbar_item");
-
-    console.log(link.classList);
-    allLinks.forEach((l) => {
-      // le classi “speciali” da gestire diversamente
-      const specialClasses = ["inspirations_item", "collaborations_item"];
-      // qual è (se c’è) la classe speciale applicata al link corrente
-      const currentSpecial = specialClasses.find((c) =>
-        link.classList.contains(c)
-      );
-
-      if (l !== link) {
-        if (currentSpecial) {
-          // se siamo su un link “speciale”, escludi menu_link e gli altri con la stessa classe
-          if (
-            !l.classList.contains("menu_link") &&
-            !l.classList.contains(currentSpecial)
-          ) {
-            l.style.opacity = this;
-          }
-        } else {
-          // altrimenti (link normale), applica l’opacità a tutti gli altri
-          l.style.opacity = this;
-        }
-      }
-    });
-  }
-};
-
 //////////////////////////////////////////
 // Event listner
-// Fade menu animation
-navbarListEl.addEventListener("mouseover", handHover.bind(0.5));
-navbarListEl.addEventListener("mouseout", handHover.bind(1));
-
-// --- Gestione per il menu Inspirations ---
-// quando entri sul pulsante o sul menu, cancello il timer e mostro
-[inspirationsItemBtn, menuInspirationsEl].forEach((el) =>
-  el.addEventListener("mouseenter", () =>
-    showMenu(menuInspirationsEl, menuCollaborations)
-  )
-);
-
-// quando esci dal pulsante o dal menu, avvio il timer di chiusura
-[inspirationsItemBtn, menuInspirationsEl].forEach((el) =>
-  el.addEventListener("mouseleave", () =>
-    hideMenu(inspirationsItemBtn, menuInspirationsEl)
-  )
-);
-
-// --- Gestione per il menu Collaborations ---
-// quando entri sul pulsante o sul menu, cancello il timer e mostro
-[collaborationsItemBtn, menuCollaborations].forEach((el) =>
-  el.addEventListener("mouseenter", () =>
-    showMenu(menuCollaborations, menuInspirationsEl)
-  )
-);
-
-// quando esci dal pulsante o dal menu, avvio il timer di chiusura
-[collaborationsItemBtn, menuCollaborations].forEach((el) =>
-  el.addEventListener("mouseleave", () =>
-    hideMenu(collaborationsItemBtn, menuCollaborations)
-  )
-);
 
 // Galery Filter by dates
 arrowDropDownIconPeriodEL.addEventListener("click", function () {
@@ -561,27 +400,6 @@ ctaToFormBtn.addEventListener("click", function (e) {
   document.querySelector(href).scrollIntoView({ behavior: "smooth" });
 });
 
-// section fade entry
-const allSectionToFade = document.querySelectorAll(".section_to_fade");
-
-const sectionFadeAnimation = function (entries) {
-  entries.forEach((entry) => {
-    if (!entry.isIntersecting) return;
-
-    entry.target.classList.remove("section--hide");
-  });
-};
-
-const sectionObserver = new IntersectionObserver(sectionFadeAnimation, {
-  root: null,
-  threshold: 0.2,
-});
-
-allSectionToFade.forEach((section) => {
-  sectionObserver.observe(section);
-  section.classList.add("section--hide");
-});
-
 //gallery response
 filterIconEl.addEventListener("click", function () {
   // Costruisco il contenuto HTML da inserire nel container
@@ -731,6 +549,7 @@ const slideObserver = new IntersectionObserver(slideWithArrwsKey, {
 
 slideObserver.observe(section4);
 
+///////////////////////////////////////////////////////////////////////////////////
 // skills bars
 const setSkillsBarsWidthAndStyleTransition = function (
   transitionDuration,
@@ -805,19 +624,50 @@ slideEffectBtns.forEach((btn) => {
   btn.addEventListener("click", handleSlideEffect);
 });
 
-// funzione che mi restituisce l'elenco dei cantanti univoci dall'array iniziale
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//
+/**
+ * funzione che restituisce l'elenco dei cantanti univoci dall'array iniziale
+ * @param {*} arr array da cui prendere i nomi corrispondenti ai cantanti
+ * @returns restituisce l'elenco dei cantanti univoci da arr
+ */
 const getArtistsFromArtPiecesArray = (arr) => [
   ...new Set(arr.flatMap((el) => el.artist)),
 ];
 
-// funzione che ordina un array per data  in modo descrescente
+/**
+ * funzione che ordina un array per data  in modo descrescente
+ * @param {*} arr array da ordinare
+ * @returns ritorna un array ordinato in modo decrescente
+ */
 const orderByDescendingDate = (arr) =>
   arr.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-// funzione che inizializza artPieces array with image in lazy format too
-const createArtPieces = function (arr) {
+/**
+ * crea un observer
+ * @param {*} funcitonEvent  funzione che l'observer dovrà eseguire
+ * @param {*} threshold      soglia da passare all'observer
+ * @param {*} root           root da passare all'observer, di solito è null
+ * @returns
+ */
+const createObserver = (funcitonEvent, threshold, root = null) =>
+  new IntersectionObserver(funcitonEvent, {
+    root: root,
+    threshold: threshold,
+  });
+
+/**
+ * Inizializza l’array di opere aggiungendo a ciascun elemento l’immagine in formato lazy.
+ * @param {Array<Object>} items Array di oggetti contenenti i dettagli delle opere (senza lazy-loading delle immagini).
+ * @returns {Array<Object>} Nuovo array di oggetti con il campo immagine impostato in lazy format.
+ */
+const createArtPieces = function (items) {
   // aggiungo le immagini lazy all'array
-  const artPiecesLazy = arr.map((item) => {
+  const artPiecesLazy = items.map((item) => {
     const originalSrc = item.src;
     // estraggo solo il file-name (anche se ci fossero '\' o '/')
     const fileName = originalSrc.replace(/^.*[\/\\]/, "");
@@ -844,11 +694,209 @@ const createArtPieces = function (arr) {
   return orderByDescendingDate(artPiecesLazy);
 };
 
+/**
+ * funzione per la gestione per il menu a tendina Inspirations e Collaborations della navbar
+ * allega l'evento hover dei link della navbar per mostrare il menu a tendina
+ *
+ * @param {HTMLElement} trigger           Elemento che apre il menu al passaggio del mouse.
+ * @param {HTMLElement} menu              Il menu a tendina da mostrare/nascondere.
+ * @param {HTMLElement} menuToHide  L'altro menu da nascondere quando apri questo.
+ * @param {number}     [delay=100]        Ritardo (ms) prima di nascondere.
+ */
+const attachNavbarDropdownHover = function (
+  trigger,
+  menu,
+  menuToHide,
+  delay = 100
+) {
+  // Variabile per gestire il timer dell'hover sui link della navbar
+  let hideTimer;
+
+  const show = () => {
+    clearTimeout(hideTimer);
+    menu.style.display = "block";
+    menuToHide.style.display = "none";
+  };
+
+  const scheduleHide = () => {
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => {
+      if (!trigger.matches(":hover") && !menu.matches(":hover")) {
+        menu.style.display = "none";
+      }
+    }, delay);
+  };
+
+  // quando entri su trigger o menu → mostra / annulla chiusura
+  [trigger, menu].forEach((el) => {
+    el.addEventListener("mouseenter", show);
+  });
+
+  // quando esci da trigger o menu → avvia timer di chiusura
+  [trigger, menu].forEach((el) => {
+    el.addEventListener("mouseleave", scheduleHide);
+  });
+};
+
+/**
+ * Applica un effetto di dissolvenza ai link della navbar non attivi quando si passa il mouse su uno di essi.
+ */
+const fadeOtherNavLinksOnHover = function () {
+  const handHover = function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains("navbar_item")) {
+      const link = e.target;
+      const allLinks = link.closest(".navbar").querySelectorAll(".navbar_item");
+
+      console.log(link.classList);
+      allLinks.forEach((l) => {
+        // le classi “speciali” da gestire diversamente
+        const specialClasses = ["inspirations_item", "collaborations_item"];
+        // qual è (se c’è) la classe speciale applicata al link corrente
+        const currentSpecial = specialClasses.find((c) =>
+          link.classList.contains(c)
+        );
+
+        if (l !== link) {
+          if (currentSpecial) {
+            // se siamo su un link “speciale”, escludi menu_link e gli altri con la stessa classe
+            if (
+              !l.classList.contains("menu_link") &&
+              !l.classList.contains(currentSpecial)
+            ) {
+              l.style.opacity = this;
+            }
+          } else {
+            // altrimenti (link normale), applica l’opacità a tutti gli altri
+            l.style.opacity = this;
+          }
+        }
+      });
+    }
+  };
+
+  // passo sopra il link col mouse
+  navbarListEl.addEventListener("mouseover", handHover.bind(0.5));
+  // tolgo il mouse da sopra il link
+  navbarListEl.addEventListener("mouseout", handHover.bind(1));
+};
+
+/**
+ * funzione che genra il markup per la visualizzazione della galleria dei disegni/immagini
+ * @param {Array<Object>} artPieces  array di oggetti con i dati inerenti a un disegno come path img, id, title etc.
+ * @param {boolean} removeLazy flag per capire se l'immagine è in modalità lazy o meno, inizialmente lo è
+ */
+const displayGalleryImgs = function (artPieces, removeLazy = false) {
+  containerGalleryImgs.innerHTML = "";
+
+  const lazyClass = removeLazy ? "" : "lazy_img";
+  const html = artPieces.map((art) => {
+    return `<div class="img_wrapper">
+      <img
+        class="image_${art.id} ${lazyClass}"
+        id="${art.id}"
+        src="${art.src}"
+        data-src="${art.dataSrc}"
+        alt="${art.title}"
+      />
+    </div>`;
+  });
+
+  containerGalleryImgs.insertAdjacentHTML("afterbegin", [html.join("")]);
+};
+
+/**
+ * funzione che genera il markup del menu a tendina del filtro per artisti
+ */
+const displayArtistsFilterMenu = function () {
+  containerAtistFilterList.innerHTML =
+    '<li class="artist_link">All Artists</li>';
+
+  const html = artistsList.map((art) => {
+    return `<li class=\"artist_link\">${art}</li>`;
+  });
+
+  containerAtistFilterList.insertAdjacentHTML("beforeend", [html.join("")]);
+};
+
+/**
+ * funciton to create lazy loading gallery images
+ */
+const lazyLoadingEvent = function () {
+  window.addEventListener("DOMContentLoaded", () => {
+    const imgaesLazy = document.querySelectorAll("img[data-src]");
+
+    const lazyLoading = function (entries, observer) {
+      const [entry] = entries;
+
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        const img = entry.target;
+
+        // Sostituisci il src con data-src se l'immagine è visibile
+        if (!loadedImages.includes(artPieces.find((a) => a.id === +img.id))) {
+          // Replace src with data-src
+          img.src = img.dataset.src;
+
+          img.addEventListener("load", function () {
+            img.classList.remove("lazy_img");
+
+            img.addEventListener("mouseenter", function () {
+              img.style.transform = "transform: scale(1.1)";
+            });
+
+            // Se l'immagine è già caricata (nel caso in cui sia già presente nel cache)
+            if (img.complete) {
+              // aggiungo l'hover all'immagine che la ingradisca: transform: scale(1.1)
+              img.classList.add("loaded");
+            }
+
+            loadedImages.push(artPieces.find((a) => a.id === +img.id));
+          });
+        }
+      });
+
+      observer.unobserve(entry.target);
+    };
+
+    const lazyLoadingObserver = new IntersectionObserver(lazyLoading, {
+      root: containerGalleryImgs,
+      threshold: 0,
+      rootMargin: "-50px",
+    });
+
+    // resto del codice qui dentro
+    imgaesLazy.forEach((img) => {
+      lazyLoadingObserver.observe(img);
+    });
+  });
+};
+
+/**
+ * funzione che crea l'effeto in entrata in dissolvenza delle sezioni
+ */
+const createSectionFadeEntryEffect = function () {
+  const sectionFadeAnimation = function (entries) {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+
+      entry.target.classList.remove("section--hide");
+    });
+  };
+
+  const sectionObserver = createObserver(sectionFadeAnimation, 0.2);
+
+  allSectionToFade.forEach((section) => {
+    sectionObserver.observe(section);
+    section.classList.add("section--hide");
+  });
+};
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /* main */
 
-/* variables */
-// variabile che contiene le info dei disegni da poter inserirli dinamicamente
+// variabili
 let artPiecesInitial = [
   {
     id: 1,
@@ -1354,13 +1402,28 @@ let artPiecesInitial = [
 const artPieces = createArtPieces(artPiecesInitial);
 const artistsList = getArtistsFromArtPiecesArray(artPieces);
 
-// Variabile per gestire il timer dell'hover sui link della navbar
-let hideTimer;
-
 // Variabile che salva le immagini(gli oggetti corrispondenti dell'array artPieces) caricate e non più lazy
 const loadedImages = [];
-// flag per evitare di registrare più volte l'evento delle lsider con le frecce della tastiera
+// flag per evitare di registrare più volte l'evento delle slider con le frecce della tastiera
 let arrowsSlideListenerActive = false;
+
+// chiamta delle funzioni
+lazyLoadingEvent();
+
+createSectionFadeEntryEffect();
+
+attachNavbarDropdownHover(
+  inspirationsItemBtn,
+  menuInspirationsEl,
+  menuCollaborations
+);
+attachNavbarDropdownHover(
+  collaborationsItemBtn,
+  menuCollaborations,
+  menuInspirationsEl
+);
+
+fadeOtherNavLinksOnHover();
 
 displayGalleryImgs(artPieces);
 displayArtistsFilterMenu();
