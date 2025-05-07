@@ -409,11 +409,11 @@
   .slide_left_btn {
     left: 2%;
   }
-  
+
   .slide_right_btn {
     right: 2%;
   }
-  
+
 
   /* about me section */
   .about_me_image {
@@ -799,12 +799,6 @@
 
   .gallery_imgs {
     grid-template-columns: 1fr;
-
-    /* display: flex;
-    align-items: center;
-    justify-content: space-between; */
-    overflow-y: hidden;
-    overflow-x: scroll;
   }
 
   .filter_content {

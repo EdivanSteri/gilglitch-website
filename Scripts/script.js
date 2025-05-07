@@ -869,6 +869,53 @@ containerAtistFilterList.addEventListener("click", function (e) {
   }
 });
 
+// Check largheza viewport per chiudere automaticamente un menu se si scende sotto quella larghezza
+// e chiuderne un altro se si supera invece
+//(1376px -> 1376px/16 = 86em)
+const mq = window.matchMedia("(max-width: 86em)");
+
+// Funzione per forzare la chiusura del menu
+const closeMenu = (
+  elToClose,
+  isResponsiveGalleryMenu = false,
+  filertIcon = undefined,
+  closeFilterMenuBtn = undefined
+) => {
+  // se il menu è aperto (non ha già la classe u-hide), nascondilo
+  if (!elToClose.classList.contains("u-hide")) {
+    elToClose.classList.add("u-hide");
+
+    if (
+      isResponsiveGalleryMenu &&
+      filertIcon !== undefined &&
+      closeFilterMenuBtn !== undefined
+    ) {
+      filertIcon.classList.toggle("u-hide");
+      closeFilterMenuBtn.classList.toggle("u-hide");
+    }
+  }
+};
+
+// 4. Listener che scatta quando lo stato della media query cambia
+mq.addEventListener("change", (e) => {
+  if (e.matches) {
+    // viewport sotto 86em
+    closeMenu(artistFilterWrapperEl);
+    closeMenu(dateFilterWrapperEl);
+  } else {
+    // viewport sopra 86em
+    closeMenu(containerFilterList, true, filterIconEl, closeFilterMenuBtn);
+  }
+});
+
+// Controllo iniziale al caricamento della pagina,
+// così se l'utente apre direttamente in mobilità il menu corrispettivo parte già chiuso
+if (mq.matches) {
+  closeMenu(artistFilterWrapperEl);
+  closeMenu(dateFilterWrapperEl);
+  closeMenu(containerFilterList, true, filterIconEl, closeFilterMenuBtn);
+}
+
 // funziona sia per la galleria impostata di default e anche quando viene applicato un filtro su di essa
 // delegazione eventi
 containerGalleryContent.addEventListener("click", function (e) {
