@@ -617,18 +617,20 @@ const artistsList = [...new Set(artPieces.flatMap((art) => art.artist))];
 
 // Functions
 // Funzione per mostrare il menu
-const showMenu = function (menu) {
+const showMenu = function (menu, menuToHide) {
   clearTimeout(hideTimer);
   menu.style.display = "block";
+  menuToHide.style.display = "none";
 };
 
 // Funzione che verifica se il mouse esce sia dal link che dal menu e nasconde il menu dopo un breve ritardo
 function hideMenu(link, menu) {
+  clearTimeout(hideTimer);
   hideTimer = setTimeout(() => {
     if (!link.matches(":hover") && !menu.matches(":hover")) {
       menu.style.display = "none";
     }
-  }, 10);
+  }, 100);
 }
 
 // funciton to display gallery images
@@ -805,20 +807,33 @@ navbarListEl.addEventListener("mouseover", handHover.bind(0.5));
 navbarListEl.addEventListener("mouseout", handHover.bind(1));
 
 // --- Gestione per il menu Inspirations ---
-inspirationsItemBtn.addEventListener("mouseenter", () =>
-  showMenu(menuInspirationsEl)
+// quando entri sul pulsante o sul menu, cancello il timer e mostro
+[inspirationsItemBtn, menuInspirationsEl].forEach((el) =>
+  el.addEventListener("mouseenter", () =>
+    showMenu(menuInspirationsEl, menuCollaborations)
+  )
 );
-menuInspirationsEl.addEventListener("mouseleave", () =>
-  hideMenu(inspirationsItemBtn, menuInspirationsEl)
+
+// quando esci dal pulsante o dal menu, avvio il timer di chiusura
+[inspirationsItemBtn, menuInspirationsEl].forEach((el) =>
+  el.addEventListener("mouseleave", () =>
+    hideMenu(inspirationsItemBtn, menuInspirationsEl)
+  )
 );
 
 // --- Gestione per il menu Collaborations ---
-collaborationsItemBtn.addEventListener("mouseenter", () =>
-  showMenu(menuCollaborations)
+// quando entri sul pulsante o sul menu, cancello il timer e mostro
+[collaborationsItemBtn, menuCollaborations].forEach((el) =>
+  el.addEventListener("mouseenter", () =>
+    showMenu(menuCollaborations, menuInspirationsEl)
+  )
 );
 
-menuCollaborations.addEventListener("mouseleave", () =>
-  hideMenu(collaborationsItemBtn, menuCollaborations)
+// quando esci dal pulsante o dal menu, avvio il timer di chiusura
+[collaborationsItemBtn, menuCollaborations].forEach((el) =>
+  el.addEventListener("mouseleave", () =>
+    hideMenu(collaborationsItemBtn, menuCollaborations)
+  )
 );
 
 // Galery Filter by dates
