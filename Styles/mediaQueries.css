@@ -596,11 +596,11 @@
     padding-left: 8rem;
   }
 
-  .navbar_list {
+  .navbar{
     display: none;
   }
-
-  .hamburgher-wrapper {
+  
+  .hamburgher_wrapper {
     display: block;
   }
 

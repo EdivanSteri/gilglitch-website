@@ -5,6 +5,9 @@ const inspirationsItemBtn = document.querySelector(".inspirations_item");
 const menuInspirationsEl = document.querySelector(".menu_inspirations");
 const collaborationsItemBtn = document.querySelector(".collaborations_item");
 const menuCollaborations = document.querySelector(".menu_collaborations");
+const hamburgherIconEl = document.querySelector(".hamburgher_icon");
+const closeIconEl = document.querySelector(".close_icon");
+
 const containerGalleryImgs = document.querySelector(".gallery_imgs");
 const containerGalleryContent = document.querySelector(".gallery_content");
 const arrowDropDownIconPeriodEL = document.querySelector(
@@ -34,7 +37,7 @@ const navbar_list = document.querySelector(".navbar_list");
 const wrapperScrollToTopBtn = document.querySelector(
   ".wrapper_scroll_to_top_btn"
 );
-const scrollToGalleryBtns = document.querySelectorAll(".scroll_to_gallery");
+const scrollToGalleryCta = document.querySelector(".scroll_to_gallery");
 const section1 = document.querySelector("#section__1");
 const section2 = document.querySelector("#section__2");
 const section3 = document.querySelector("#section__3");
@@ -43,6 +46,10 @@ const filterIconEl = document.querySelector(".filter_icon");
 const closeFilterMenuBtn = document.querySelector(".close_filter_menu_btn");
 const containerFilterList = document.querySelector(".filter_list");
 const navbarListEl = document.querySelector(".navbar_list");
+const navbarResponseEl = document.querySelector(".navbar_response");
+const navbarSmoothScrollLists = document.querySelectorAll(
+  ".navbar_smooth_scroll_list"
+);
 
 const collabSliders = document.querySelectorAll(".slide");
 const collabSlideBtnLeft = document.querySelector(".slide_left_btn");
@@ -706,6 +713,21 @@ const displayArtistsFilterMenu = function () {
   containerAtistFilterList.insertAdjacentHTML("beforeend", [html.join("")]);
 };
 
+// aprire il menu navbar in modalità responsiva
+hamburgherIconEl.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  navbarResponseEl.classList.toggle("u-hide");
+  hamburgherIconEl.classList.toggle("u-hide");
+});
+
+closeIconEl.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  navbarResponseEl.classList.toggle("u-hide");
+  hamburgherIconEl.classList.toggle("u-hide");
+});
+
 // Funzione che apre il modale
 const openModal = function () {
   containerImgageGalleryModal.classList.remove("u-hide");
@@ -949,7 +971,6 @@ document.addEventListener("keydown", (e) => {
 /////////////////////////////////////////////////////////////////
 /* smooth scroll*/
 const scrollToSection = function (e) {
-  console.log(this);
   const link = e.target.closest(`.${this}`);
 
   if (!link) return;
@@ -968,25 +989,31 @@ const scrollToSection = function (e) {
     sectionToScroll.style.opacity = 1;
 
     sectionToScroll?.scrollIntoView({ behavior: "smooth" });
+
+    // la navbar response deve sparire appena viene cliccato su un link
+    if (!navbarResponseEl.classList.contains("u-hide")) {
+      navbarResponseEl.classList.add("u-hide");
+      hamburgherIconEl.classList.remove("u-hide");
+    }
   }
 };
 
 // scrool smooth per i link della navbar e del footer, delegazione degli eventi
-navbarListEl.addEventListener("click", scrollToSection.bind("navbar_item"));
+navbarSmoothScrollLists.forEach((el) => {
+  el.addEventListener("click", scrollToSection.bind("navbar_item"));
+});
 footerEl.addEventListener("click", scrollToSection.bind("link_ft_to-sc"));
 
-scrollToGalleryBtns.forEach((btn) => {
-  btn.addEventListener("click", function (e) {
-    e.preventDefault();
+scrollToGalleryCta.addEventListener("click", function (e) {
+  e.preventDefault();
 
-    /* Disattivo l'effetto fade-in per permettere allo smooth scroll di posizionare la sezione esattamente all'inizio, senza offset */
-    section2.style.transition = "none";
-    section2.style.transform = "translateY(0)";
-    section2.style.opacity = 1;
+  /* Disattivo l'effetto fade-in per permettere allo smooth scroll di posizionare la sezione esattamente all'inizio, senza offset */
+  section2.style.transition = "none";
+  section2.style.transform = "translateY(0)";
+  section2.style.opacity = 1;
 
-    // Scrolling with smooth effect modern version
-    section2.scrollIntoView({ behavior: "smooth" });
-  });
+  // Scrolling with smooth effect modern version
+  section2.scrollIntoView({ behavior: "smooth" });
 });
 
 ///////////////////////////////////////////////////////////////
