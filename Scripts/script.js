@@ -901,10 +901,7 @@ document.addEventListener("keydown", (e) => {
 
 /////////////////////////////////////////////////////////////////
 /* smooth scroll*/
-
 const scrollToSection = function (e) {
-  e.preventDefault();
-
   console.log(this);
   const link = e.target.closest(`.${this}`);
 
@@ -913,8 +910,10 @@ const scrollToSection = function (e) {
   let href = link.getAttribute("href");
   console.log(href);
 
-  if (href !== "#") {
+  if (href && href !== "#" && href.startsWith("#")) {
+    e.preventDefault();
     const sectionToScroll = document.querySelector(href);
+    if (!sectionToScroll) return;
 
     /* Disattivo l'effetto fade-in per permettere allo smooth scroll di posizionare la sezione esattamente all'inizio, senza offset */
     sectionToScroll.style.transform = "translateY(0)";
@@ -925,7 +924,7 @@ const scrollToSection = function (e) {
   }
 };
 
-// scrool smooth per i link della navbar e del, delegazione degli eventi
+// scrool smooth per i link della navbar e del footer, delegazione degli eventi
 navbarListEl.addEventListener("click", scrollToSection.bind("navbar_item"));
 footerEl.addEventListener("click", scrollToSection.bind("link_ft_to-sc"));
 
