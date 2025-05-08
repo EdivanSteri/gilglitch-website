@@ -54,6 +54,8 @@ body {
   margin: 4rem;
   z-index: 9999;
 
+  opacity: 0;
+
   transition: all .2s;
 }
 
@@ -715,9 +717,9 @@ body {
   height: 60rem;
 
   margin: 0 auto;
-  position: relative;
 
   overflow: hidden;
+  position: relative;
 }
 
 .slide {
@@ -731,7 +733,9 @@ body {
   align-items: center;
   justify-content: center;
 
-  transition: transform 1s;
+  transform: translateX(100%);
+
+  transition: transform .8s ease;
 }
 
 .slide_btn:hover {
