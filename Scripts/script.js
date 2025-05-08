@@ -1,13 +1,44 @@
 "use strict";
 
-// dom elements
-const inspirationsItemBtn = document.querySelector(".inspirations_item");
-const menuInspirationsEl = document.querySelector(".menu_inspirations");
-const collaborationsItemBtn = document.querySelector(".collaborations_item");
-const menuCollaborations = document.querySelector(".menu_collaborations");
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+// ***************************** dom elements ***************************** \\
+/* body */
+const wrapperScrollToTopBtn = document.querySelector(
+  ".wrapper_scroll_to_top_btn"
+);
+
+/* sections */
+const section1 = document.querySelector("#section__1");
+const section2 = document.querySelector("#section__2");
+const section3 = document.querySelector("#section__3");
+const section4 = document.querySelector("#section__4");
+const section5 = document.querySelector("#section__6");
+
+const allSectionToFade = document.querySelectorAll(".section_to_fade");
+
+/* header section*/
+const scrollToGalleryCtaBtn = document.querySelector(".scroll_to_gallery");
+
+// navbar
+const navbarListEl = document.querySelector(".navbar_list");
+const navbarResponseEl = document.querySelector(".navbar_response");
+const navbarSmoothScrollLists = document.querySelectorAll(
+  ".navbar_smooth_scroll_list"
+);
+
+const navbarIconEl = document.querySelectorAll(".nav_icon");
 const hamburgherIconEl = document.querySelector(".hamburgher_icon");
 const closeIconEl = document.querySelector(".close_icon");
 
+const navbarDropdownTriggers = document.querySelectorAll(
+  ".navbar_dropdown_trigger"
+);
+const inspirationsItemBtn = document.querySelector(".inspirations_item");
+const collaborationsItemBtn = document.querySelector(".collaborations_item");
+const menuInspirationsEl = document.querySelector(".menu_inspirations");
+const menuCollaborations = document.querySelector(".menu_collaborations");
+
+/* galley section*/
 const containerGalleryImgs = document.querySelector(".gallery_imgs");
 const containerGalleryContent = document.querySelector(".gallery_content");
 const arrowDropDownIconPeriodEL = document.querySelector(
@@ -16,6 +47,7 @@ const arrowDropDownIconPeriodEL = document.querySelector(
 const arrowDropDownIconArtistEL = document.querySelector(
   ".arrow_drop_down_icon_artist"
 );
+const arrowDropDownIconsEl = document.querySelectorAll(".arrow_drop_down_icon");
 const dateFilterWrapperEl = document.querySelector(".date_filter_wrapper");
 const artistFilterWrapperEl = document.querySelector(".artist_filter_wrapper");
 const filterByNewestEL = document.querySelector(".filter_by_newest");
@@ -33,31 +65,19 @@ const titleModalEl = document.querySelector(".modal_title");
 const descriptionModalEl = document.querySelector(".modal_description");
 const dateModalEl = document.querySelector(".modal_date");
 
-const navbar_list = document.querySelector(".navbar_list");
-const wrapperScrollToTopBtn = document.querySelector(
-  ".wrapper_scroll_to_top_btn"
-);
-const scrollToGalleryCta = document.querySelector(".scroll_to_gallery");
-const section1 = document.querySelector("#section__1");
-const section2 = document.querySelector("#section__2");
-const section3 = document.querySelector("#section__3");
-
 const filterIconEl = document.querySelector(".filter_icon");
 const closeFilterMenuBtn = document.querySelector(".close_filter_menu_btn");
 const containerFilterList = document.querySelector(".filter_list");
-const navbarListEl = document.querySelector(".navbar_list");
-const navbarResponseEl = document.querySelector(".navbar_response");
-const navbarSmoothScrollLists = document.querySelectorAll(
-  ".navbar_smooth_scroll_list"
-);
 
+/* collab section */
 const collabSliders = document.querySelectorAll(".slide");
 const collabSlideBtnLeft = document.querySelector(".slide_left_btn");
 const collabSlideBtnRight = document.querySelector(".slide_right_btn");
-const section4 = document.querySelector("#section__4");
 
+/* sklls section */
 const barsEl = document.querySelectorAll(".bar");
 
+/* work with me section */
 const workWithMeContentEl = document.querySelector(".work_with_me_content");
 const workMeContentLeftEl = document.querySelector(".work_me_content_left");
 const collabSponsorContentLeft = document.querySelector(
@@ -73,13 +93,893 @@ const commissionContentRight = document.querySelector(
   ".commission_content_right"
 );
 const slideEffectBtns = document.querySelectorAll(".btn_slide_effect");
+const ctaToFormBtn = document.querySelector(".cta_to_form");
 
+/* footer section */
 const footerEl = document.querySelector(".footer");
 
-// Variabile per gestire il timer dell'hover sui link della navbar
-let hideTimer;
-// variabile che contiene le info dei disegni da poter inserirli dinamicamente
-let artPieces = [
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Functions
+/**
+ * funzione che restituisce l'elenco dei cantanti univoci dall'array iniziale
+ * @param {*} arr array da cui prendere i nomi corrispondenti ai cantanti
+ * @returns restituisce l'elenco dei cantanti univoci da arr
+ */
+const getArtistsFromArtPiecesArray = (arr) => [
+  ...new Set(arr.flatMap((el) => el.artist)),
+];
+
+/**
+ * funzione che ordina un array per data  in modo descrescente
+ * @param {*} arr array da ordinare
+ * @returns ritorna un array ordinato in modo decrescente
+ */
+const orderByDescendingDate = (arr) =>
+  arr.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+/**
+ * crea un observer
+ * @param {*} funcitonEvent  funzione che l'observer dovrà eseguire
+ * @param {*} threshold      soglia da passare all'observer
+ * @param {*} root           root da passare all'observer, di solito è null
+ * @returns
+ */
+const createObserver = (
+  funcitonEvent,
+  threshold = 0,
+  root = null,
+  rootMargin = undefined
+) =>
+  new IntersectionObserver(funcitonEvent, {
+    root: root,
+    threshold: threshold,
+    rootMargin: rootMargin,
+  });
+
+/**
+ * Inizializza l’array di opere aggiungendo a ciascun elemento l’immagine in formato lazy.
+ * @param {Array<Object>} items Array di oggetti contenenti i dettagli delle opere (senza lazy-loading delle immagini).
+ * @returns {Array<Object>} Nuovo array di oggetti con il campo immagine impostato in lazy format.
+ */
+const createArtPieces = function (items) {
+  // aggiungo le immagini lazy all'array
+  const artPiecesLazy = items.map((item) => {
+    const originalSrc = item.src;
+    // estraggo solo il file-name (anche se ci fossero '\' o '/')
+    const fileName = originalSrc.replace(/^.*[\/\\]/, "");
+    // trova l'ultimo punto dell'estensione
+    const dotIndex = fileName.lastIndexOf(".");
+    if (dotIndex < 0) {
+      console.warn(`Attenzione: "${fileName}" non ha estensione, salto.`);
+      return { ...item };
+    }
+    const name = fileName.substring(0, dotIndex);
+    // estensione col punto
+    const ext = fileName.substring(dotIndex);
+
+    return {
+      ...item,
+      // nuova src punta alla folder "Media/sketches lazy"
+      src: `./Media/sketches lazy/${name}-lazy${ext}`,
+      // dataSrc conserva il path originale
+      dataSrc: originalSrc,
+    };
+  });
+
+  // ordino per data recente
+  return orderByDescendingDate(artPiecesLazy);
+};
+
+/**
+ * funzione che crea l'effeto in entrata in dissolvenza delle sezioni
+ */
+const initSectionFadeEntryEffect = function () {
+  const sectionFadeAnimation = function (entries) {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+
+      entry.target.classList.remove("section--hide");
+    });
+  };
+
+  const sectionObserver = createObserver(sectionFadeAnimation, 0.2);
+
+  allSectionToFade.forEach((section) => {
+    sectionObserver.observe(section);
+    section.classList.add("section--hide");
+  });
+};
+
+/**
+ * Inizializza lo smooth scroll
+ */
+const initSmoothScroll = function () {
+  /**
+   * Disattivo l'effetto fade-in per permettere allo smooth scroll di posizionare la sezione esattamente all'inizio, senza offset
+   * @param {*} sectionToScroll sezione da aggiornare
+   */
+  const disablesFadeInEffect = function (sectionToScroll) {
+    sectionToScroll.style.transition = "none";
+    sectionToScroll.style.transform = "translateY(0)";
+    sectionToScroll.style.opacity = 1;
+  };
+
+  /**
+   * scrolla la pagina fino alla sezione passata come parametro
+   * @param {*} section section verso dove scrollare
+   */
+  const sectionScrollIntoView = function (section) {
+    section.scrollIntoView({ behavior: "smooth" });
+  };
+
+  /**
+   * crea effetto smooth allo scroll verso una determinata sezione della pagina
+   * @param {*} e parametro dell'evento
+   * @returns
+   */
+  const scrollToSection = function (e) {
+    const link = e.target.closest(`.${this}`);
+    if (!link) return;
+
+    let href = link.getAttribute("href");
+    if (href && href !== "#" && href.startsWith("#")) {
+      e.preventDefault();
+      const sectionToScroll = document.querySelector(href);
+      if (!sectionToScroll) return;
+
+      disablesFadeInEffect(sectionToScroll);
+      sectionScrollIntoView(sectionToScroll);
+
+      // la navbar response deve sparire appena viene cliccato su un link
+      if (!navbarResponseEl.classList.contains("u-hide")) {
+        navbarResponseEl.classList.add("u-hide");
+        hamburgherIconEl.classList.remove("u-hide");
+      }
+    }
+  };
+
+  /**
+   * evento: scroll smooth per i link della navbar e del footer
+   * con delegazione degli eventi
+   */
+  navbarSmoothScrollLists.forEach((el) => {
+    el.addEventListener("click", scrollToSection.bind("navbar_item"));
+  });
+  /**
+   * evento: scroll smooth per i link del footer
+   * con delegazione degli eventi
+   */
+  footerEl.addEventListener("click", scrollToSection.bind("link_ft_to-sc"));
+
+  /**
+   * evento: scroll smooth per il cta dell'header
+   * con delegazione degli eventi
+   */
+  scrollToGalleryCtaBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    if (!section2) return;
+
+    disablesFadeInEffect(section2);
+    sectionScrollIntoView(section2);
+  });
+
+  /**
+   * evento: scroll smooth per il pulsante gallegiante che porta sempre verso l'header
+   * con delegazione degli eventi
+   */
+  wrapperScrollToTopBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (!section1) return;
+    sectionScrollIntoView(section1);
+  });
+
+  /**
+   * evento: scroll smooth per dalla sezione collab highliths al form
+   */
+  ctaToFormBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    const href = e.target.getAttribute("href");
+    if (!href) return;
+
+    const section = document.querySelector(href);
+    if (!section) return;
+
+    sectionScrollIntoView(section);
+  });
+};
+
+/**
+ * Inizializza la visibilità del bottone gallegiante che porta all'header
+ */
+const initScrollToTopBtnVisibility = function () {
+  // 1. Riferimenti e variabili
+  let sec1Height, sec1MB, headerObserver;
+
+  // 2. Calcola height e margin-bottom
+  function updateHeaderMeasurements() {
+    sec1Height = section1.getBoundingClientRect().height;
+    sec1MB = parseFloat(window.getComputedStyle(section1).marginBottom);
+  }
+
+  // 3. (Ri)crea l’IntersectionObserver con il rootMargin corretto
+  function setupHeaderObserver() {
+    // Scollega il vecchio observer, se esiste
+    if (headerObserver) headerObserver.disconnect();
+
+    // Offset in px
+    const offset = sec1Height - sec1MB;
+
+    headerObserver = createObserver(
+      setScroollToTopBtnVisibility,
+      0,
+      null,
+      `-${offset}px 0px 0px 0px`
+    );
+    headerObserver.observe(section1);
+  }
+
+  // 4. Callback di visibilità
+  function setScroollToTopBtnVisibility(entries) {
+    const entry = entries[0];
+    wrapperScrollToTopBtn.style.opacity = entry.isIntersecting ? 0 : 1;
+  }
+
+  // 5. Inizializza e aggiorna al resize
+  window.addEventListener("DOMContentLoaded", () => {
+    updateHeaderMeasurements();
+    setupHeaderObserver();
+  });
+  window.addEventListener("resize", () => {
+    updateHeaderMeasurements();
+    setupHeaderObserver();
+  });
+};
+
+/**
+ * aprire il menu navbar in modalità responsiva
+ */
+const initOpeningNavbarIResponsiveMode = function () {
+  navbarIconEl.forEach((iconEl) => {
+    iconEl.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      navbarResponseEl.classList.toggle("u-hide");
+      hamburgherIconEl.classList.toggle("u-hide");
+    });
+  });
+};
+
+/**
+ * funzione per la gestione per il menu a tendina Inspirations e Collaborations della navbar
+ * allega l'evento hover dei link della navbar per mostrare il menu a tendina
+ *
+ * @param {HTMLElement} trigger           Elemento che apre il menu al passaggio del mouse.
+ * @param {HTMLElement} menu              Il menu a tendina da mostrare/nascondere.
+ * @param {HTMLElement} menuToHide  L'altro menu da nascondere quando apri questo.
+ * @param {number}     [delay=100]        Ritardo (ms) prima di nascondere.
+ */
+const initAttachNavbarDropdownHover = function (
+  trigger,
+  menu,
+  menuToHide,
+  delay = 100
+) {
+  // Variabile per gestire il timer dell'hover sui link della navbar
+  let hideTimer;
+
+  const show = () => {
+    clearTimeout(hideTimer);
+    menu.style.display = "block";
+    menuToHide.style.display = "none";
+  };
+
+  const scheduleHide = () => {
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => {
+      if (!trigger.matches(":hover") && !menu.matches(":hover")) {
+        menu.style.display = "none";
+      }
+    }, delay);
+  };
+
+  // quando entri su trigger o menu → mostra / annulla chiusura
+  [trigger, menu].forEach((el) => {
+    el.addEventListener("mouseenter", show);
+  });
+
+  // quando esci da trigger o menu → avvia timer di chiusura
+  [trigger, menu].forEach((el) => {
+    el.addEventListener("mouseleave", scheduleHide);
+  });
+};
+
+/**
+ * Applica un effetto di dissolvenza ai link della navbar non attivi quando si passa il mouse su uno di essi.
+ */
+const intFadeOtherNavLinksOnHover = function () {
+  const handHover = function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains("navbar_item")) {
+      const link = e.target;
+      const allLinks = link.closest(".navbar").querySelectorAll(".navbar_item");
+
+      console.log(link.classList);
+      allLinks.forEach((l) => {
+        // le classi “speciali” da gestire diversamente
+        const specialClasses = ["inspirations_item", "collaborations_item"];
+        // qual è (se c’è) la classe speciale applicata al link corrente
+        const currentSpecial = specialClasses.find((c) =>
+          link.classList.contains(c)
+        );
+
+        if (l !== link) {
+          if (currentSpecial) {
+            // se siamo su un link “speciale”, escludi menu_link e gli altri con la stessa classe
+            if (
+              !l.classList.contains("menu_link") &&
+              !l.classList.contains(currentSpecial)
+            ) {
+              l.style.opacity = this;
+            }
+          } else {
+            // altrimenti (link normale), applica l’opacità a tutti gli altri
+            l.style.opacity = this;
+          }
+        }
+      });
+    }
+  };
+
+  // passo sopra il link col mouse
+  navbarListEl.addEventListener("mouseover", handHover.bind(0.5));
+  // tolgo il mouse da sopra il link
+  navbarListEl.addEventListener("mouseout", handHover.bind(1));
+};
+
+/**
+ * funzione che genra il markup per la visualizzazione della galleria dei disegni/immagini
+ * @param {Array<Object>} artPieces  array di oggetti con i dati inerenti a un disegno come path img, id, title etc.
+ * @param {boolean} removeLazy flag per capire se l'immagine è in modalità lazy o meno, inizialmente lo è
+ */
+const displayGalleryImgs = function (artPieces, removeLazy = false) {
+  containerGalleryImgs.innerHTML = "";
+
+  const lazyClass = removeLazy ? "" : "lazy_img";
+  const html = artPieces.map((art) => {
+    return `<div class="img_wrapper">
+      <img
+        class="image_${art.id} ${lazyClass}"
+        id="${art.id}"
+        src="${art.src}"
+        data-src="${art.dataSrc}"
+        alt="${art.title}"
+      />
+    </div>`;
+  });
+
+  containerGalleryImgs.insertAdjacentHTML("afterbegin", [html.join("")]);
+};
+
+/**
+ * funzione che genera il markup del menu a tendina del filtro per artisti
+ */
+const displayArtistsFilterMenu = function () {
+  containerAtistFilterList.innerHTML =
+    '<li class="artist_link">All Artists</li>';
+
+  const html = artistsList.map((art) => {
+    return `<li class=\"artist_link\">${art}</li>`;
+  });
+
+  containerAtistFilterList.insertAdjacentHTML("beforeend", [html.join("")]);
+};
+
+/**
+ * funciton to create lazy loading gallery images
+ */
+const initLazyLoadingEvent = function () {
+  window.addEventListener("DOMContentLoaded", () => {
+    const imgaesLazy = document.querySelectorAll("img[data-src]");
+
+    const lazyLoading = function (entries, observer) {
+      const [entry] = entries;
+
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        const img = entry.target;
+
+        // Sostituisci il src con data-src se l'immagine è visibile
+        if (!loadedImages.includes(artPieces.find((a) => a.id === +img.id))) {
+          // Replace src with data-src
+          img.src = img.dataset.src;
+
+          img.addEventListener("load", function () {
+            img.classList.remove("lazy_img");
+
+            img.addEventListener("mouseenter", function () {
+              img.style.transform = "transform: scale(1.1)";
+            });
+
+            // Se l'immagine è già caricata (nel caso in cui sia già presente nel cache)
+            if (img.complete) {
+              // aggiungo l'hover all'immagine che la ingradisca: transform: scale(1.1)
+              img.classList.add("loaded");
+            }
+
+            loadedImages.push(artPieces.find((a) => a.id === +img.id));
+          });
+        }
+      });
+
+      observer.unobserve(entry.target);
+    };
+
+    const lazyLoadingObserver = new IntersectionObserver(lazyLoading, {
+      root: containerGalleryImgs,
+      threshold: 0,
+      rootMargin: "-50px",
+    });
+
+    // resto del codice qui dentro
+    imgaesLazy.forEach((img) => {
+      lazyLoadingObserver.observe(img);
+    });
+  });
+};
+
+/**
+ * Funzione che inizializza i filtri per la galleria
+ */
+const initGalleryFilters = function () {
+  // Galery Filter by dates and artits
+  arrowDropDownIconsEl.forEach((el) => {
+    el.addEventListener("click", function () {
+      if (!el.classList.contains("u-hide")) {
+        el.classList.add("u-hide");
+      }
+      el.classList.contains("arrow_drop_down_icon_date")
+        ? dateFilterWrapperEl.classList.toggle("u-hide")
+        : artistFilterWrapperEl.classList.toggle("u-hide");
+    });
+  });
+
+  /**
+   * Evento per il menu dei filtri per data
+   * con Delegazione eventi
+   */
+  dateFilterList.addEventListener("click", function (e) {
+    e.preventDefault();
+    if ([...e.target.classList].some((cl) => cl.startsWith("filter_by_"))) {
+      let artPiecesFilteredByDate;
+      if (e.target.className.includes("newest")) {
+        artPiecesFilteredByDate = artPieces
+          .slice()
+          .sort((a, b) => new Date(a.date) - new Date(b.date));
+      } else if (e.target.className.includes("oldest")) {
+        artPiecesFilteredByDate = artPieces
+          .slice()
+          .sort((a, b) => new Date(b.date) - new Date(a.date));
+      }
+
+      artPiecesFilteredByDate.forEach((artFiltered) => {
+        // Cambia il src per corrispondere a dataSrc
+        artFiltered.src = artFiltered.dataSrc;
+      });
+
+      dateFilterWrapperEl.classList.add("u-hide");
+      dateFilterActiveEl.textContent = e.target.textContent;
+      displayGalleryImgs(artPiecesFilteredByDate, true);
+    }
+  });
+
+  /**
+   * Evento per il menu dei filtri per artista
+   * con Delegazione eventi
+   */
+  containerAtistFilterList.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains("artist_link")) {
+      if (e.target.textContent !== "All Artists") {
+        const artPiecesFilteredByArtist = artPieces
+          .slice()
+          .filter((art) => art.artist.includes(`${e.target.textContent}`));
+
+        artPiecesFilteredByArtist.forEach((artFiltered) => {
+          // Cambia il src per corrispondere a dataSrc
+          artFiltered.src = artFiltered.dataSrc;
+        });
+        displayGalleryImgs(artPiecesFilteredByArtist, true);
+      } else {
+        const tmp = artPieces.slice().map((artFiltered) => {
+          return {
+            ...artFiltered,
+            src: artFiltered.dataSrc,
+          };
+        });
+        displayGalleryImgs(tmp, true);
+      }
+      artistFilterWrapperEl.classList.add("u-hide");
+      artistFilterActiveEl.textContent = `${e.target.textContent}`;
+    }
+  });
+};
+
+/**
+ * Funzione che inizializza il modale
+ */
+const initGalleryModal = function () {
+  /**
+   * Funzione che aggiorna il modale in base se lo si pare o lo si chiude
+   * @param {boolean} isOpening
+   */
+  const updateModalDetails = function (isOpening) {
+    containerImgageGalleryModal.classList.toggle("u-hide");
+    containerGalleryContent.style.filter = isOpening ? "blur(.35rem)" : "none";
+    containerGalleryImgs.style.overflowY = isOpening ? "hidden" : "scroll";
+    document.body.style.overflow = isOpening ? "hidden" : "auto";
+  };
+
+  /**
+   *  Funzione che apre il modale
+   */
+  const openModal = function () {
+    wrapperScrollToTopBtn.style.opacity = 0;
+    updateModalDetails(true);
+  };
+
+  /**
+   * funzione che chiude il modale
+   */
+  const closeModal = function () {
+    updateModalDetails(false);
+    wrapperScrollToTopBtn.style.opacity = 1;
+  };
+
+  /**
+   * Funzione che crea il modale
+   * @param {*} idImage id dell'immagine da visualizzare
+   */
+  const createModalContainer = function (idImage) {
+    const objImage = artPieces.find((art) => art.id === +idImage);
+
+    // Forza il caricamento dell'immagine nel modale
+    if (!loadedImages.includes(artPieces.includes(objImage))) {
+      objImage.src = objImage.dataSrc;
+      imageModal.classList.remove("lazy_image");
+    }
+
+    imageModal.src = `${objImage.src}`;
+    titleModalEl.textContent = `${objImage.title}`;
+    descriptionModalEl.textContent = `${objImage.description}`;
+    dateModalEl.textContent = `${objImage.date}`;
+  };
+
+  /**
+   *  Evento: funziona sia per la galleria impostata di default e anche quando viene applicato un filtro su di essa
+   *  con la delegazione degli eventi
+   */
+  containerGalleryContent.addEventListener("click", function (e) {
+    // controllo se la classe dell'elemento inizia con quella stringa, cioè se è una immagine della galleria
+    if ([...e.target.classList].some((c) => c.startsWith("image_"))) {
+      const img = e.target;
+      createModalContainer(img.id);
+      openModal();
+    }
+  });
+
+  /**
+   * Evento: Quando clicchi fuori dal modale (cioè sul container che fa da overlay)
+   */
+  containerImgageGalleryModal.addEventListener("click", (e) => {
+    // Se il click è proprio sull'overlay e NON dentro il modale
+    if (!modalContent.contains(e.target)) {
+      closeModal();
+    }
+  });
+
+  /**
+   * Evento: Quando clicchi sul tast ESC chiudi il modale
+   */
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeModal();
+    }
+  });
+};
+
+/**
+ * Check largheza viewport per chiudere automaticamente un menu se si scende sotto quella larghezza
+ * e chiuderne un altro se si supera invece
+ */
+const closefiltersMenuGalleryAutomatically = function () {
+  //(1376px -> 1376px/16 = 86em)
+  const mq = window.matchMedia("(max-width: 86em)");
+
+  // Funzione per forzare la chiusura del menu
+  const closeMenu = (
+    elToClose,
+    isResponsiveGalleryMenu = false,
+    filertIcon = undefined,
+    closeFilterMenuBtn = undefined
+  ) => {
+    // se il menu è aperto (non ha già la classe u-hide), nascondilo
+    if (!elToClose.classList.contains("u-hide")) {
+      elToClose.classList.add("u-hide");
+
+      if (
+        isResponsiveGalleryMenu &&
+        filertIcon !== undefined &&
+        closeFilterMenuBtn !== undefined
+      ) {
+        filertIcon.classList.toggle("u-hide");
+        closeFilterMenuBtn.classList.toggle("u-hide");
+      }
+    }
+  };
+
+  // 4. Listener che scatta quando lo stato della media query cambia
+  mq.addEventListener("change", (e) => {
+    if (e.matches) {
+      // viewport sotto 86em
+      closeMenu(artistFilterWrapperEl);
+      closeMenu(dateFilterWrapperEl);
+    } else {
+      // viewport sopra 86em
+      closeMenu(containerFilterList, true, filterIconEl, closeFilterMenuBtn);
+    }
+  });
+
+  // Controllo iniziale al caricamento della pagina,
+  // così se l'utente apre direttamente in mobilità il menu corrispettivo parte già chiuso
+  if (mq.matches) {
+    closeMenu(artistFilterWrapperEl);
+    closeMenu(dateFilterWrapperEl);
+    closeMenu(containerFilterList, true, filterIconEl, closeFilterMenuBtn);
+  }
+};
+
+/**
+ * Inizializza il comportamento del menu dei filtri nella modalità responsiva della gallery
+ */
+const initFilterMenuOnGalleryInResponseMode = function () {
+  const updateFiltersMenuOnGalleryInResponseMode = function (
+    isContainerFilterListEvent = false
+  ) {
+    // scelta dinamica del metodo da usare sui classList
+    const methodCL = isContainerFilterListEvent ? "add" : "toggle";
+    const methodFI = isContainerFilterListEvent ? "remove" : "toggle";
+    const methodCF = isContainerFilterListEvent ? "add" : "toggle";
+
+    containerFilterList.classList[methodCL]("u-hide");
+    filterIconEl.classList[methodFI]("u-hide");
+    closeFilterMenuBtn.classList[methodCF]("u-hide");
+  };
+
+  filterIconEl.addEventListener("click", function () {
+    // Costruisco il contenuto HTML da inserire nel container
+    const html = `
+            <div class="filter_content">
+            <h3>Filter By Date</h3>
+            ${dateFilterWrapperEl.getElementsByTagName("ul")[0].outerHTML}
+            <h3>Filter By Artists</h3>
+            ${artistFilterWrapperEl.getElementsByTagName("ul")[0].outerHTML}
+          </div>
+        `;
+
+    // Imposto il contenuto (puoi decidere se ogni volta reinserirlo o solo la prima volta)
+    containerFilterList.innerHTML = html;
+
+    // Alterna la visibilità del container: se è visibile, lo nasconde, altrimenti lo mostra
+    updateFiltersMenuOnGalleryInResponseMode();
+
+    // Delegazione degli eventi
+    containerFilterList.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      let artPiecesFiltered;
+      if (e.target.classList.contains("artist_link")) {
+        if (e.target.textContent !== "All Artists") {
+          artPiecesFiltered = artPieces
+            .slice()
+            .filter((art) => art.artist.includes(`${e.target.textContent}`));
+
+          artPiecesFiltered.forEach((artFiltered) => {
+            // Cambia il src per corrispondere a dataSrc
+            artFiltered.src = artFiltered.dataSrc;
+          });
+
+          displayGalleryImgs(artPiecesFiltered, true);
+        } else {
+          const tmp = artPieces.slice().map((artFiltered) => {
+            return {
+              ...artFiltered,
+              src: artFiltered.dataSrc,
+            };
+          });
+          displayGalleryImgs(tmp, true);
+        }
+
+        artistFilterActiveEl.textContent = `${e.target.textContent}`;
+      } else if (
+        [...e.target.classList].some((cl) => cl.startsWith("filter_by_"))
+      ) {
+        if (e.target.className.includes("newest")) {
+          artPiecesFiltered = artPieces
+            .slice()
+            .sort((a, b) => new Date(a.date) - new Date(b.date));
+        } else if (e.target.className.includes("oldest")) {
+          artPiecesFiltered = artPieces
+            .slice()
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
+        }
+
+        artPiecesFiltered.forEach((artFiltered) => {
+          // Cambia il src per corrispondere a dataSrc
+          artFiltered.src = artFiltered.dataSrc;
+        });
+
+        dateFilterActiveEl.textContent = e.target.textContent;
+        displayGalleryImgs(artPiecesFiltered, true);
+      }
+
+      updateFiltersMenuOnGalleryInResponseMode(true);
+    });
+  });
+
+  closeFilterMenuBtn.addEventListener("click", function () {
+    updateFiltersMenuOnGalleryInResponseMode();
+  });
+};
+
+/**
+ * Inizializza la dinamicità delle slide della sezione collab highlights
+ */
+const initcollabHighlightsSlider = function () {
+  let currentCollabSlide = 0;
+  const maxCollabSlides = collabSliders.length;
+
+  const goToSlide = function (slide) {
+    collabSliders.forEach((s, i) => {
+      s.style.transform = `translateX(${100 * (i - slide)}%)`;
+    });
+  };
+
+  const goToNextSlide = function () {
+    currentCollabSlide === maxCollabSlides - 1
+      ? (currentCollabSlide = 0)
+      : currentCollabSlide++;
+
+    goToSlide(currentCollabSlide);
+  };
+
+  const goToPreviouslySlide = function () {
+    currentCollabSlide === 0
+      ? (currentCollabSlide = maxCollabSlides - 1)
+      : currentCollabSlide--;
+
+    goToSlide(currentCollabSlide);
+  };
+
+  // Slider effect with arrows only if the section is on the viewport at least 25% visible
+  const arrowKeyHandler = function arrowKeyHandler(e) {
+    if (e.key === "ArrowRight") goToNextSlide();
+    if (e.key === "ArrowLeft") goToPreviouslySlide();
+  };
+
+  const slideWithArrwsKey = function (entries) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // la sezione è dentro la viewport
+        if (!arrowsSlideListenerActive) {
+          document.addEventListener("keydown", arrowKeyHandler);
+          arrowsSlideListenerActive = true;
+          console.log("Listener frecce ATTIVATO");
+        }
+      } else {
+        // la sezione è uscita dalla viewport
+        if (arrowsSlideListenerActive) {
+          document.removeEventListener("keydown", arrowKeyHandler);
+          arrowsSlideListenerActive = false;
+          console.log("Listener frecce DISATTIVATO");
+        }
+      }
+    });
+  };
+
+  // imposto la prima slide(evito il flash delle slide)
+  goToSlide(0);
+
+  collabSlideBtnRight.addEventListener("click", goToNextSlide);
+  collabSlideBtnLeft.addEventListener("click", goToPreviouslySlide);
+  const slideObserver = createObserver(slideWithArrwsKey, 0.25);
+  slideObserver.observe(section4);
+};
+
+/**
+ * Inizializzale l'animazione dell barre delle skills
+ */
+const initSkillsBars = function () {
+  const setSkillsBarsWidthAndStyleTransition = function (
+    transitionDuration,
+    isIntersecting
+  ) {
+    barsEl.forEach((el) => {
+      el.style.transitionDuration = `${transitionDuration}s`;
+      el.style.width = `${isIntersecting ? el.dataset.width + "%" : 0}`;
+    });
+  };
+
+  const setSkillsBarsAnimation = function (entries) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        /* nella viewport */
+        setSkillsBarsWidthAndStyleTransition(3, entry.isIntersecting);
+      } else {
+        /* non nella viewport */
+        setSkillsBarsWidthAndStyleTransition(0.3, entry.isIntersecting);
+      }
+    });
+  };
+
+  const skillsObserver = createObserver(setSkillsBarsAnimation);
+  skillsObserver.observe(section5);
+};
+
+/**
+ * inizializza l'effetto slide nel form della sezione work with me
+ */
+const initWorkWithMeFormSlideEffect = function () {
+  const updateStyleToEffectSlideOnform = function () {
+    // work with me content left
+    workMeContentLeftEl.classList.toggle(
+      "mode_collab_sponsor-work_me_content_left"
+    );
+    workMeContentLeftEl.classList.toggle(
+      "mode_commission-work_me_content_left"
+    );
+
+    // wor with me content
+    workWithMeContentEl.classList.toggle("mode_collab_sponsor-work_me_content");
+    workWithMeContentEl.classList.toggle("mode_commission-work_me_content");
+
+    commissionContentLeft.classList.toggle("u-hide");
+    collabSponsorContentLeft.classList.toggle("u-hide");
+
+    // collab sponsor content right
+    collabSponsorContentRight.classList.toggle(
+      "mode_collab_sponsor-collab_sponsor_content_right"
+    );
+    collabSponsorContentRight.classList.toggle(
+      "mode_commission-collab_sponsor_content_right"
+    );
+
+    // commission content right
+    commissionContentRight.classList.toggle(
+      "mode_collab_sponsor-commission_content-right"
+    );
+    commissionContentRight.classList.toggle(
+      "mode_commission-commission_content-right"
+    );
+  };
+
+  const handleSlideEffect = function (e) {
+    console.log(e.target);
+    e.preventDefault();
+    updateStyleToEffectSlideOnform();
+  };
+
+  slideEffectBtns.forEach((btn) => {
+    btn.addEventListener("click", handleSlideEffect);
+  });
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/* main */
+////////////////////////////
+// variabili
+let artPiecesInitial = [
   {
     id: 1,
     src: "./Media/sketches/BHXP3462.JPG",
@@ -581,760 +1481,48 @@ let artPieces = [
     songName: "Sinfonia",
   },
 ];
+const artPieces = createArtPieces(artPiecesInitial);
+const artistsList = getArtistsFromArtPiecesArray(artPieces);
+
 // Variabile che salva le immagini(gli oggetti corrispondenti dell'array artPieces) caricate e non più lazy
 const loadedImages = [];
-// flag per evitare di registrare più volte l'evento delle lsider con le frecce della tastiera
+// flag per evitare di registrare più volte l'evento delle slider con le frecce della tastiera
 let arrowsSlideListenerActive = false;
 
-// aggiungo le immagini lazy all'array da rivedere
-const artPiecesLazy = artPieces.map((item) => {
-  const originalSrc = item.src;
-  // estrai solo il file-name (anche se ci fossero '\' o '/')
-  const fileName = originalSrc.replace(/^.*[\/\\]/, "");
-  // trova l'ultimo punto
-  const dotIndex = fileName.lastIndexOf(".");
-  if (dotIndex < 0) {
-    console.warn(`Attenzione: "${fileName}" non ha estensione, salto.`);
-    return { ...item };
-  }
-  const name = fileName.substring(0, dotIndex);
-  const ext = fileName.substring(dotIndex); // include il punto
+////////////////////////////
+// chiamta delle funzioni
+initSectionFadeEntryEffect();
+initSmoothScroll();
+initScrollToTopBtnVisibility();
 
-  return {
-    ...item,
-    // nuova src punta alla folder "Media/sketches lazy"
-    src: `./Media/sketches lazy/${name}-lazy${ext}`,
-    // dataSrc conserva il path originale
-    dataSrc: originalSrc,
-  };
-});
-
-// Se vuoi proprio sovrascrivere artPieces:
-artPieces = artPiecesLazy;
-
-artPieces.sort((a, b) => new Date(a.date) - new Date(b.date));
-const artistsList = [...new Set(artPieces.flatMap((art) => art.artist))];
-
-// Functions
-// Funzione per mostrare il menu
-const showMenu = function (menu, menuToHide) {
-  clearTimeout(hideTimer);
-  menu.style.display = "block";
-  menuToHide.style.display = "none";
-};
-
-// Funzione che verifica se il mouse esce sia dal link che dal menu e nasconde il menu dopo un breve ritardo
-function hideMenu(link, menu) {
-  clearTimeout(hideTimer);
-  hideTimer = setTimeout(() => {
-    if (!link.matches(":hover") && !menu.matches(":hover")) {
-      menu.style.display = "none";
-    }
-  }, 100);
-}
-
-// funciton to display gallery images
-const displayGalleryImgs = function (artPieces, removeLazy = false) {
-  containerGalleryImgs.innerHTML = "";
-
-  const lazyClass = removeLazy ? "" : "lazy_img";
-  const html = artPieces.map((art) => {
-    return `<div class="img_wrapper">
-      <img
-        class="image_${art.id} ${lazyClass}"
-        id="${art.id}"
-        src="${art.src}"
-        data-src="${art.dataSrc}"
-        alt="${art.title}"
-      />
-    </div>`;
-  });
-
-  containerGalleryImgs.insertAdjacentHTML("afterbegin", [html.join("")]);
-};
-
-// lazy loading gallery images
-window.addEventListener("DOMContentLoaded", () => {
-  const imgaesLazy = document.querySelectorAll("img[data-src]");
-
-  const lazyLoading = function (entries, observer) {
-    const [entry] = entries;
-
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-
-      const img = entry.target;
-
-      // Sostituisci il src con data-src se l'immagine è visibile
-      if (!loadedImages.includes(artPieces.find((a) => a.id === +img.id))) {
-        // Replace src with data-src
-        img.src = img.dataset.src;
-
-        img.addEventListener("load", function () {
-          img.classList.remove("lazy_img");
-
-          img.addEventListener("mouseenter", function () {
-            img.style.transform = "transform: scale(1.1)";
-          });
-
-          // Se l'immagine è già caricata (nel caso in cui sia già presente nel cache)
-          if (img.complete) {
-            // aggiungo l'hover all'immagine che la ingradisca: transform: scale(1.1)
-            img.classList.add("loaded");
-          }
-
-          loadedImages.push(artPieces.find((a) => a.id === +img.id));
-        });
-      }
-    });
-
-    observer.unobserve(entry.target);
-  };
-
-  const lazyLoadingObserver = new IntersectionObserver(lazyLoading, {
-    root: containerGalleryImgs,
-    threshold: 0,
-    rootMargin: "-50px",
-  });
-
-  // resto del codice qui dentro
-  imgaesLazy.forEach((img) => {
-    lazyLoadingObserver.observe(img);
-  });
-});
-
-// function to display Artists Filter Menu
-const displayArtistsFilterMenu = function () {
-  containerAtistFilterList.innerHTML =
-    '<li class="artist_link">All Artists</li>';
-
-  const html = artistsList.map((art) => {
-    return `<li class=\"artist_link\">${art}</li>`;
-  });
-
-  containerAtistFilterList.insertAdjacentHTML("beforeend", [html.join("")]);
-};
-
-// aprire il menu navbar in modalità responsiva
-hamburgherIconEl.addEventListener("click", function (e) {
-  e.preventDefault();
-
-  navbarResponseEl.classList.toggle("u-hide");
-  hamburgherIconEl.classList.toggle("u-hide");
-});
-
-closeIconEl.addEventListener("click", function (e) {
-  e.preventDefault();
-
-  navbarResponseEl.classList.toggle("u-hide");
-  hamburgherIconEl.classList.toggle("u-hide");
-});
-
-// Funzione che apre il modale
-const openModal = function () {
-  containerImgageGalleryModal.classList.remove("u-hide");
-  containerGalleryImgs.style.overflowY = "hidden";
-  document.body.style.overflow = "hidden";
-  containerGalleryContent.style.filter = "blur(.35rem)";
-};
-
-// Funzione che chiude il modale
-const closeModal = function () {
-  containerImgageGalleryModal.classList.add("u-hide");
-  containerGalleryContent.style.filter = "none";
-  containerGalleryImgs.style.overflowY = "scroll";
-  document.body.style.overflow = "auto";
-};
-
-// Funzione che crea il modale
-const createModalContainer = function (idImage) {
-  const objImage = artPieces.find((art) => art.id === +idImage);
-
-  // Forza il caricamento dell'immagine nel modale
-  if (!loadedImages.includes(artPieces.includes(objImage))) {
-    console.log("lazy image on modal");
-    console.log(objImage.src);
-    objImage.src = objImage.dataSrc;
-    console.log(objImage.src);
-
-    imageModal.classList.remove("lazy_image");
-  }
-
-  imageModal.src = `${objImage.src}`;
-  titleModalEl.textContent = `${objImage.title}`;
-  descriptionModalEl.textContent = `${objImage.description}`;
-  dateModalEl.textContent = `${objImage.date}`;
-};
-
-// function to fade animation
-const handHover = function (e) {
-  e.preventDefault();
-  if (e.target.classList.contains("navbar_item")) {
-    const link = e.target;
-    const allLinks = link.closest(".navbar").querySelectorAll(".navbar_item");
-
-    console.log(link.classList);
-    allLinks.forEach((l) => {
-      // le classi “speciali” da gestire diversamente
-      const specialClasses = ["inspirations_item", "collaborations_item"];
-      // qual è (se c’è) la classe speciale applicata al link corrente
-      const currentSpecial = specialClasses.find((c) =>
-        link.classList.contains(c)
-      );
-
-      if (l !== link) {
-        if (currentSpecial) {
-          // se siamo su un link “speciale”, escludi menu_link e gli altri con la stessa classe
-          if (
-            !l.classList.contains("menu_link") &&
-            !l.classList.contains(currentSpecial)
-          ) {
-            l.style.opacity = this;
-          }
-        } else {
-          // altrimenti (link normale), applica l’opacità a tutti gli altri
-          l.style.opacity = this;
-        }
-      }
-    });
-  }
-};
-
-//////////////////////////////////////////
-// Event listner
-// Fade menu animation
-navbarListEl.addEventListener("mouseover", handHover.bind(0.5));
-navbarListEl.addEventListener("mouseout", handHover.bind(1));
-
-// --- Gestione per il menu Inspirations ---
-// quando entri sul pulsante o sul menu, cancello il timer e mostro
-[inspirationsItemBtn, menuInspirationsEl].forEach((el) =>
-  el.addEventListener("mouseenter", () =>
-    showMenu(menuInspirationsEl, menuCollaborations)
-  )
+// navbar
+initOpeningNavbarIResponsiveMode();
+initAttachNavbarDropdownHover(
+  inspirationsItemBtn,
+  menuInspirationsEl,
+  menuCollaborations
 );
-
-// quando esci dal pulsante o dal menu, avvio il timer di chiusura
-[inspirationsItemBtn, menuInspirationsEl].forEach((el) =>
-  el.addEventListener("mouseleave", () =>
-    hideMenu(inspirationsItemBtn, menuInspirationsEl)
-  )
+initAttachNavbarDropdownHover(
+  collaborationsItemBtn,
+  menuCollaborations,
+  menuInspirationsEl
 );
+intFadeOtherNavLinksOnHover();
 
-// --- Gestione per il menu Collaborations ---
-// quando entri sul pulsante o sul menu, cancello il timer e mostro
-[collaborationsItemBtn, menuCollaborations].forEach((el) =>
-  el.addEventListener("mouseenter", () =>
-    showMenu(menuCollaborations, menuInspirationsEl)
-  )
-);
-
-// quando esci dal pulsante o dal menu, avvio il timer di chiusura
-[collaborationsItemBtn, menuCollaborations].forEach((el) =>
-  el.addEventListener("mouseleave", () =>
-    hideMenu(collaborationsItemBtn, menuCollaborations)
-  )
-);
-
-// Galery Filter by dates
-arrowDropDownIconPeriodEL.addEventListener("click", function () {
-  if (!artistFilterWrapperEl.classList.contains("u-hide")) {
-    artistFilterWrapperEl.classList.add("u-hide");
-  }
-  dateFilterWrapperEl.classList.toggle("u-hide");
-});
-
-// Delegazione eventi
-dateFilterList.addEventListener("click", function (e) {
-  e.preventDefault();
-  if ([...e.target.classList].some((cl) => cl.startsWith("filter_by_"))) {
-    let artPiecesFilteredByDate;
-    if (e.target.className.includes("newest")) {
-      artPiecesFilteredByDate = artPieces
-        .slice()
-        .sort((a, b) => new Date(a.date) - new Date(b.date));
-    } else if (e.target.className.includes("oldest")) {
-      artPiecesFilteredByDate = artPieces
-        .slice()
-        .sort((a, b) => new Date(b.date) - new Date(a.date));
-    }
-
-    artPiecesFilteredByDate.forEach((artFiltered) => {
-      // Cambia il src per corrispondere a dataSrc
-      artFiltered.src = artFiltered.dataSrc;
-    });
-
-    dateFilterWrapperEl.classList.add("u-hide");
-    dateFilterActiveEl.textContent = e.target.textContent;
-    displayGalleryImgs(artPiecesFilteredByDate, true);
-  }
-});
-
-// Gallery filter by artist
-arrowDropDownIconArtistEL.addEventListener("click", function () {
-  if (!dateFilterWrapperEl.classList.contains("u-hide")) {
-    dateFilterWrapperEl.classList.add("u-hide");
-  }
-  artistFilterWrapperEl.classList.toggle("u-hide");
-});
-
-// Delegazione degli eventi
-containerAtistFilterList.addEventListener("click", function (e) {
-  e.preventDefault();
-  if (e.target.classList.contains("artist_link")) {
-    if (e.target.textContent !== "All Artists") {
-      const artPiecesFilteredByArtist = artPieces
-        .slice()
-        .filter((art) => art.artist.includes(`${e.target.textContent}`));
-
-      artPiecesFilteredByArtist.forEach((artFiltered) => {
-        // Cambia il src per corrispondere a dataSrc
-        artFiltered.src = artFiltered.dataSrc;
-      });
-      displayGalleryImgs(artPiecesFilteredByArtist, true);
-    } else {
-      const tmp = artPieces.slice().map((artFiltered) => {
-        return {
-          ...artFiltered,
-          src: artFiltered.dataSrc,
-        };
-      });
-      displayGalleryImgs(tmp, true);
-    }
-    artistFilterWrapperEl.classList.add("u-hide");
-    artistFilterActiveEl.textContent = `${e.target.textContent}`;
-  }
-});
-
-// Check largheza viewport per chiudere automaticamente un menu se si scende sotto quella larghezza
-// e chiuderne un altro se si supera invece
-//(1376px -> 1376px/16 = 86em)
-const mq = window.matchMedia("(max-width: 86em)");
-
-// Funzione per forzare la chiusura del menu
-const closeMenu = (
-  elToClose,
-  isResponsiveGalleryMenu = false,
-  filertIcon = undefined,
-  closeFilterMenuBtn = undefined
-) => {
-  // se il menu è aperto (non ha già la classe u-hide), nascondilo
-  if (!elToClose.classList.contains("u-hide")) {
-    elToClose.classList.add("u-hide");
-
-    if (
-      isResponsiveGalleryMenu &&
-      filertIcon !== undefined &&
-      closeFilterMenuBtn !== undefined
-    ) {
-      filertIcon.classList.toggle("u-hide");
-      closeFilterMenuBtn.classList.toggle("u-hide");
-    }
-  }
-};
-
-// 4. Listener che scatta quando lo stato della media query cambia
-mq.addEventListener("change", (e) => {
-  if (e.matches) {
-    // viewport sotto 86em
-    closeMenu(artistFilterWrapperEl);
-    closeMenu(dateFilterWrapperEl);
-  } else {
-    // viewport sopra 86em
-    closeMenu(containerFilterList, true, filterIconEl, closeFilterMenuBtn);
-  }
-});
-
-// Controllo iniziale al caricamento della pagina,
-// così se l'utente apre direttamente in mobilità il menu corrispettivo parte già chiuso
-if (mq.matches) {
-  closeMenu(artistFilterWrapperEl);
-  closeMenu(dateFilterWrapperEl);
-  closeMenu(containerFilterList, true, filterIconEl, closeFilterMenuBtn);
-}
-
-// funziona sia per la galleria impostata di default e anche quando viene applicato un filtro su di essa
-// delegazione eventi
-containerGalleryContent.addEventListener("click", function (e) {
-  // controllo se la classe dell'elemento inizia con quella stringa, cioè se è una immagine della galleria
-  if ([...e.target.classList].some((c) => c.startsWith("image_"))) {
-    const img = e.target;
-    createModalContainer(img.id);
-
-    wrapperScrollToTopBtn.style.opacity = 0;
-    openModal();
-  }
-});
-
-// Quando clicchi fuori dal modale (cioè sul container che fa da overlay)
-containerImgageGalleryModal.addEventListener("click", (e) => {
-  // Se il click è proprio sull'overlay e NON dentro il modale
-  if (!modalContent.contains(e.target)) {
-    closeModal();
-    wrapperScrollToTopBtn.style.opacity = 1;
-  }
-});
-
-// Quando clicchi sul tast ESC chiudi il modale
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    closeModal();
-    wrapperScrollToTopBtn.style.opacity = 1;
-  }
-});
-
-/////////////////////////////////////////////////////////////////
-/* smooth scroll*/
-const scrollToSection = function (e) {
-  const link = e.target.closest(`.${this}`);
-
-  if (!link) return;
-
-  let href = link.getAttribute("href");
-  console.log(href);
-
-  if (href && href !== "#" && href.startsWith("#")) {
-    e.preventDefault();
-    const sectionToScroll = document.querySelector(href);
-    if (!sectionToScroll) return;
-
-    /* Disattivo l'effetto fade-in per permettere allo smooth scroll di posizionare la sezione esattamente all'inizio, senza offset */
-    sectionToScroll.style.transform = "translateY(0)";
-    sectionToScroll.style.transition = "none";
-    sectionToScroll.style.opacity = 1;
-
-    sectionToScroll?.scrollIntoView({ behavior: "smooth" });
-
-    // la navbar response deve sparire appena viene cliccato su un link
-    if (!navbarResponseEl.classList.contains("u-hide")) {
-      navbarResponseEl.classList.add("u-hide");
-      hamburgherIconEl.classList.remove("u-hide");
-    }
-  }
-};
-
-// scrool smooth per i link della navbar e del footer, delegazione degli eventi
-navbarSmoothScrollLists.forEach((el) => {
-  el.addEventListener("click", scrollToSection.bind("navbar_item"));
-});
-footerEl.addEventListener("click", scrollToSection.bind("link_ft_to-sc"));
-
-scrollToGalleryCta.addEventListener("click", function (e) {
-  e.preventDefault();
-
-  /* Disattivo l'effetto fade-in per permettere allo smooth scroll di posizionare la sezione esattamente all'inizio, senza offset */
-  section2.style.transition = "none";
-  section2.style.transform = "translateY(0)";
-  section2.style.opacity = 1;
-
-  // Scrolling with smooth effect modern version
-  section2.scrollIntoView({ behavior: "smooth" });
-});
-
-///////////////////////////////////////////////////////////////
-// smoth scroll to top btn
-wrapperScrollToTopBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  // Scrolling with smooth effect modern version
-  section1.scrollIntoView({ behavior: "smooth" });
-});
-
-// 1. Riferimenti e variabili
-let sec1Height, sec1MB, headerObserver;
-
-// 2. Calcola height e margin-bottom
-function updateHeaderMeasurements() {
-  sec1Height = section1.getBoundingClientRect().height;
-  sec1MB = parseFloat(window.getComputedStyle(section1).marginBottom);
-}
-
-// 3. (Ri)crea l’IntersectionObserver con il rootMargin corretto
-function setupHeaderObserver() {
-  // Scollega il vecchio observer, se esiste
-  if (headerObserver) headerObserver.disconnect();
-
-  // Offset in px
-  const offset = sec1Height - sec1MB;
-
-  headerObserver = new IntersectionObserver(scroollToTopBtnVisibility, {
-    root: null,
-    threshold: 0,
-    rootMargin: `-${offset}px 0px 0px 0px`,
-  });
-  headerObserver.observe(section1);
-}
-
-// 4. Callback di visibilità
-function scroollToTopBtnVisibility(entries) {
-  const entry = entries[0];
-  wrapperScrollToTopBtn.style.opacity = entry.isIntersecting ? 0 : 1;
-}
-
-// 5. Inizializza e aggiorna al resize
-window.addEventListener("DOMContentLoaded", () => {
-  updateHeaderMeasurements();
-  setupHeaderObserver();
-});
-window.addEventListener("resize", () => {
-  updateHeaderMeasurements();
-  setupHeaderObserver();
-});
-
-// Smooth scroll to section
-const ctaToFormBtn = document.querySelector(".cta_to_form");
-ctaToFormBtn.addEventListener("click", function (e) {
-  e.preventDefault();
-  const href = e.target.getAttribute("href");
-  document.querySelector(href).scrollIntoView({ behavior: "smooth" });
-});
-
-// section fade entry
-const allSectionToFade = document.querySelectorAll(".section_to_fade");
-
-const sectionFadeAnimation = function (entries) {
-  entries.forEach((entry) => {
-    if (!entry.isIntersecting) return;
-
-    entry.target.classList.remove("section--hide");
-  });
-};
-
-const sectionObserver = new IntersectionObserver(sectionFadeAnimation, {
-  root: null,
-  threshold: 0.2,
-});
-
-allSectionToFade.forEach((section) => {
-  sectionObserver.observe(section);
-  section.classList.add("section--hide");
-});
-
-//gallery response
-filterIconEl.addEventListener("click", function () {
-  // Costruisco il contenuto HTML da inserire nel container
-  const html = `
-          <div class="filter_content">
-          <h3>Filter By Date</h3>
-          ${dateFilterWrapperEl.getElementsByTagName("ul")[0].outerHTML}
-          <h3>Filter By Artists</h3>
-          ${artistFilterWrapperEl.getElementsByTagName("ul")[0].outerHTML}
-        </div>
-      `;
-
-  console.log(html);
-
-  // Imposto il contenuto (puoi decidere se ogni volta reinserirlo o solo la prima volta)
-  containerFilterList.innerHTML = html;
-  console.log(containerFilterList);
-
-  // Alterna la visibilità del container: se è visibile, lo nasconde, altrimenti lo mostra
-  containerFilterList.classList.toggle("u-hide");
-  filterIconEl.classList.toggle("u-hide");
-  closeFilterMenuBtn.classList.toggle("u-hide");
-
-  // Delegazione degli eventi
-  containerFilterList.addEventListener("click", function (e) {
-    e.preventDefault();
-
-    let artPiecesFiltered;
-    if (e.target.classList.contains("artist_link")) {
-      if (e.target.textContent !== "All Artists") {
-        artPiecesFiltered = artPieces
-          .slice()
-          .filter((art) => art.artist.includes(`${e.target.textContent}`));
-
-        artPiecesFiltered.forEach((artFiltered) => {
-          // Cambia il src per corrispondere a dataSrc
-          artFiltered.src = artFiltered.dataSrc;
-        });
-
-        displayGalleryImgs(artPiecesFiltered, true);
-      } else {
-        const tmp = artPieces.slice().map((artFiltered) => {
-          return {
-            ...artFiltered,
-            src: artFiltered.dataSrc,
-          };
-        });
-        displayGalleryImgs(tmp, true);
-      }
-
-      artistFilterActiveEl.textContent = `${e.target.textContent}`;
-    } else if (
-      [...e.target.classList].some((cl) => cl.startsWith("filter_by_"))
-    ) {
-      if (e.target.className.includes("newest")) {
-        artPiecesFiltered = artPieces
-          .slice()
-          .sort((a, b) => new Date(a.date) - new Date(b.date));
-      } else if (e.target.className.includes("oldest")) {
-        artPiecesFiltered = artPieces
-          .slice()
-          .sort((a, b) => new Date(b.date) - new Date(a.date));
-      }
-
-      artPiecesFiltered.forEach((artFiltered) => {
-        // Cambia il src per corrispondere a dataSrc
-        artFiltered.src = artFiltered.dataSrc;
-      });
-
-      dateFilterActiveEl.textContent = e.target.textContent;
-      displayGalleryImgs(artPiecesFiltered, true);
-    }
-
-    containerFilterList.classList.add("u-hide");
-    filterIconEl.classList.remove("u-hide");
-    closeFilterMenuBtn.classList.add("u-hide");
-  });
-});
-
-closeFilterMenuBtn.addEventListener("click", function () {
-  containerFilterList.classList.add("u-hide");
-  filterIconEl.classList.remove("u-hide");
-  closeFilterMenuBtn.classList.add("u-hide");
-});
-
-///////////////////////////////////////////////////////////////////////////////////
-//Slider
-
-let currentCollabSlide = 0;
-const maxCollabSlides = collabSliders.length;
-
-const goToSlide = function (slide) {
-  collabSliders.forEach((s, i) => {
-    s.style.transform = `translateX(${100 * (i - slide)}%)`;
-  });
-};
-
-const goToNextSlide = function () {
-  currentCollabSlide === maxCollabSlides - 1
-    ? (currentCollabSlide = 0)
-    : currentCollabSlide++;
-
-  goToSlide(currentCollabSlide);
-};
-
-const goToPreviouslySlide = function () {
-  currentCollabSlide === 0
-    ? (currentCollabSlide = maxCollabSlides - 1)
-    : currentCollabSlide--;
-
-  goToSlide(currentCollabSlide);
-};
-
-collabSlideBtnRight.addEventListener("click", goToNextSlide);
-collabSlideBtnLeft.addEventListener("click", goToPreviouslySlide);
-
-// Slider effect with arros only if the section is on the viewport at least 25% visible
-const arrowKeyHandler = function arrowKeyHandler(e) {
-  if (e.key === "ArrowRight") goToNextSlide();
-  if (e.key === "ArrowLeft") goToPreviouslySlide();
-};
-
-const slideWithArrwsKey = function (entries) {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      // la sezione è dentro la viewport
-      if (!arrowsSlideListenerActive) {
-        document.addEventListener("keydown", arrowKeyHandler);
-        arrowsSlideListenerActive = true;
-        console.log("Listener frecce ATTIVATO");
-      }
-    } else {
-      // la sezione è uscita dalla viewport
-      if (arrowsSlideListenerActive) {
-        document.removeEventListener("keydown", arrowKeyHandler);
-        arrowsSlideListenerActive = false;
-        console.log("Listener frecce DISATTIVATO");
-      }
-    }
-  });
-};
-
-const slideObserver = new IntersectionObserver(slideWithArrwsKey, {
-  root: null,
-  threshold: 0.25,
-});
-
-slideObserver.observe(section4);
-
-// skills bars
-const setSkillsBarsWidthAndStyleTransition = function (
-  transitionDuration,
-  isIntersecting
-) {
-  barsEl.forEach((el) => {
-    el.style.transitionDuration = `${transitionDuration}s`;
-    el.style.width = `${isIntersecting ? el.dataset.width + "%" : 0}`;
-  });
-};
-
-const setSkillsBarsAnimation = function (entries) {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      /* nella viewport */
-      setSkillsBarsWidthAndStyleTransition(3, entry.isIntersecting);
-    } else {
-      /* non nella viewport */
-      setSkillsBarsWidthAndStyleTransition(0.3, entry.isIntersecting);
-    }
-  });
-};
-
-const skillsObserver = new IntersectionObserver(setSkillsBarsAnimation, {
-  root: null,
-  threshold: 0,
-});
-
-const section5 = document.querySelector("#section__6");
-skillsObserver.observe(section5);
-
-///////////////////////////////////////////////////////////////////////////////////
-/* work with me section */
-const updateStyleToEffectSlideOnform = function () {
-  // work with me content left
-  workMeContentLeftEl.classList.toggle(
-    "mode_collab_sponsor-work_me_content_left"
-  );
-  workMeContentLeftEl.classList.toggle("mode_commission-work_me_content_left");
-
-  // wor with me content
-  workWithMeContentEl.classList.toggle("mode_collab_sponsor-work_me_content");
-  workWithMeContentEl.classList.toggle("mode_commission-work_me_content");
-
-  commissionContentLeft.classList.toggle("u-hide");
-  collabSponsorContentLeft.classList.toggle("u-hide");
-
-  // collab sponsor content right
-  collabSponsorContentRight.classList.toggle(
-    "mode_collab_sponsor-collab_sponsor_content_right"
-  );
-  collabSponsorContentRight.classList.toggle(
-    "mode_commission-collab_sponsor_content_right"
-  );
-
-  // commission content right
-  commissionContentRight.classList.toggle(
-    "mode_collab_sponsor-commission_content-right"
-  );
-  commissionContentRight.classList.toggle(
-    "mode_commission-commission_content-right"
-  );
-};
-
-const handleSlideEffect = function (e) {
-  console.log(e.target);
-  e.preventDefault();
-  updateStyleToEffectSlideOnform();
-};
-
-slideEffectBtns.forEach((btn) => {
-  btn.addEventListener("click", handleSlideEffect);
-});
-
-/* main */
+// gallery
 displayGalleryImgs(artPieces);
 displayArtistsFilterMenu();
+initLazyLoadingEvent();
+initGalleryFilters();
+initGalleryModal();
+closefiltersMenuGalleryAutomatically();
+initFilterMenuOnGalleryInResponseMode();
 
-goToSlide(0);
+// collab highlights
+initcollabHighlightsSlider();
+
+// skills
+initSkillsBars();
+
+// work with me
+initWorkWithMeFormSlideEffect();

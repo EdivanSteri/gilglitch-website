@@ -54,6 +54,8 @@ body {
   margin: 4rem;
   z-index: 9999;
 
+  opacity: 0;
+
   transition: all .2s;
 }
 
@@ -205,19 +207,19 @@ body {
 .navbar_response {
   width: 100vw;
   height: 95vh;
-  
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
+
   background-color: rgba(78, 11, 105, 0.90);
-  
+
   z-index: 1;
 }
 
@@ -515,9 +517,6 @@ body {
 
 .img_wrapper img:hover {
   cursor: pointer;
-}
-
-.img_wrapper img.loaded:hover {
   transform: scale(1.1);
 }
 
@@ -718,9 +717,9 @@ body {
   height: 60rem;
 
   margin: 0 auto;
-  position: relative;
 
   overflow: hidden;
+  position: relative;
 }
 
 .slide {
@@ -734,7 +733,9 @@ body {
   align-items: center;
   justify-content: center;
 
-  transition: transform 1s;
+  transform: translateX(100%);
+
+  transition: transform .8s ease;
 }
 
 .slide_btn:hover {
