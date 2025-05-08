@@ -515,9 +515,6 @@ body {
 
 .img_wrapper img:hover {
   cursor: pointer;
-}
-
-.img_wrapper img.loaded:hover {
   transform: scale(1.1);
 }
 
