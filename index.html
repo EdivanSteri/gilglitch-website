@@ -19,6 +19,10 @@
     />
 
     <!-- styles -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
     <link rel="stylesheet" href="./Styles/style.css" />
     <link rel="stylesheet" href="./Styles/desktopMediaQueries.css" />
     <link rel="stylesheet" href="./Styles/mobileMediaQueries.css" />
@@ -583,8 +587,18 @@
                   <div class="date_range">
                     <p class="">Project period (start - end):</p>
                     <div class="date_range_inputs">
-                      <input type="date" id="start_date" required />
-                      <input type="date" id="end_date" required />
+                      <input
+                        type="text"
+                        id="start_date"
+                        placeholder="Data inizio"
+                        required
+                      />
+                      <input
+                        type="text"
+                        id="end_date"
+                        placeholder="Data fine"
+                        required
+                      />
                     </div>
                   </div>
 
@@ -805,5 +819,21 @@
         </span></a
       >
     </div>
+
+    <!-- JS Flatpickr -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- localizzazione italiana -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/it.js"></script>
+    <script>
+      flatpickr("#start_date", {
+        dateFormat: "Y-m-d",
+        locale: "it",
+      });
+
+      flatpickr("#end_date", {
+        dateFormat: "Y-m-d",
+        locale: "it",
+      });
+    </script>
   </body>
 </html>
