@@ -4,11 +4,806 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chango&family=Kaushan+Script&family=Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- google icons-->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
+
+    <!-- styles -->
     <link rel="stylesheet" href="./Styles/style.css" />
+    <link rel="stylesheet" href="./Styles/desktopMediaQueries.css" />
+    <link rel="stylesheet" href="./Styles/mobileMediaQueries.css" />
 
     <script src="./Scripts/script.js" defer></script>
 
     <title>Gilglitch - Where Music Meets Art</title>
   </head>
-  <body></body>
+  <body>
+    <!-- hero section section-->
+    <header class="hero_section u-mb-1-9-6" id="section__1">
+      <nav class="navbar_response u-hide">
+        <div class="close_wrapper">
+          <span class="material-symbols-outlined close_icon nav_icon">
+            close
+          </span>
+        </div>
+        <ul class="navbar_list_response navbar_smooth_scroll_list">
+          <li>
+            <a class="btn navbar_item" href="#section__2">Gallery</a>
+          </li>
+          <li>
+            <a class="btn navbar_item menu_link" href="#section__3">Music</a>
+          </li>
+          <li>
+            <a class="btn navbar_item menu_link" href="#section__5">About Me</a>
+          </li>
+          <li>
+            <a class="btn navbar_item menu_link" href="#section__4"
+              >Highlights</a
+            >
+          </li>
+          <li>
+            <a class="btn navbar_item menu_link" href="#section__7"
+              >Sponsorships</a
+            >
+          </li>
+          <li>
+            <a class="btn navbar_item menu_link" href="#">Commissions</a>
+          </li>
+          <li><a class="btn navbar_item" href="#">Contacts</a></li>
+        </ul>
+      </nav>
+      <div class="left_hero_section">
+        <div class="hero_header">
+          <h1 class="primary_heading">GILGLITCH</h1>
+          <p class="hero_slogan">Where Music Meets Art</p>
+          <a
+            class="btn explore_gallery_btn scroll_to_gallery"
+            href="#section__2"
+            >Explore the gallery</a
+          >
+        </div>
+      </div>
+      <div class="right_hero_section">
+        <div class="hamburgher_wrapper u-hide">
+          <span class="material-symbols-outlined hamburgher_icon nav_icon">
+            menu
+          </span>
+        </div>
+        <nav class="navbar">
+          <ul class="navbar_list navbar_smooth_scroll_list">
+            <li><a class="btn navbar_item" href="#section__1">Home</a></li>
+            <li>
+              <a class="btn navbar_item" href="#section__2">Gallery</a>
+            </li>
+            <li>
+              <a
+                class="btn navbar_item inspirations_item navbar_dropdown_trigger"
+                href="#"
+                >Inspirations</a
+              >
+              <div class="menu_inspirations">
+                <ul class="inspirations_list">
+                  <li>
+                    <a class="btn navbar_item menu_link" href="#section__3"
+                      >Music</a
+                    >
+                  </li>
+                  <li>
+                    <a class="btn navbar_item menu_link" href="#section__5"
+                      >About Me</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a
+                class="btn navbar_item collaborations_item navbar_dropdown_trigger"
+                href="#"
+                >Collaborations</a
+              >
+              <div class="menu_collaborations">
+                <ul class="collaborations_list">
+                  <li>
+                    <a class="btn navbar_item menu_link" href="#section__4"
+                      >Highlights</a
+                    >
+                  </li>
+                  <li>
+                    <a class="btn navbar_item menu_link" href="#section__7"
+                      >Sponsorships</a
+                    >
+                  </li>
+                  <li>
+                    <a class="btn navbar_item menu_link" href="#"
+                      >Commissions</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li><a class="btn navbar_item" href="#">Contacts</a></li>
+          </ul>
+        </nav>
+        <div>
+          <img
+            class="img_hero_section"
+            src="./Media/images-without-background/tha-supreme-sulla-luna-senza-sfondo.png"
+            alt="sketch by Tha Supreme on the moon"
+          />
+        </div>
+      </div>
+    </header>
+
+    <!-- gallery section section-->
+    <section class="gallery_section section_to_fade u-mb-1-9-6" id="section__2">
+      <div class="gallery_heading">
+        <h2 class="secondary_heading">
+          Every stroke, a beat. Every color, a note.
+        </h2>
+        <p>Feel the energy of music through every artwork</p>
+      </div>
+      <div class="gallery_content">
+        <div class="gallery_filter">
+          <div class="filter_icon_item u-hide">
+            <span class="material-symbols-outlined filter_icon">
+              keyboard_arrow_down
+            </span>
+            <span
+              class="material-symbols-outlined close_filter_menu_btn u-hide"
+            >
+              close
+            </span>
+          </div>
+          <div class="filter_item">
+            Sort by Date:&nbsp;<span class="date_filter_active">Newest</span>
+            <span
+              class="material-symbols-outlined arrow_drop_down_icon arrow_drop_down_icon_date"
+            >
+              arrow_drop_down
+            </span>
+          </div>
+          <div class="filter_item">
+            Filter by Artist:&nbsp;<span class="artist_filter_active"
+              >All Artists</span
+            >
+            <span
+              class="material-symbols-outlined arrow_drop_down_icon arrow_drop_down_icon_artist"
+            >
+              arrow_drop_down
+            </span>
+          </div>
+          <div class="date_filter_wrapper u-hide">
+            <ul class="date_filter_list">
+              <li class="filter_by_newest">Newest</li>
+              <li class="filter_by_oldest">Oldest</li>
+            </ul>
+          </div>
+          <div class="artist_filter_wrapper u-hide">
+            <ul class="artist_filter_list">
+              <!-- vuoto perchè viene caricato da js-->
+            </ul>
+          </div>
+        </div>
+        <div class="gallery_imgs_wrapper">
+          <!-- Container dei filtri per schermi piccoli(inizialmente nascosto) -->
+          <div class="filter_list u-hide"></div>
+          <div class="gallery_imgs">
+            <!-- Immagini caricate via JavaScript -->
+          </div>
+        </div>
+      </div>
+      <div class="img_gallery_modal u-hide">
+        <div class="modal_content">
+          <div class="img_container">
+            <img
+              class="img_modal"
+              src="./Media/sketches/BNQX3333.JPG"
+              alt="test modal image"
+            />
+          </div>
+          <div class="details">
+            <h3 class="modal_title">Tha-Selfie</h3>
+            <p class="modal_description">
+              Interpretazione visiva della canzone 'La pioggia' di Tha Supreme:
+              un'opera che cattura il delicato flusso emotivo e i contrasti
+              della melodia. Con tonalità fredde e dinamiche di luce, l'immagine
+              evoca la malinconia e la speranza che si intrecciano, immergendo
+              l’osservatore in un viaggio sensoriale ispirato al ritmo e
+              all'atmosfera del brano.
+            </p>
+            <span class="modal_date">12/05/200</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- music inspiration section-->
+    <section
+      class="music_inspiration_section section_to_fade u-mb-1-9-6"
+      id="section__3"
+    >
+      <h2 class="secondary_heading">The Power of the Music</h2>
+      <div class="music_inspiration_content">
+        <div class="artist_inspiration tha_supreme_inspiration">
+          <div class="wrapper_img_inspiration">
+            <img
+              class="img_inspiration"
+              src="./Media/images-without-background/tha-supreme-music-inspiration.png"
+              alt=""
+            />
+            <div class="img_background img_background__left"></div>
+          </div>
+          <div class="description_inspiration">
+            <p>
+              Ascoltando i beat spezzati e i vocalizzi filtrati di tha Supreme,
+              ho iniziato a frammentare i miei tratti di matita con linee
+              irregolari e interruzioni improvvise, come se lo schizzo prendesse
+              vita a scatti. Le sue atmosfere glitch mi hanno spinto a
+              sperimentare texture digitali nel disegno tradizionale, inserendo
+              contrasti forti tra luci e ombre per ricreare quell’effetto
+              ipnotico. Inoltre, l’uso smaccato di colori pop – rosa shocking,
+              verde acido, giallo neon – mi ha dato il coraggio di rompere le
+              palette convenzionali, rendendo i miei lavori visivamente vibranti
+              e pieni di energia elettronica.
+            </p>
+          </div>
+        </div>
+        <div class="artist_inspiration rose_villain_inspiration">
+          <div class="description_inspiration">
+            <p>
+              La vocalità intensa e le sonorità cinematiche di Rose Villain mi
+              hanno introdotto a un disegno più emotivo e narrativo: ho iniziato
+              a usare acquerelli e pastelli per creare gradienti soffici e
+              transazioni delicate, capaci di evocare malinconia e tensione. Nei
+              miei paesaggi interiori – volti, mani, dettagli simbolici – cerco
+              di catturare quell’equilibrio tra fragilità e forza che
+              caratterizza i suoi brani, inserendo piccoli particolari (uno
+              sguardo pensieroso, una lacrima sospesa) che raccontano storie di
+              riscatto e introspezione.
+            </p>
+          </div>
+          <div class="wrapper_img_inspiration">
+            <img
+              class="img_inspiration"
+              src="./Media/images-without-background/rose-villain-music-inspiration.png"
+              alt=""
+            />
+            <div class="img_background img_background__right"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- collab_section section-->
+    <section class="collab_section section_to_fade u-mb-1-9-6" id="section__4">
+      <div class="collab_title_container">
+        <h2 class="secondary_heading">Collab Highlights</h2>
+      </div>
+      <div class="slider">
+        <div class="slide slide__1">
+          <div class="collab_content">
+            <img
+              class="art_work_img"
+              src="./Media/sketches/IINJ0685.JPG"
+              alt=""
+            />
+            <div class="art_work_details">
+              <p class="art_work_description">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </p>
+              <div class="collaborators_details">
+                <div class="collaborators_img_wrapper">
+                  <img
+                    class="collaborators_img"
+                    src="./Media/images-collaborators/tiomusic.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="collaborators_info">
+                  <div class="img_background_collaborators_info"></div>
+                  <p>Tio Music</p>
+                  <div class="collaborators_social">
+                    <img
+                      src="./Media/images-social/igLogo.png"
+                      alt="instagram logo"
+                    />
+                    <img
+                      src="./Media/images-social/igLogo.png"
+                      alt="tiktok logo"
+                    />
+                    <img
+                      src="./Media/images-social/igLogo.png"
+                      alt="youtube logo"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide slide__2">
+          <div class="collab_content">
+            <img
+              class="art_work_img"
+              src="./Media/sketches/CITE1837.JPG"
+              alt=""
+            />
+            <div class="art_work_details">
+              <p class="art_work_description">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </p>
+              <div class="collaborators_details">
+                <div class="collaborators_img_wrapper">
+                  <img
+                    class="collaborators_img"
+                    src="./Media/images-collaborators/tiomusic.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="collaborators_info">
+                  <div class="img_background_collaborators_info"></div>
+                  <p>Tio Music</p>
+                  <div class="collaborators_social">
+                    <img
+                      src="./Media/images-social/igLogo.png"
+                      alt="instagram logo"
+                    />
+                    <img
+                      src="./Media/images-social/igLogo.png"
+                      alt="tiktok logo"
+                    />
+                    <img
+                      src="./Media/images-social/igLogo.png"
+                      alt="youtube logo"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="slide_btn slide_left_btn">
+          <span class="material-symbols-outlined slide_icon">
+            keyboard_arrow_left
+          </span>
+        </button>
+        <button class="slide_btn slide_right_btn">
+          <span class="material-symbols-outlined slide_icon">
+            keyboard_arrow_right
+          </span>
+        </button>
+      </div>
+
+      <div class="cta_to_form_wrapper">
+        <a class="btn cta_to_form" href="#section__7">Work with me</a>
+      </div>
+    </section>
+
+    <!-- about me and skills section-->
+    <section class="about_me_section section_to_fade" id="section__5">
+      <h2 class="secondary_heading">About Me</h2>
+      <div class="about_me_content">
+        <div class="about_me_left">
+          <div class="about_me_img_wrapper">
+            <img
+              class="about_me_image"
+              src="./Media/images-without-background/gil_about_me.png"
+              alt=""
+            />
+          </div>
+        </div>
+        <div class="about_me_right">
+          <div class="about_me_description_wrapper">
+            <p class="about_me_description">
+              Creo pani fragranti con passione artigianale, traduco in immagini
+              le emozioni che ascolto nella musica e sperimento materiali come
+              carta e argilla per dare forma alle mie idee. Ho 24 anni, sono
+              italiano di origine brasiliana e vivo a Cagliari, città di talenti
+              spesso poco visibili. Ogni creazione è un piccolo racconto: dalla
+              lievitazione al tratto di matita, voglio far sentire la mia voce
+              artistica.
+            </p>
+          </div>
+          <div class="about_me_info">
+            <ul>
+              <li>Gilvan Steri</li>
+              <li>24</li>
+              <li>Artist</li>
+              <li>Cagliari, Italy</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="skills_section u-mb-1-9-6" id="section__6">
+      <h2 class="secondary_heading">My Skills</h2>
+      <div class="skills_content">
+        <ul>
+          <li>
+            <p class="skills_title">Digital Illustration</p>
+            <div class="skills_bar">
+              <div class="bar" data-width="90"></div>
+            </div>
+          </li>
+          <li>
+            <p class="skills_title">Traditional Drawing</p>
+            <div class="skills_bar">
+              <div class="bar" data-width="75"></div>
+            </div>
+          </li>
+          <li>
+            <p class="skills_title">Ceramic Sculpting</p>
+            <div class="skills_bar">
+              <div class="bar" data-width="40"></div>
+            </div>
+          </li>
+          <li>
+            <p class="skills_title">Artisanal Baking</p>
+            <div class="skills_bar">
+              <div class="bar" data-width="60"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- work with me section -->
+    <section
+      class="work_with_me_section section_to_fade u-mb-1-9-6"
+      id="section__7"
+    >
+      <div class="work_with_me_container">
+        <div class="work_with_me_content mode_collab_sponsor-work_me_content">
+          <div
+            class="work_me_content_left mode_collab_sponsor-work_me_content_left"
+          >
+            <div class="collab_sponsor_content_left">
+              <h2 class="secondary_heading">Own a Piece of Art</h2>
+              <p>
+                Commission a custom masterpiece or browse exclusive prints by
+                <strong><i>GilGlitch</i></strong
+                >.<br />
+                Let your space tell a unique story.
+              </p>
+              <button class="btn_slide_effect btn_go_to_commission_form">
+                View Art Commissions
+              </button>
+            </div>
+            <div class="commission_content_left u-hide">
+              <h2 class="secondary_heading">Let's Collaborate</h2>
+              <p>
+                Partner with GilGlitch to create innovative and inspiring
+                projects.<br />
+                Join forces to push creative boundaries.
+              </p>
+              <button class="btn_slide_effect btn_go_to_collab_sponsor_form">
+                Switch to Custom Art Options
+              </button>
+            </div>
+          </div>
+          <div
+            class="collab_sponsor_content_right mode_collab_sponsor-collab_sponsor_content_right"
+          >
+            <h2 class="secondary_heading">Sponsorship / Collab Inquiry</h2>
+            <form class="form" action="#section__7">
+              <div class="contact_info">
+                <h3 class="form_tertionary_heading">Contact info</h3>
+                <div class="form_inputs">
+                  <input type="text" placeholder="FullName" required />
+                  <input type="email" placeholder="Email" required />
+                  <input
+                    type="text"
+                    placeholder="Instagram Handle (optional)"
+                  />
+                </div>
+              </div>
+              <div class="input_type_collab">
+                <p>Form of the work?</p>
+                <div class="input_radio">
+                  <input
+                    type="radio"
+                    id="collaboration"
+                    name="form_of_work_with_me"
+                    value="collaboration"
+                    checked
+                    required
+                  />
+                  <label for="collaboration">Collaboration</label>
+                  <input
+                    type="radio"
+                    id="sponsorship"
+                    name="form_of_work_with_me"
+                    value="sponsorship"
+                    required
+                  />
+                  <label for="sponsorship">Sponsorship</label>
+                </div>
+              </div>
+              <div>
+                <h3>
+                  <span class="dynamic_tertionary_heading_word">Collab</span>
+                  info
+                </h3>
+                <div class="form_inputs">
+                  <input
+                    class=""
+                    type="text"
+                    placeholder="Community of reference"
+                    required
+                  />
+                  <select
+                    class="u-hide"
+                    name="sponsorship_type"
+                    id="sponsorship_type_select"
+                    required
+                  >
+                    <option value="" disabled selected>Test</option>
+                    <option value="dog">Economic sponsorship</option>
+                    <option value="cat">Provision of products/services</option>
+                    <option value="hamster">Exchange of visibility</option>
+                    <option value="parrot">Gift cards or coupons</option>
+                    <option value="spider">Access to events/hospitality</option>
+                  </select>
+                  <input
+                    type="text"
+                    placeholder="Describe your idea, goals, vibe, and how I can be involved"
+                    required
+                  />
+                  <div class="date_range">
+                    <p class="">Project period (start - end):</p>
+                    <div class="date_range_inputs">
+                      <input type="date" id="start_date" required />
+                      <input type="date" id="end_date" required />
+                    </div>
+                  </div>
+
+                  <div class="budjet u-hide">
+                    <p for="budjet">Budget min - max (€):</p>
+                    <input
+                      type="number"
+                      id="min-budjet"
+                      name="budjet"
+                      min="50"
+                      value="50"
+                      step="10"
+                    />
+                    <input
+                      type="number"
+                      id="max-budjet"
+                      name="budjet"
+                      min="60"
+                      value="1000"
+                      step="10"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn_submit btn_submit_collab_sponsor">
+                Let’s Connect
+              </button>
+            </form>
+          </div>
+          <div
+            class="commission_content_right mode_collab_sponsor-commission_content-right"
+          >
+            <h2 class="secondary_heading">Own a Piece of GilGlitch</h2>
+            <form class="form" action="#section__7">
+              <div class="contact_info">
+                <h3 class="form_tertionary_heading">Contact info</h3>
+                <div class="form_inputs">
+                  <input type="text" placeholder="FullName" required />
+                  <input type="email" placeholder="Email" required />
+                </div>
+              </div>
+              <div>
+                <h3>Project details</h3>
+                <div class="form_inputs">
+                  <select
+                    name="sponsorship_type"
+                    id="sponsorship_type_select"
+                    required
+                  >
+                    <option value="" disabled selected>
+                      Select a Request Type
+                    </option>
+                    <option value="custom_commission">Custom Commission</option>
+                    <option value="purchase_print">
+                      Purchase of Print/Operation
+                    </option>
+                    <option value="general_information">
+                      General Information
+                    </option>
+                  </select>
+                  <input
+                    type="text"
+                    placeholder="Describe your idea, goals, vibe, and how I can be involved"
+                    required
+                  />
+                  <div class="input_type_commssion">
+                    <p>Digital VS To Hand:</p>
+                    <div class="input_radio">
+                      <input
+                        type="radio"
+                        id="digital"
+                        name="commission_format"
+                        value="digital"
+                        checked
+                        required
+                      />
+                      <label for="digital">Digital</label>
+                      <input
+                        type="radio"
+                        id="to_hand"
+                        name="commission_format"
+                        value="to_hand"
+                        required
+                      />
+                      <label for="to_hand">To Hand</label>
+                    </div>
+                  </div>
+                  <div class="input_size">
+                    <p>Drawing size:</p>
+                    <div class="input_radio">
+                      <input
+                        type="radio"
+                        id="small"
+                        name="commission_size"
+                        value="small"
+                        required
+                      />
+                      <label for="small">Small 14 (€)</label>
+                      <input
+                        type="radio"
+                        id="medium"
+                        name="commission_size"
+                        value="medium"
+                        checked
+                        required
+                      />
+                      <label for="medium">Medium 16 (€)</label>
+                      <input
+                        type="radio"
+                        id="large"
+                        name="commission_size"
+                        value="large"
+                        required
+                      />
+                      <label for="large">Large 20 (€)</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn_submit btn_submit_commission">
+                Let’s Connect
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- social section -->
+    <section class="social_section section_to_fade u-mb-1-2-8" id="section__8">
+      <div class="social_container">
+        <div class="social_content">
+          <p class="follow_me">Follow me</p>
+          <a
+            class="btn link_ig"
+            href="https://www.instagram.com/gi.the.glitch_/"
+            target="_blank"
+            >@gilglitch</a
+          >
+          <a
+            class="btn link_ig"
+            href="https://www.instagram.com/gi.the.glitch_/"
+            target="_blank"
+            ><div class="insta_logo"></div
+          ></a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer" id="footer">
+      <div class="footer__1">
+        <div class="links_footer">
+          <p>GilGlitch</p>
+          <ul class="list_footer links_ft_to-sc">
+            <li>
+              <a class="btn link_footer link_ft_to-sc" href="#section__1"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a class="btn link_footer link_ft_to-sc" href="#section__2"
+                >Gallery</a
+              >
+            </li>
+            <li>
+              <a class="btn link_footer link_ft_to-sc" href="#section__7"
+                >Work with me</a
+              >
+            </li>
+          </ul>
+        </div>
+        <p class="footer_slogan">
+          Digital art inbspirated by music and creativity
+        </p>
+      </div>
+      <div class="footer__2">
+        <ul class="list_footer">
+          <li>
+            <a class="btn link_with_icon" href="#footer">
+              <span class="material-symbols-outlined footer_icon"> mail </span>
+              <span class="tag_email">gilglitch@gmail.com</span></a
+            >
+          </li>
+          <li>
+            <a
+              class="btn link_with_icon"
+              href="https://www.instagram.com/gi.the.glitch_/"
+              target="_blank"
+            >
+              <img
+                class="footer_icon"
+                src="./Media/images-social/igLogo.png"
+                alt="insta logo"
+              />
+              <span class="tag_insta">@gilglitch</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer__3">
+        <ul class="list_footer">
+          <li><a class="btn link_footer" href="#footer">Privacy Policy</a></li>
+          <li>
+            <a class="btn link_footer" href="#footer">Terms of Services</a>
+          </li>
+          <li>© 2025 GilGlitch</li>
+        </ul>
+      </div>
+    </footer>
+
+    <!-- btn to scroll smoothly to the hero section -->
+    <div class="wrapper_scroll_to_top_btn">
+      <a class="scroll_to_top_btn" href="#section__1"
+        ><span class="material-symbols-outlined arrow_up_icon">
+          arrow_upward
+        </span></a
+      >
+    </div>
+  </body>
 </html>

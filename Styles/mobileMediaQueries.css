@@ -1,0 +1,148 @@
+/* rem and em do NOT depend on html font-size in media queries! Instead, 1rem = 1em = 16px */
+
+/* 
+  Mobile small (1920px -> 480px/16 = 30em)  
+*/
+@media (max-width: 30em) {
+  .primary_heading {
+    font-size: 2rem;
+  }
+
+  .secondary_heading {
+    font-size: 1.8rem;
+  }
+
+
+  /* hero section */
+  .hero_section {
+    height: 80vh;
+  }
+
+  .hero_header {
+    padding-left: .4rem;
+  }
+
+  .hero_slogan {
+    font-size: 1.2rem;
+  }
+
+  .explore_gallery_btn:link,
+  .explore_gallery_btn:visited {
+    font-size: 1.2rem;
+    padding: .1rem .8rem;
+  }
+
+  .navbar_response {
+    height: 80vh;
+  }
+
+  /* gallery section  */
+  .gallery_section {
+    padding: 0 2.4rem;
+  }
+
+  .gallery_heading p {
+    font-size: 1.4rem;
+  }
+
+  /* music inspiration section  */
+  .music_inspiration_section {
+    padding: 0 2.4rem;
+  }
+
+  .music_inspiration_content {
+    gap: 3.6rem;
+  }
+
+  .description_inspiration {
+    padding: 1.2rem;
+  }
+
+  .tha_supreme_inspiration {
+    flex-direction: column-reverse;
+  }
+
+  .rose_villain_inspiration {
+    flex-direction: column;
+  }
+
+  .description_inspiration p {
+    font-size: 1.2rem;
+  }
+
+  /*collab_section */
+  .collab_section {
+    padding: 0 1.2rem;
+  }
+
+  .art_work_description {
+    font-size: 1.2rem;
+  }
+
+  .slide_left_btn {
+    left: .5%;
+  }
+
+  .slide_right_btn {
+    right: .5%;
+  }
+
+  /* about me section */
+  .about_me_section {
+    padding: 0 2.4rem;
+  }
+
+  .about_me_description {
+    font-size: 1.2rem;
+  }
+
+  /* work with me section */
+  .work_with_me_section {
+    padding: 0;
+  }
+
+  .collab_sponsor_content_left,
+  .commission_content_left {
+    padding: 0 1rem;
+  }
+
+  .form_tertionary_heading {
+    font-size: 1.6rem;
+  }
+
+  .input_type_collab {
+    font-size: 1.4rem;
+  }
+}
+
+
+/* schermo ruotato in orizzontale */
+/* (1920px -> 512px/16 = 320em)   */
+@media (max-height: 32em) {
+  .img_hero_section {
+    width: 50%;
+    transform: translate(-25%, -50%);
+  }
+}
+
+/* (1920px -> 440px/16 = 27,5em)   */
+@media (max-height: 27.5em) {
+  .img_hero_section {
+        width: 45%;
+    transform: translate(-25%, -40%);
+  }
+}
+
+/* (1920px -> 400px/16 = 25em)   */
+@media (max-height: 25em) {
+  .img_hero_section {
+    transform: translate(-10%, -20%);
+  }
+}
+
+/* (1920px -> 160px/16 = 10em)   */
+@media (max-height: 10em) {
+  .img_hero_section {
+    transform: translate(-25%, -10%);
+  }
+}
