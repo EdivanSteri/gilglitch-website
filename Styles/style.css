@@ -1247,6 +1247,20 @@ body {
   font-size: 1.6rem;
 }
 
+.form_inputs input[type="date"] {
+  /* Safari/Chrome iOS */
+  -webkit-appearance: none;
+  /* Firefox Android */
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Rimette l’icona del calendario (su WebKit) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 0.5em;
+}
+
 .form_inputs input:focus {
   border: transparent;
   outline: none;
