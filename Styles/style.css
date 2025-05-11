@@ -1501,7 +1501,7 @@ body {
 .footer__1,
 .footer__2,
 .footer__3 {
-  padding: 1.2rem 12.8rem;
+  padding: 1.2rem 14.4rem;
   position: relative;
 }
 
@@ -1513,9 +1513,9 @@ body {
   /* inizio bordo alta */
   top: 0;
   /* escludi il padding sinistro */
-  left: 12.8rem;
+  left: 14.4rem;
   /* escludi il padding destro */
-  right: 12.8rem;
+  right: 14.4rem;
   border-top: .1rem solid #000;
 }
 
@@ -1536,6 +1536,7 @@ body {
   font-style: italic;
 
   font-size: 2rem;
+  text-align: center;
 }
 
 .list_footer {

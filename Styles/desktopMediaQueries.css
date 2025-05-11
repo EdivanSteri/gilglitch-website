@@ -17,10 +17,9 @@
   Desktop Intermedio (1792px -> 1792px/16 = 112em) 
 */
 @media (max-width: 112em) {
-
   .left_hero_section {
     width: 60%;
-    
+
     clip-path: polygon(0 0, 100% 0, 20% 100%, 0% 100%);
   }
 
@@ -151,15 +150,15 @@
   .footer__1,
   .footer__2,
   .footer__3 {
-    padding: 1.2rem 8rem;
+    padding: 1.2rem 14.4rem;
   }
 
   .footer__2::before,
   .footer__3::before {
     /* escludi il padding sinistro */
-    left: 8rem;
+    left: 12.8rem;
     /* escludi il padding destro */
-    right: 8rem;
+    right: 12.8rem;
   }
 }
 
@@ -230,15 +229,15 @@
   .footer__1,
   .footer__2,
   .footer__3 {
-    padding: 1.2rem 7.2rem;
+    padding: 1.2rem 12.8rem;
   }
 
   .footer__2::before,
   .footer__3::before {
     /* escludi il padding sinistro */
-    left: 7.2rem;
+    left: 12.8rem;
     /* escludi il padding destro */
-    right: 7.2rem;
+    right: 12.8rem;
   }
 }
 
@@ -333,20 +332,6 @@
   /* footer */
   .footer {
     font-size: 1.8rem;
-  }
-
-  .footer__1,
-  .footer__2,
-  .footer__3 {
-    padding: 1.2rem 3.2rem;
-  }
-
-  .footer__2::before,
-  .footer__3::before {
-    /* escludi il padding sinistro */
-    left: 3.2rem;
-    /* escludi il padding destro */
-    right: 3.2rem;
   }
 
   .footer_slogan {
@@ -490,20 +475,6 @@
     font-size: 1.6rem;
   }
 
-  .footer__1,
-  .footer__2,
-  .footer__3 {
-    padding: 1.2rem 2.4rem;
-  }
-
-  .footer__2::before,
-  .footer__3::before {
-    /* escludi il padding sinistro */
-    left: 2.4rem;
-    /* escludi il padding destro */
-    right: 2.4rem;
-  }
-
   .list_footer {
     gap: 1.8rem;
   }
@@ -533,20 +504,6 @@
   /* footer */
   .footer {
     font-size: 1.6rem;
-  }
-
-  .footer__1,
-  .footer__2,
-  .footer__3 {
-    padding: 1.2rem 1.8rem;
-  }
-
-  .footer__2::before,
-  .footer__3::before {
-    /* escludi il padding sinistro */
-    left: 1.8rem;
-    /* escludi il padding destro */
-    right: 1.8rem;
   }
 
   .list_footer {
@@ -584,6 +541,15 @@
   .slide_icon {
     font-size: 2.4rem;
   }
+
+  /* footer */
+  .footer {
+    font-size: 1.6rem;
+  }
+
+  .list_footer {
+    gap: 1.4rem;
+  }
 }
 
 
@@ -595,10 +561,10 @@
     padding-left: 8rem;
   }
 
-  .navbar{
+  .navbar {
     display: none;
   }
-  
+
   .hamburgher_wrapper {
     display: block;
   }
@@ -654,6 +620,10 @@
 
   .footer_slogan {
     font-size: 1.2rem;
+  }
+
+  .links_ft_to-sc>li:not(:first-of-type) {
+    display: none;
   }
 }
 
@@ -873,10 +843,6 @@
   }
 
   /* footer */
-  .links_ft_to-sc>li:not(:first-of-type) {
-    display: none;
-  }
-
   .tag_insta,
   .tag_email {
     display: none;
