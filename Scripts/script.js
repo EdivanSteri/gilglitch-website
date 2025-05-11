@@ -438,6 +438,42 @@ const intFadeOtherNavLinksOnHover = function () {
 };
 
 /**
+ * Check largheza viewport per chiudere automaticamente il menu dei link della navbar della modalità responsiva
+ */
+const closeNavbarLinksAutomatically = function () {
+  //(1376px -> 1088px/16 = 86em)
+  const mq = window.matchMedia("(max-width: 68em)");
+
+  // Funzione per forzare la chiusura del menu
+  const closeNavbarResponseEl = (elToClose) => {
+    // se il menu è aperto (non ha già la classe u-hide), lo nasconde
+    if (!elToClose.classList.contains("u-hide")) {
+      elToClose.classList.add("u-hide");
+    }
+    hamburgherIconEl.classList.remove("u-hide");
+  };
+
+  // 4. Listener che scatta quando lo stato della media query cambia
+  mq.addEventListener("change", (e) => {
+    if (!e.matches) {
+      // usciti da mobile -> chiude menu e mostra icona hamburgher
+      closeNavbarResponseEl(navbarResponseEl);
+    } else {
+      // entrati in mobile -> l'icona hamburgher è visibile
+      hamburgherIconEl.classList.remove("u-hide");
+    }
+  });
+
+  // Controllo iniziale al caricamento della pagina,
+  // così se l'utente apre direttamente in mobilità il menu corrispettivo parte già chiuso
+  if (!mq.matches) {
+    closeNavbarResponseEl(navbarResponseEl);
+  } else {
+    hamburgherIconEl.classList.remove("u-hide");
+  }
+};
+
+/**
  * funzione che genra il markup per la visualizzazione della galleria dei disegni/immagini
  * @param {Array<Object>} artPieces  array di oggetti con i dati inerenti a un disegno come path img, id, title etc.
  * @param {boolean} removeLazy flag per capire se l'immagine è in modalità lazy o meno, inizialmente lo è
@@ -1508,6 +1544,7 @@ initAttachNavbarDropdownHover(
   menuInspirationsEl
 );
 intFadeOtherNavLinksOnHover();
+closeNavbarLinksAutomatically();
 
 // gallery
 displayGalleryImgs(artPieces);

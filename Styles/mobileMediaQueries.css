@@ -166,6 +166,13 @@
     /* escludi il padding destro */
     right: 5.4rem;
   }
+
+
+
+  .wrapper_scroll_to_top_btn{
+    bottom: 2%;
+    right: 5%;
+  }
 }
 
 /* schermo ruotato in orizzontale */
