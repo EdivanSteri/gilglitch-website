@@ -1,0 +1,30 @@
+/* 1) Rimuovi aspetto nativo di iOS */
+.form_inputs input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* 2) Applica il tuo styling “base” */
+.form_inputs input[type="date"] {
+  padding: 0.4rem 1.2rem;
+  font-size: 1.6rem;
+  border-radius: .9rem;
+
+  color: #4e0b69;
+  background-color: #fff;
+  /* obbligatorio per cancellare il grigio */
+  border: none;
+  box-shadow: 0 0 0 .1rem #835496;
+  transition: all 0.3s;
+}
+
+/* 3) Override ombre interne e glow iOS */
+.form_inputs input[type="date"] {
+  box-shadow: 0 0 0 .1rem #835496 !important;
+  -webkit-box-shadow: 0 0 0 .1rem #835496 !important;
+}
+
+/* 4) Colora ciascuna parte di giorno/mese/anno */
+.form_inputs input[type="date"]::-webkit-datetime-edit {
+  color: #4e0b69;
+}
