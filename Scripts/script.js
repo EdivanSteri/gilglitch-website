@@ -227,6 +227,20 @@ const initSmoothScroll = function () {
       const sectionToScroll = document.querySelector(href);
       if (!sectionToScroll) return;
 
+      if (href === "#section__7") {
+        console.log(link.textContent, href);
+
+        if (link.classList.contains("sponsorship_form")) {
+          workMeContentLeftEl.classList.contains(
+            "mode_commission-work_me_content_left"
+          ) && updateStyleToEffectSlideOnform();
+        }
+        if (link.classList.contains("commision_form")) {
+          workMeContentLeftEl.classList.contains(
+            "mode_collab_sponsor-work_me_content_left"
+          ) && updateStyleToEffectSlideOnform();
+        }
+      }
       disablesFadeInEffect(sectionToScroll);
       sectionScrollIntoView(sectionToScroll);
 
@@ -964,42 +978,43 @@ const initSkillsBars = function () {
 };
 
 /**
+ * Modifica il contenuto da mostrare nella sezione work with me, il form corretto in base alle neccessità
+ */
+const updateStyleToEffectSlideOnform = function () {
+  // work with me content left
+  workMeContentLeftEl.classList.toggle(
+    "mode_collab_sponsor-work_me_content_left"
+  );
+  workMeContentLeftEl.classList.toggle("mode_commission-work_me_content_left");
+
+  // wor with me content
+  workWithMeContentEl.classList.toggle("mode_collab_sponsor-work_me_content");
+  workWithMeContentEl.classList.toggle("mode_commission-work_me_content");
+
+  commissionContentLeft.classList.toggle("u-hide");
+  collabSponsorContentLeft.classList.toggle("u-hide");
+
+  // collab sponsor content right
+  collabSponsorContentRight.classList.toggle(
+    "mode_collab_sponsor-collab_sponsor_content_right"
+  );
+  collabSponsorContentRight.classList.toggle(
+    "mode_commission-collab_sponsor_content_right"
+  );
+
+  // commission content right
+  commissionContentRight.classList.toggle(
+    "mode_collab_sponsor-commission_content-right"
+  );
+  commissionContentRight.classList.toggle(
+    "mode_commission-commission_content-right"
+  );
+};
+
+/**
  * inizializza l'effetto slide nel form della sezione work with me
  */
 const initWorkWithMeFormSlideEffect = function () {
-  const updateStyleToEffectSlideOnform = function () {
-    // work with me content left
-    workMeContentLeftEl.classList.toggle(
-      "mode_collab_sponsor-work_me_content_left"
-    );
-    workMeContentLeftEl.classList.toggle(
-      "mode_commission-work_me_content_left"
-    );
-
-    // wor with me content
-    workWithMeContentEl.classList.toggle("mode_collab_sponsor-work_me_content");
-    workWithMeContentEl.classList.toggle("mode_commission-work_me_content");
-
-    commissionContentLeft.classList.toggle("u-hide");
-    collabSponsorContentLeft.classList.toggle("u-hide");
-
-    // collab sponsor content right
-    collabSponsorContentRight.classList.toggle(
-      "mode_collab_sponsor-collab_sponsor_content_right"
-    );
-    collabSponsorContentRight.classList.toggle(
-      "mode_commission-collab_sponsor_content_right"
-    );
-
-    // commission content right
-    commissionContentRight.classList.toggle(
-      "mode_collab_sponsor-commission_content-right"
-    );
-    commissionContentRight.classList.toggle(
-      "mode_commission-commission_content-right"
-    );
-  };
-
   const handleSlideEffect = function (e) {
     console.log(e.target);
     e.preventDefault();

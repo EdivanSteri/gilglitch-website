@@ -65,6 +65,22 @@
     gap: 9.6rem;
   }
 
+  .artist_inspiration{
+    position: relative;
+  }
+
+  .wrapper_img_inspiration{
+    position: block;
+  }
+
+  .img_background{
+    display: none;
+  }
+
+  .img_background_mobile_mode{
+    display: block;
+  }
+
   .description_inspiration {
     padding: 1.2rem;
   }

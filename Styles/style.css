@@ -652,7 +652,8 @@ body {
   position: relative;
 }
 
-.img_background {
+.img_background,
+.img_background_mobile_mode {
   height: 100%;
   width: 100%;
 
@@ -671,8 +672,16 @@ body {
   clip-path: polygon(0 60%, 100% 100%, 100% 100%, 0% 100%);
 }
 
+.img_background_mobile_mode__left{
+  clip-path: polygon(0 50%, 100% 100%, 100% 100%, 0% 100%);
+}
+
 .img_background__right {
   clip-path: polygon(0 100%, 100% 60%, 100% 100%, 0% 100%);
+}
+
+.img_background_mobile_mode__right{
+  clip-path: polygon(0 100%, 100% 50%, 100% 100%, 0% 100%);
 }
 
 .img_inspiration {
