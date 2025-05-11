@@ -1,40 +1,5 @@
-/* 1) Rimuovi aspetto nativo di iOS */
-.form_inputs input[type="date"] {
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-/* 2) Applica il tuo styling “base” */
-.form_inputs input[type="date"] {
-  padding: 0.4rem 1.2rem;
-  font-size: 1.6rem; 
-  border-radius: .9rem;
-
-  color: #4e0b69;
-  background-color: #fff;        /* obbligatorio per cancellare il grigio */
-  border: none;
-  box-shadow: 0 0 0 .1rem #835496;
-  transition: all 0.3s;
-}
-
-/* 3) Override ombre interne e glow iOS */
-.form_inputs input[type="date"] {
-  box-shadow: 0 0 0 .1rem #835496 !important;
-  -webkit-box-shadow: 0 0 0 .1rem #835496 !important;
-}
-
-/* 4) Colora ciascuna parte di giorno/mese/anno */
-.form_inputs input[type="date"]::-webkit-datetime-edit {
-  color: #4e0b69;
-}
-
-/* 5) Placeholder (se visibile) */
-.form_inputs input[type="date"]::-webkit-datetime-edit-fields-wrapper {
-  color: #aaa;
-}
-
 /* ————————————————————————————————
-   3) Mantieni il tuo styling di base
+   1) Input date base + override iOS
 ————————————————————————————————— */
 .form_inputs input[type="date"] {
   display: block;
@@ -44,16 +9,52 @@
   line-height: 3.2rem;
   box-sizing: border-box;
 
-  padding: 0.4rem 1.2rem;
+  padding: 0.4rem 3rem 0.4rem 1.2rem; /* spazio extra per icona calendario */
   font-size: 1.6rem;
   border-radius: .9rem;
 
   background-color: #fff;
   border: none;
   box-shadow: 0 0 0 .1rem #835496 !important;
+  -webkit-box-shadow: 0 0 0 .1rem #835496 !important;
   transition: all 0.3s;
 
-  /* reset nativo iOS */
+  /* override iOS nativo */
   -webkit-appearance: none;
   appearance: none;
+
+  /* FIX per scritta gg/mm/aaaa */
+  color: transparent;
+  text-shadow: 0 0 0 #4e0b69;
+}
+
+/* ————————————————————————————————
+   2) Campi interni WebKit (giorno, mese, anno, slash)
+————————————————————————————————— */
+.form_inputs input[type="date"]::-webkit-datetime-edit-month-field,
+.form_inputs input[type="date"]::-webkit-datetime-edit-day-field,
+.form_inputs input[type="date"]::-webkit-datetime-edit-year-field,
+.form_inputs input[type="date"]::-webkit-datetime-edit-text {
+  color: #4e0b69;
+}
+
+/* ————————————————————————————————
+   3) Wrapper placeholder (poco supportato)
+————————————————————————————————— */
+.form_inputs input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  color: #aaa;
+}
+
+/* ————————————————————————————————
+   4) Icona calendario visibile e stilizzata
+————————————————————————————————— */
+.form_inputs input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  display: block;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  filter: invert(40%) sepia(100%) hue-rotate(245deg); /* colore personalizzato */
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
