@@ -8,53 +8,57 @@
   height: 3.2rem;
   line-height: 3.2rem;
   box-sizing: border-box;
-
-  padding: 0.4rem 3rem 0.4rem 1.2rem; /* spazio extra per icona calendario */
+  padding: 0.4rem 3rem 0.4rem 1.2rem;
   font-size: 1.6rem;
   border-radius: .9rem;
-
   background-color: #fff;
   border: none;
   box-shadow: 0 0 0 .1rem #835496 !important;
   -webkit-box-shadow: 0 0 0 .1rem #835496 !important;
   transition: all 0.3s;
-
-  /* override iOS nativo */
   -webkit-appearance: none;
   appearance: none;
+  
+  /* Modifica: Rimuovi color transparent e text-shadow */
+  color: #4e0b69; /* Colore del testo normale */
+}
 
-  /* FIX per scritta gg/mm/aaaa */
-  color: transparent;
-  text-shadow: 0 0 0 #4e0b69;
+/* Placeholder visibile per input vuoti */
+.form_inputs input[type="date"]:not(:focus):invalid {
+  color: #aaa; /* Colore placeholder */
 }
 
 /* ————————————————————————————————
-   2) Campi interni WebKit (giorno, mese, anno, slash)
+   2) Stile per data selezionata
 ————————————————————————————————— */
-.form_inputs input[type="date"]::-webkit-datetime-edit-month-field,
-.form_inputs input[type="date"]::-webkit-datetime-edit-day-field,
-.form_inputs input[type="date"]::-webkit-datetime-edit-year-field,
-.form_inputs input[type="date"]::-webkit-datetime-edit-text {
-  color: #4e0b69;
+.form_inputs input[type="date"]::-webkit-datetime-edit {
+  color: #4e0b69; /* Colore testo selezionato */
 }
 
 /* ————————————————————————————————
-   3) Wrapper placeholder (poco supportato)
-————————————————————————————————— */
-.form_inputs input[type="date"]::-webkit-datetime-edit-fields-wrapper {
-  color: #aaa;
-}
-
-/* ————————————————————————————————
-   4) Icona calendario visibile e stilizzata
+   3) Icona calendario migliorata
 ————————————————————————————————— */
 .form_inputs input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 1;
-  display: block;
-  background: none;
-  color: inherit;
-  cursor: pointer;
-  filter: invert(40%) sepia(100%) hue-rotate(245deg); /* colore personalizzato */
-  margin-left: 0.5rem;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234e0b69' viewBox='0 0 24 24'><path d='M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z'/></svg>") no-repeat center;
+  background-size: contain;
+  width: 20px;
+  height: 20px;
   margin-right: 0.5rem;
+  filter: none; /* Rimuovi il filtro se usi SVG personalizzato */
+}
+
+/* ————————————————————————————————
+   4) Mostra anno nella visualizzazione
+————————————————————————————————— */
+@media screen and (max-width: 480px) {
+  .form_inputs input[type="date"]::-webkit-datetime-edit-year-field {
+    display: inline-block;
+  }
+  
+  .form_inputs input[type="date"]::-webkit-datetime-edit-month-field,
+  .form_inputs input[type="date"]::-webkit-datetime-edit-day-field,
+  .form_inputs input[type="date"]::-webkit-datetime-edit-year-field {
+    min-width: auto;
+  }
 }
