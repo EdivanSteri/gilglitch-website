@@ -1,0 +1,16 @@
+.navbar_item:link,
+.navbar_item:visited {
+  color: #f5dbc4;
+
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+
+  transition: all 0.3s;
+}
+
+.navbar_item:hover,
+.navbar_item:active {
+  cursor: pointer;
+  box-shadow: 0 2.4rem 4.8rem rgba(255, 255, 255, 0.075);
+}
