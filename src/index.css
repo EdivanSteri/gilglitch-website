@@ -1,0 +1,55 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fff;
+}
+
+/* General */
+.primary_heading {
+  font-size: 7.4rem;
+
+  font-family: "Chango", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.secondary_heading {
+  font-size: 4.4rem;
+
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.btn:link,
+.btn:visited {
+  text-decoration: none;
+}
+
+
+/* Utlities class */
+.u-hide {
+  display: none !important;
+}
+
+.u-mb-1-9-6 {
+  margin-bottom: 19.6rem;
+}
+
+.u-mb-1-2-8 {
+  margin-bottom: 12.8rem;
+}
+
+.section--hide {
+  opacity: 0;
+  transform: translateY(8rem);
+}

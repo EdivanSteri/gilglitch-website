@@ -1,0 +1,51 @@
+.navbar_list {
+  font-size: 2rem;
+
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+
+  padding-top: 2.4rem;
+
+  list-style: none;
+}
+
+.navbar_item:link,
+.navbar_item:visited {
+  color: #f5dbc4;
+
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+
+  transition: all 0.3s;
+}
+
+.navbar_item:hover,
+.navbar_item:active {
+  cursor: pointer;
+  box-shadow: 0 2.4rem 4.8rem rgba(255, 255, 255, 0.075);
+}
+
+
+.menu_inspirations,
+.menu_collaborations {
+  box-shadow: 0 2.4rem 4.8rem rgba(255, 255, 255, 0.075);
+
+  padding: 1.2rem;
+
+  display: none;
+}
+
+.inspirations_list,
+.collaborations_list {
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+
+  font-size: 1.8rem;
+}
