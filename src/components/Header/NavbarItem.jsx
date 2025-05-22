@@ -1,65 +1,57 @@
 import "../../styles/Header/NavbarItem.css";
+import DropDownMenu from "./DropDownMenu.jsx";
 
-function NavbarLink({ linkText, classes, sectionLink = "" }) {
-  const inspirationsList = [
-    {
-      linkText: "Music",
-      sectionLink: "#section__3",
-      classes: "btn navbar_item menu_link",
-    },
-    {
-      linkText: "About Me",
-      sectionLink: "#section__5",
-      classes: "btn navbar_item menu_link",
-    },
-  ];
+function NavbarItem({ id, linkText, classes, sectionLink = "" }) {
+  // Variabile per gestire il timer dell'hover sui link della navbar
+  let hideTimer;
 
-  const collaborationsList = [
-    {
-      linkText: "Highlights",
-      sectionLink: "#section__4",
-      classes: "btn navbar_item menu_link",
-    },
-    {
-      linkText: "Sponsorships",
-      sectionLink: "#section__7",
-      classes: "btn navbar_item menu_link sponsorship_form",
-    },
-    {
-      linkText: "Commissions",
-      sectionLink: "#section__7",
-      classes: "btn navbar_item menu_link commision_form",
-    },
-  ];
+  const show = (menu) => {
+    clearTimeout(hideTimer);
+    menu.style.display = "block";
+  };
+
+  const scheduleHide = (trigger, menu) => {
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => {
+      if (!trigger.matches(":hover") && !menu.matches(":hover")) {
+        menu.style.display = "none";
+      }
+    }, 100);
+  };
 
   return (
-    <li>
-      <a className={classes} href={`#${sectionLink}`}>
+    <li key={id}>
+      <a
+        onMouseEnter={(e) => {
+          const menu = e.target.nextElementSibling;
+          if (
+            e.target.textContent.toLowerCase() === "inspirations" ||
+            e.target.textContent.toLowerCase() === "collaborations"
+          )
+            show(menu);
+        }}
+        onMouseLeave={(e) => {
+          const trigger = e.currentTarget;
+          const menu = e.target.nextElementSibling;
+          if (
+            e.target.textContent.toLowerCase() === "inspirations" ||
+            e.target.textContent.toLowerCase() === "collaborations"
+          )
+            scheduleHide(trigger, menu);
+        }}
+        className={classes}
+        href={`#${sectionLink}`}
+      >
         {linkText}
       </a>
-      {classes.includes("navbar_dropdown_trigger") && (
-        <div className={`menu_${linkText.toLowerCase()}`}>
-          <ul className={`${linkText.toLowerCase()}_list`}>
-            {linkText.toLowerCase() === "inspirations"
-              ? inspirationsList.map((el) => {
-                  <NavbarLink
-                    linkText={el.linkText}
-                    classes={el.classes}
-                    sectionLink={el.sectionLink}
-                  />;
-                })
-              : collaborationsList.map((el) => {
-                  <NavbarLink
-                    linkText={el.linkText}
-                    classes={el.classes}
-                    sectionLink={el.sectionLink}
-                  />;
-                })}
-          </ul>
-        </div>
-      )}
+      <DropDownMenu
+        linkText={linkText}
+        classes={classes}
+        hideTimer={hideTimer}
+        scheduleHide={scheduleHide}
+      />
     </li>
   );
 }
 
-export default NavbarLink;
+export default NavbarItem;
