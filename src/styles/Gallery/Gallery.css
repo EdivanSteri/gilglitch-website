@@ -1,0 +1,61 @@
+/* gallery section */
+.gallery_section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 3.6rem;
+
+  padding: 0 9.6rem;
+}
+
+.gallery_heading {
+  align-self: end;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  margin-right: 3.6rem;
+}
+
+.gallery_heading p {
+  font-size: 2rem;
+
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+
+  text-align: end;
+}
+
+.gallery_content {
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery_imgs_wrapper {
+  position: relative;
+}
+
+.gallery_imgs {
+  height: 80rem;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  justify-items: center;
+  row-gap: 2.4rem;
+  column-gap: 1.2rem;
+
+  background-color: #4e0b69;
+  box-shadow: 0 0 2.4rem 0 #000000;
+
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #3c0850 #fff;
+
+  padding: 2.4rem 3.6rem;
+
+  position: relative;
+}
